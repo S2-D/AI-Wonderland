@@ -89,8 +89,8 @@
 
     3. 기획안 도출을 위한 자료 조사  
 
-        ![image.png](./image.png)
-        ![image-1.png](./image-1.png)
+        ![image](/Users/hyejinyang/Desktop/Screen Shot 2021-05-14 at 7.55.17 PM.png)
+        ![image-1.png](/Users/hyejinyang/Desktop/image.png)
     </br>
 
 - 명일 진행
