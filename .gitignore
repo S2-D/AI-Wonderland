@@ -194,3 +194,5 @@ sketch
 
 # config
 config/*
+
+mysql.cnf
