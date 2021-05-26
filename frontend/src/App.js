@@ -1,4 +1,12 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+// import {
+//   RecoilRoot,
+//   atom,
+//   selector,
+//   useRecoilState,
+//   useRecoilValue,
+// } from 'recoil';
 
 import './App.css';
 import InfiniteScrolling from './pages/InfiniteScrolling/InfiniteScrolling';
@@ -8,11 +16,13 @@ import LoginExample from './pages/Login/LoginExample';
 function App() {
   return (
     <Router>
-      {/* 인트로 페이지  연결 */}
-      <Route path="/" component={Intro} />
-      {/* 무한 스크롤링 페이지 예시 연결 */}
-      <Route path="/scrolling" component={InfiniteScrolling} />
-      <Route path="/Login" component={LoginExample} />
+      <Switch>
+        {/* 인트로 페이지  연결 */}
+        <Route exact path="/" component={Intro} />
+        {/* 무한 스크롤링 페이지 예시 연결 */}
+        <Route exact path="/scrolling" component={InfiniteScrolling} />
+        <Route exact path="/Login" component={LoginExample} />
+      </Switch>
     </Router>
   );
 }
