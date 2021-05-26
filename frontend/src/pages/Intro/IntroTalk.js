@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 function IntroTalk() {
   const rabbitSaying = [
@@ -26,12 +25,25 @@ function IntroTalk() {
   // 1) 유저가 1번을 선택 > popup 노출 > 로그인
   // 2) 유저가 2번을 선택 > 토끼 대화 > popup 노출 > 메인
 
+  function toLoginHandler() {
+    window.alert("Welocme to 2000's");
+    window.location.href = 'Login/';
+  }
+
+  // function toMainHandler() {
+  //   window.alert("Welocme to 2000's");
+  //   window.alert("Welocme to 2000's");
+  //   window.alert("Welocme to 2000's");
+  //   window.alert("Welocme to 2000's");
+  //   window.location.href = 'Main/';
+  // }
+
   function CallUserTalk() {
     return (
       <>
-        <Link to="/main">
-          <button>Yes, I'm here to find the past again.</button>
-        </Link>
+        <button onClick={() => toLoginHandler()}>
+          Yes, I'm here to find the past again.
+        </button>
 
         <button onClick={() => setIndex(3)}>
           What do you mean? I got lost again?
@@ -46,7 +58,6 @@ function IntroTalk() {
         {rabbitSaying.map((data, idx) => (
           <button key={idx}>{data.text.split('* ')}</button>
         ))}
-        {/* <button onClick={() => {}} {rabbitSaying.text}</button> */}
       </>
     );
   }
