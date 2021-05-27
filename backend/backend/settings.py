@@ -168,3 +168,7 @@ CORS_ORIGIN_WHITELIST = (
     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:8001',
     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:80',
     )
+
+SWAGGER_SETTINGS = {
+   'USE_SESSION_AUTH': False
+}
