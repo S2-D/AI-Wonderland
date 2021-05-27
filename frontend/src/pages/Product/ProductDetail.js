@@ -1,3 +1,1 @@
-// recoil
-// 1) atom으로 상태 선언
-// 2) useRecoilState로 훅을 사용해 컴포넌트에서 atom을 읽고 씀
+// To-do : image, css 파일 등은 나중에 public 안에 몰아넣어야 함

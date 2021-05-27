@@ -1,5 +1,5 @@
 import IntroTalk from './IntroTalk';
-import logo from './Logo_example.jpeg';
+import logo from './logoExamp.png';
 
 function Intro() {
   return (

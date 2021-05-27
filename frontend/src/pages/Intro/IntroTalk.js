@@ -27,7 +27,7 @@ function IntroTalk() {
 
   function toLoginHandler() {
     window.alert("Welocme to 2000's");
-    window.location.href = 'Login/';
+    window.location.href = 'login/';
   }
 
   // function toMainHandler() {
