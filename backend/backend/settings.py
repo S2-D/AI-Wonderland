@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h9#v(rz7q57#*v8!-)x=$4hw64l8j*-3)@%yble$1f-kc0x0z)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -153,7 +153,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+#STATIC_URL = '/static/'
+#STATIC_ROOT = '/static/'
+ROOT_DIR = os.path.join(BASE_DIR)
+
 STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'static') 
+# STATICFILES_DIR = [ STATIC_DIR ]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+# STATIC_ROOT = os.path.join('static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -164,6 +172,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://127.0.0.1:3000',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:8000',
     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:8001',
     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:80',
