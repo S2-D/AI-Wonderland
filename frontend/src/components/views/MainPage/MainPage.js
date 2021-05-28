@@ -5,33 +5,32 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { Carousel } from 'antd';
 import { withRouter } from 'react-router-dom';
+import Main from './Main.css';
+import GNB from '../GNB/GNB';
+import Toolbar from '../Toolbar/Toolbar';
+import Footer from '../Footer/Footer';
 
 function MainPage() {
   const contentStyle = {
-    height: '160px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    weight: '100vh',
   };
 
   return (
     <>
-      <div className="container">
-        <Carousel autoplay>
-          <div>
-            <h3 style={contentStyle}>1</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>2</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>3</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>4</h3>
-          </div>
-        </Carousel>
+      <GNB />
+      <div className="topItems">
+        <h2>TOP 4 items</h2>
+      </div>
+      <div className="container" style={contentStyle}>
+        <div>
+          <Footer />
+        </div>
+        <div>
+          <Toolbar />
+        </div>
       </div>
     </>
   );

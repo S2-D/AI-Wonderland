@@ -1,10 +1,11 @@
 import axios from 'axios';
 // eslint-disable-next-line no-unused-vars
 import { LOGIN_USER, REGISTER_USER, AUTH_USER } from './types';
+import baseUrl from '../url/http';
 
 export function loginUser(dataToSubmit) {
   const request = axios
-    .post('api/member/signin', dataToSubmit)
+    .post(baseUrl + 'api/member/signIn', dataToSubmit)
     .then((response) => response.data);
 
   return {
@@ -15,7 +16,7 @@ export function loginUser(dataToSubmit) {
 
 export function registerUser(dataToSubmit) {
   const request = axios
-    .post('api/member/register', dataToSubmit)
+    .post(baseUrl + 'api/member/signUp', dataToSubmit)
     .then((response) => response.data);
 
   return {
@@ -26,7 +27,7 @@ export function registerUser(dataToSubmit) {
 
 export function auth() {
   const request = axios
-    .get('api/member/auth')
+    .get(baseUrl + 'api/member/auth')
     .then((response) => response.data);
 
   return {

@@ -6,6 +6,7 @@ import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import MainPage from './components/views/MainPage/MainPage';
 import Auth from './hoc/auth';
+import FooterPage from './components/views/Footer/Footer';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null)} />
           <Route exact path="/login" component={Auth(LoginPage, false)} />
-          <Route exact path="/register" component={Auth(RegisterPage, false)} />
+          <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/main" component={Auth(MainPage, null)} />
         </Switch>
       </div>

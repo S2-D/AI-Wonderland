@@ -1,0 +1,9 @@
+.gnb_container {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 10px;
+  bottom: 0;
+  height: 60px;
+  font-size: 0;
+}

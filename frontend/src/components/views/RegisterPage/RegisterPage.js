@@ -38,16 +38,16 @@ function RegisterPage(props) {
 
     let body = {
       email: Email,
-      name: Name,
+      nickname: Name,
       password: Password,
-      confirm: ConfirmPassword,
     };
 
     console.log(body);
 
     dispatch(registerUser(body)).then((response) => {
       if (response.payload.registerSuccess) {
-        props.history.push('/login');
+        // props.history.push('/login');
+        console.log(response);
       } else {
         alert('Failed to sign up. Please check the values.');
       }

@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'neodgm';
+  src: url('../../../font/neodgm_code.ttf');
+}
+
+.topItems h2 {
+  color: black;
+  font-family: 'neodgm';
+  padding: 10px;
+  font-size: 30px;
+}
