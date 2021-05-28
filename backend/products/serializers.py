@@ -16,3 +16,7 @@ class ReviewSerializer(serializers.ModelSerializer):
         model = Review
         fields = '__all__'
 
+class ProductsTop4Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Products
+        fields = ('pcategory_code',)
