@@ -169,16 +169,23 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-    'http://localhost:8000',
-    'http://127.0.0.1:8000',
-    'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:8000',
-    'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:8001',
-    'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:80',
-    )
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:3000',
+#     'http://127.0.0.1:3000',
+#     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:8000',
+#     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:8001',
+#     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:80',
+#     )
+CORS_ALLOW_ALL_ORIGINS = True
 
+# swagger setting
 SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
    'USE_SESSION_AUTH': False
 }
