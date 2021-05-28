@@ -16,6 +16,15 @@ class ScrapbookList(viewsets.ViewSet):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (authentication.JSONWebTokenAuthentication,) 
     
+    def get_queryset(self):
+        queryset = self.queryset
+        user_id = self.request.query_params.get('mem_id', None)
+
+        if user_id:
+            queryset = queryset.filter(mem_id = user_id)
+
+        return queryset
+    
     # get으로 query param 요청할 때 사용
     param_mem_id = openapi.Parameter(
         'mem_id',
@@ -32,7 +41,7 @@ class ScrapbookList(viewsets.ViewSet):
         type=openapi.TYPE_STRING,
         required=False
     )
-
+    
     @swagger_auto_schema(
         manual_parameters = [param_mem_id, param_p_no],
         query_serializer = ScrapbookSerializer,
@@ -41,8 +50,16 @@ class ScrapbookList(viewsets.ViewSet):
         """
         mem_id : 스크랩 리스트를 가져올 회원 id 를 입력하세요.
         """
-        serializer = ScrapbookSerializer(self.queryset, many=True, read_only=True)
-        return Response(serializer.data)
+        qs = self.get_queryset()
+        serializer = ScrapbookSerializer(qs, many=True, read_only=True)
+        # return Response(serializer.data)
+        return Response (
+                    {
+                        "status_code": status.HTTP_200_OK,
+                        "status": "success",
+                        "data": serializer.data
+                    }, status = status.HTTP_200_OK
+                )
     
     @swagger_auto_schema(request_body = ScrapbookSerializer,) # post 사용할때 request body 필요할 때 사용
     def create(self, request):
@@ -65,5 +82,5 @@ class ScrapbookList(viewsets.ViewSet):
             "status_code": status.HTTP_400_BAD_REQUEST,
             'status': 'error',
             'message': 'member id 와 asin 입력 필요함'
-        }, status = status.HTTP_400_BAD_REQUEST)
+            }, status = status.HTTP_400_BAD_REQUEST)
 

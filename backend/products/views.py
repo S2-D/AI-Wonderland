@@ -1,10 +1,14 @@
-from rest_framework import generics, viewsets, filters, permissions
+from rest_framework import generics, viewsets, filters, permissions, status
 from .models import Category, Products, Review
-from .serializers import CategorySerializer, ProductsSerializer, ReviewSerializer
+from .serializers import CategorySerializer, ProductsSerializer, ReviewSerializer, ProductsTop4Serializer
+from rest_framework.response import Response
 
 from django_filters import FilterSet
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters, OrderingFilter
+
+from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 
 class CategoryList(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
@@ -36,7 +40,7 @@ class ProductsList(viewsets.ReadOnlyModelViewSet):
     """
     ProductsList API
     ---
-    parameter 없으면 전체 리스트를 가져옵니다.
+    parameter 없으면 전체 상품 리스트를 가져옵니다.
     pcategory_code : 카테고리 코드를 입력하세요. 1: 상의, 2: 하의, 3: 신발, 4: 기타
     ordering : 정렬할 필드를 선택해주세요. -p_readcount : 조회 순, -p_price : 가격 순, -p_rank : 랭킹 순, -p_date : 등록일 순
     """
@@ -59,7 +63,8 @@ class ReviewList(viewsets.ReadOnlyModelViewSet):
     """
     ReviewList API
     ---
-    parameter 없으면 전체 리스트를 가져옵니다.
+    parameter 없으면 전체 리뷰 리스트를 가져옵니다.
+    p_no : 상품의 asin 을 입력하세요
     """
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
@@ -68,3 +73,46 @@ class ReviewList(viewsets.ReadOnlyModelViewSet):
     
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['p_no']
+
+class ProductTop4List(viewsets.ViewSet):
+    """
+    ProductTop4List API
+    """
+    queryset = Products.objects.all()
+    serializer_class = ProductsTop4Serializer
+    permission_classes = [permissions.AllowAny,]
+
+    def get_queryset(self):
+        queryset = self.queryset
+        category_code = self.request.query_params.get('pcategory_code', None)
+
+        if category_code:
+            queryset = queryset.filter(pcategory_code = category_code)
+        return queryset
+
+    param_pcategory_code = openapi.Parameter(
+        'pcategory_code',
+        openapi.IN_QUERY, 
+        description='TOP4 조회할 카테고리 코드', 
+        type=openapi.TYPE_STRING,
+        required=True
+    )
+
+    @swagger_auto_schema(
+        manual_parameters = [param_pcategory_code],
+        query_serializer = ProductsTop4Serializer,
+    )
+    def list(self, request):
+        """
+        pcategory_code : 카테고리 코드를 입력하세요. 1: 상의, 2: 하의, 3: 신발, 4: 기타
+        """
+        qs = self.get_queryset().order_by('-p_readcount')[:4]
+        serializer = ProductsSerializer(qs, many=True, read_only=True)
+        # return Response(serializer.data)
+        return Response (
+                    {
+                        "status_code": status.HTTP_200_OK,
+                        "status": "success",
+                        "data": serializer.data
+                    }, status = status.HTTP_200_OK
+                )
