@@ -1,18 +1,18 @@
-from rest_framework import serializers
+from rest_framework import serializers, status
 from rest_framework_jwt.settings import api_settings
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import update_last_login
 
 from .models import User
-
+import re
 
 JWT_PAYLOAD_HANDLER = api_settings.JWT_PAYLOAD_HANDLER
 JWT_ENCODE_HANDLER = api_settings.JWT_ENCODE_HANDLER
 
 
 class UserSerializer(serializers.ModelSerializer):
-    class Meta :
+    class Meta:
         model = User
         fields = ['nickname', 'money']
 
@@ -23,11 +23,26 @@ class UserCreateSerializer(serializers.Serializer):
     password = serializers.CharField(required=True)
 
     def create(self, validated_data):
-        user = User.objects.create (
-            email = validated_data['email'],
-            nickname = validated_data['nickname'],
+
+        email = validated_data['email']
+        password = validated_data['password']
+
+        if not re.findall('^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d$@$!%*#?&]{8,}$', password):
+            raise serializers.ValidationError(
+                {
+                    "status_code": status.HTTP_400_BAD_REQUEST,
+                    "status": "error",
+                    "message": "비밀번호는 영문, 숫자, 특수문자를 사용하여 8자리 이상으로 조합해주세요."
+                }
+            )
+
+
+        user = User.objects.create(
+            email=email,
+            nickname=validated_data['nickname'],
         )
-        user.set_password(validated_data['password'])
+
+        user.set_password(password)
 
         user.save()
         return user
@@ -41,7 +56,7 @@ class UserLoginSerializer(serializers.Serializer):
     def validate(self, data):
         email = data.get("email", None)
         password = data.get("password", None)
-        user = authenticate(email = email, password = password)
+        user = authenticate(email=email, password=password)
 
         if user is None:
             return {
@@ -52,7 +67,7 @@ class UserLoginSerializer(serializers.Serializer):
             jwt_token = JWT_ENCODE_HANDLER(payload)
             update_last_login(None, user)
         except User.DoesNotExist:
-            raise serializers.ValidationError (
+            raise serializers.ValidationError(
                 'User with given email and password does not exists'
             )
         return {
