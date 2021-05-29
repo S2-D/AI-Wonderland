@@ -3,7 +3,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import { Carousel } from 'antd';
+import Carousel from 'react-bootstrap/Carousel';
 import { withRouter } from 'react-router-dom';
 import Main from './Main.css';
 import GNB from '../GNB/GNB';
@@ -18,22 +18,29 @@ function MainPage() {
     weight: '100vh',
   };
 
+  const imgSrc = '../../../utils/images/example/';
+
   return (
     <>
       <GNB />
-      <div className="topItems">
-        <h2>TOP 4 items</h2>
-      </div>
       <div className="container" style={contentStyle}>
-        <div>
-          <Footer />
+        <div className="topItems_Tops">
+          <h2>TOP 4 items by Tops</h2>
         </div>
-        <div>
-          <Toolbar />
+        <div className="topItems_Bottoms">
+          <h2>TOP 4 items by Bottoms</h2>
         </div>
+        <div className="topItems_Shoes">
+          <h2>TOP 4 items by Shoes</h2>
+        </div>
+        <div className="topItems_Others">
+          <h2>TOP 4 items by Others</h2>
+        </div>
+        <Footer />
+        <Toolbar />
       </div>
     </>
   );
 }
 
-export default withRouter(MainPage);
+export default MainPage;

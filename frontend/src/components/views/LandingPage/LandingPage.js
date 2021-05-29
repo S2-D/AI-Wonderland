@@ -1,7 +1,8 @@
 /* eslint-disable no-undef */
-import React from 'react';
+import react from 'react';
 import axios from 'axios';
-import { withRouter } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import Toolbar from '../Toolbar/Toolbar';
 
 function LandingPage(props) {
@@ -31,4 +32,4 @@ function LandingPage(props) {
   );
 }
 
-export default withRouter(LandingPage);
+export default LandingPage;

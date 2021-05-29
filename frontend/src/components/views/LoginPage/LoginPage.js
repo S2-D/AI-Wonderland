@@ -1,66 +1,79 @@
 /* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { loginUser } from '../../../_actions/user_action';
-import { withRouter } from 'react-router-dom';
+import react from 'react';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 
-function LoginPage(props) {
-  const dispatch = useDispatch();
+import baseUrl from '../../../url/http';
+import LoginPageStyle from './LoginPageStyle.css';
 
-  const [Email, setEmail] = useState('');
-  const [Password, setPassword] = useState('');
+function LoginPage({ setLoginUserId }) {
+  const history = useHistory();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
-  };
-
-  const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value);
-  };
-
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-
-    let body = {
-      email: Email,
-      password: Password,
-    };
-
-    console.log(body);
-
-    dispatch(loginUser(body)).then((response) => {
-      if (response.payload.loginSuccess) {
-        props.history.push('/');
+  const loginFormPost = (data) => {
+    axios.post(baseUrl + 'api/member/signIn/', data).then((response) => {
+      if (response.data.status === 'success') {
+        console.log(response.data);
+        const access_token = response.data.status.access_token;
+        localStorage.setItem('access_token', access_token);
+        console.log(response.data.status);
+        // setLoginUserId(response.data.status.token);
+        history.push('/main');
       } else {
-        alert('Error');
+        alert(response.data.result.error);
+        document.getElementById('password').focus();
       }
     });
   };
 
+  const onSubmit = (data) => {
+    loginFormPost(data);
+  };
+
+  const onClickSignup = () => {
+    history.push('/register');
+  };
+
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100vh',
-      }}
-    >
-      <form
-        style={{ display: 'flex', flexDirection: 'column' }}
-        onSubmit={onSubmitHandler}
-      >
-        <label>Email</label>
-        <input type="email" value={Email} onChange={onEmailHandler} />
-        <label>Password</label>
-        <input type="password" value={Password} onChange={onPasswordHandler} />
-        <br />
-        <button>Login</button>
-      </form>
-    </div>
+    <form className="loginForm" onSubmit={handleSubmit(onSubmit)}>
+      {/* Email */}
+      <label>Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="email"
+        defaultValue=""
+        {...register('email', { required: true })}
+      />
+      {errors.email && <p>Please enter your email.</p>}
+
+      {/* 비밀번호 */}
+      <label>비밀번호</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="password"
+        {...register('password', { required: true, maxLength: 10 })}
+      />
+      {errors.password && <p>Please enter your password.</p>}
+
+      {/* login button */}
+      <input className="btnLogin" type="submit" value="Login" />
+      <input
+        className="btnSignup"
+        type="button"
+        value="SignUp"
+        onClick={onClickSignup}
+      />
+    </form>
   );
 }
 
-export default withRouter(LoginPage);
+export default LoginPage;

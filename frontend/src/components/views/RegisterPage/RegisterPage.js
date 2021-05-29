@@ -1,93 +1,127 @@
 /* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { registerUser } from '../../../_actions/user_action';
-import { withRouter } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { Col, Form, Button, InputGroup } from 'react-bootstrap';
 
-function RegisterPage(props) {
-  const dispatch = useDispatch();
+import { Formik, ErrorMessage } from 'formik';
+import * as yup from 'yup';
+import axios from 'axios';
 
-  const [Email, setEmail] = useState('');
-  const [Password, setPassword] = useState('');
-  const [Name, setName] = useState('');
-  const [ConfirmPassword, setConfirmPassword] = useState('');
+import baseUrl from '../../../url/http';
 
-  const onEmailHandler = (event) => {
-    setEmail(event.currentTarget.value);
-  };
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email(
+      'The email address does not match the format. Please check the value.'
+    )
+    .required('Please enter your email.'),
+  password: yup
+    .string()
+    .min(8, 'Please make it more than 8 letters.')
+    .max(16)
+    .matches(
+      '^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$',
+      'Password must contain alphabetic/numeric/special characters.'
+    )
+    .required('Please enter your Password.'),
+  confirm: yup
+    .string()
+    .oneOf(
+      [yup.ref('password'), null],
+      'Password is not matched. Please try again.'
+    )
+    .required('Please enter your password one more time.'),
 
-  const onNameHandler = (event) => {
-    setName(event.currentTarget.value);
-  };
+  nickname: yup.string().required('Please enter your nickname.'),
+});
 
-  const onConfirmPasswordHandler = (event) => {
-    setConfirmPassword(event.currentTarget.value);
-  };
-
-  const onPasswordHandler = (event) => {
-    setPassword(event.currentTarget.value);
-  };
-
-  const onSubmitHandler = (event) => {
-    event.preventDefault();
-
-    if (Password !== ConfirmPassword) {
-      return alert('비밀번호와 비밀번호 확인은 같아야 합니다.');
-    }
-
-    let body = {
-      email: Email,
-      nickname: Name,
-      password: Password,
-    };
-
-    console.log(body);
-
-    dispatch(registerUser(body)).then((response) => {
-      if (response.payload.registerSuccess) {
-        // props.history.push('/login');
-        console.log(response);
+function RegisterPage() {
+  let history = useHistory();
+  const post = (data) => {
+    axios.post(baseUrl + 'api/member/signUp/', data).then((response) => {
+      console.log('response: ', response.data.status);
+      if (response.data.status === 'success') {
+        alert('회원가입이 완료되었습니다.');
+        history.push('/login');
       } else {
-        alert('Failed to sign up. Please check the values.');
+        alert(response.data.status.error);
+        console.log(response);
+        history.push('/signUp');
       }
     });
   };
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: '100vh',
+    <Formik
+      validationSchema={schema}
+      onSubmit={(values) => {
+        console.log(values);
+        //alert(JSON.stringify(values, null, 2));
+        post(values);
+      }}
+      initialValues={{
+        email: '',
+        password: '',
+        nickname: '',
       }}
     >
-      <form
-        style={{ display: 'flex', flexDirection: 'column' }}
-        onSubmit={onSubmitHandler}
-      >
-        <label>Email</label>
-        <input type="email" value={Email} onChange={onEmailHandler} />
+      {({ handleSubmit, handleChange, values }) => (
+        <Form noValidate onSubmit={handleSubmit}>
+          <Form.Group controlId="validationFormik01">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              name="email"
+              value={values.email || ''}
+              onChange={handleChange}
+            />
+            <ErrorMessage name="email" component="p" />
+          </Form.Group>
 
-        <label>Nick Name</label>
-        <input type="text" value={Name} onChange={onNameHandler} />
+          <Form.Group controlId="validationFormik02">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={values.password || ''}
+              onChange={handleChange}
+            />
+            <ErrorMessage name="password" component="p" />
+          </Form.Group>
 
-        <label>Password</label>
-        <input type="password" value={Password} onChange={onPasswordHandler} />
+          <Form.Group controlId="validationFormik03">
+            <Form.Label>Confirm Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password check"
+              name="confirm"
+              // value={values.confirm || ''}
+              onChange={handleChange}
+            />
+            <ErrorMessage name="confirm" component="p" />
+          </Form.Group>
 
-        <label>Confirm Password</label>
-        <input
-          type="password"
-          value={ConfirmPassword}
-          onChange={onConfirmPasswordHandler}
-        />
-        <br />
-        <button>Register</button>
-      </form>
-    </div>
+          <Form.Group controlId="validationFormik04">
+            <Form.Label>Nickname</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter your Nickname."
+              name="nickname"
+              value={values.nickname || ''}
+              onChange={handleChange}
+            />
+            <ErrorMessage name="nickname" component="p" />
+          </Form.Group>
+
+          <Button variant="primary" type="submit">
+            Register
+          </Button>
+        </Form>
+      )}
+    </Formik>
   );
 }
 
-export default withRouter(RegisterPage);
+export default RegisterPage;
