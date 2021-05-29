@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { GrCart } from 'react-icons/gr';
 
@@ -14,8 +13,13 @@ const Cart = styled(GrCart)`
   float: right;
 `;
 
-export default function ProductCard() {
+export default function ProductCard(props) {
   return (
+    // 카테고리 버튼
+
+    // 정렬 기준
+
+    // 개별 상품
     <Card style={{ width: '18rem' }}>
       {/* <Card style={{ styledCard }}> */}
       <Card.Img
@@ -33,9 +37,9 @@ export default function ProductCard() {
         }}
       />
       <Card.Body>
-        <Card.Title>Envirosax Kids Series Jessie & Lulu</Card.Title>
-        <Card.Text>$ 500,000</Card.Text>
-        <Card.Link herf="#">
+        <Card.Title>{props.p_name}</Card.Title>
+        <Card.Text>$ {props.p_price}</Card.Text>
+        <Card.Link herf={props.p_toDetail}>
           <Cart />
         </Card.Link>
       </Card.Body>
