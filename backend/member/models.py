@@ -34,9 +34,9 @@ class User(AbstractBaseUser):
         max_length = 255,
         unique = True,
     )
-    nickname = models.CharField(max_length=20)
-    money = models.IntegerField(blank=True, default=1000)
-    joindate = models.DateTimeField(verbose_name="Date Created", auto_now_add=True)
+    nickname = models.CharField(max_length=20, verbose_name='별명')
+    money = models.IntegerField(blank=True, default=1000, verbose_name='가상머니')
+    joindate = models.DateTimeField(auto_now_add=True, verbose_name="가입일")
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
