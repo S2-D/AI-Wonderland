@@ -2,7 +2,7 @@ from rest_framework import generics, viewsets, status, views, permissions
 from rest_framework_jwt import authentication
 
 from .models import Timegram, Like
-from .serializers import TimegramListSerializer, TimegramCreateSerializer, LikeSerializer, LikeCreateSerializer
+from .serializers import TimegramListSerializer, TimegramCreateSerializer, LikeCreateSerializer
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
@@ -107,7 +107,6 @@ def likeList(request, id):
         if len(likeList) > 0:
             data = {
                 "id": likeList[0].id,
-                "title": likeList[0].title,
                 "total_like": likeList[0].total_like
             }
             return Response(
@@ -119,12 +118,16 @@ def likeList(request, id):
             )
 
         else:
+            data = {
+                "id": id,
+                "total_like": 0
+            }
             return Response(
                 {
-                    "status_code": status.HTTP_404_NOT_FOUND,
-                    "status": "error",
-                    "message": "데이터가 존재하지 않습니다."
-                }, status=status.HTTP_404_NOT_FOUND
+                    "status_code": status.HTTP_200_OK,
+                    "status": "success",
+                    "data": data
+                }, status=status.HTTP_200_OK
             )
 
 
@@ -154,7 +157,6 @@ def likePost(request):
         return Response(
             {
                 "status_code": status.HTTP_200_OK,
-                "status": "success",
-                "message": "좋아요"
+                "status": "success"
             }, status=status.HTTP_200_OK
         )

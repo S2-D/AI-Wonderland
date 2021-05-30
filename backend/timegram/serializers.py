@@ -14,7 +14,6 @@ class TimegramCreateSerializer(serializers.Serializer):
     mem = serializers.CharField(required=True)
 
     def create(self, validated_data):
-        print(validated_data)
         timegram_item = Timegram.objects.create(
             title=validated_data['title'],
             p_no1=validated_data['p_no1'],
@@ -37,13 +36,7 @@ class TimegramListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Timegram
         fields = '__all__'
-        depth = 2
-
-
-class LikeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Timegram
-        fields = '__all__'
+        depth = 1
 
 
 class LikeCreateSerializer(serializers.Serializer):
@@ -63,6 +56,7 @@ class LikeCreateSerializer(serializers.Serializer):
 
             like_item = Like.objects.filter(
                 mem_id=validated_data['mem'], timegram_id=validated_data['timegram']).update(flag=flag)
+
             return like_item
 
         # create

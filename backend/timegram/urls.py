@@ -6,7 +6,6 @@ from django.conf.urls import url
 router = routers.DefaultRouter()
 router.register(r'timegramList', views.TimegramList)
 router.register(r'timegramCreate', views.TimegramCreate)
-#router.register(r'like', views.Like)
 
 
 urlpatterns = [
