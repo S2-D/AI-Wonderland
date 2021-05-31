@@ -22,14 +22,13 @@ export default function ProductList() {
       try {
         setLoading(true);
         // 데이터 받아오기 전 로딩 중
-        const response = await axios.get('http://localhost:5000/productslist');
-        // axios.get(baseUrl + '/products/productslist/')
+        const response = await axios.get(`${baseUrl}/products/productslist/`);
         // console.log(response);
         console.log(response.status);
-        console.log(response.data[0].results);
+        console.log(response.data.results);
 
         if (response.status === 200) {
-          setProducts(response.data[0].results);
+          setProducts(response.data.results);
         } else if (response.status === 404) {
           console.log('404 진입' + response);
           alert('Fail to load the products list');

@@ -1,10 +1,10 @@
-// To-do : 로딩 중 화면에 표시하기, 예시 상품 이미지와 가격 이미지 넣어보기,
-// 데이터 추가해서 더 보기 버튼(+ 무한 스크롤링)
 import React, { useEffect, useState } from 'react';
 
 import ProductCard from './ProductCard.js';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, DropdownButton, Dropdown } from 'react-bootstrap';
 import baseUrl from '../../url/http.js';
+
+import dropdown from './dropdown.css';
 
 export default function ProductCategory() {
   // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타
@@ -14,6 +14,7 @@ export default function ProductCategory() {
     { name: 'Bottoms', value: 2 },
     { name: 'Shoes', value: 3 },
     { name: 'Others', value: 4 },
+    { name: 'Timegram', value: 5 },
   ];
 
   // ordering -p_readcount : 조회 순, -p_price : 가격 순, -p_rank : 랭킹 순, -p_date : 등록일 순
@@ -28,50 +29,88 @@ export default function ProductCategory() {
 
   // 상품 데이터 받아오기
   const [products, setProducts] = useState([]);
-  const productsUrl =
-    baseUrl +
-    'api/products/productslist/?pcategory_code=' +
-    categoryValue +
-    '&ordering=' +
-    orderingValue +
-    '&page=' +
-    pageNumber;
+  const productsUrl = `${baseUrl}/products/?pcategory_code=${categoryValue}&ordering=${orderingValue}&page=${pageNumber}`;
 
   return (
     <Container
-      fluid
       style={{
+        display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        // justifyContent: 'spaceBetween',
+        alignItems: 'center',
       }}
     >
-      <Row style={{ justifyContent: 'center', padding: '10' }}>
+      <Row
+        style={{
+          marginTop: '20px',
+          marginBottom: '20px',
+        }}
+      >
         <Col md="auto" sm="auto" xs="auto">
-          {/* 카테고리 버튼 */}
           {categories.map((category, idx) => (
-            <Button
+            <li
               key={idx}
-              variant="outline-primary"
-              size="sm"
-              // style={{ justifyContent: 'center', padding: '10' }}
               name={category.name}
               value={category.value}
-              onChange={(e) => setCategoryValue(e.currentTarget.value)}
+              onClick={(e) => setCategoryValue(e.currentTarget.value)}
+              style={{
+                display: 'inline-flex',
+                float: 'center',
+                // justifyContent: 'space-around',
+                padding: '5px',
+                listStyle: 'none',
+                height: '26px',
+                fontSize: '13px',
+                fontWeight: '700',
+                color: '#999',
+              }}
             >
               {category.name}
-            </Button>
+            </li>
           ))}
+          <DropdownButton
+            title="Sort by"
+            style={{
+              float: 'right',
+              padding: '10px',
+            }}
+            variant="Secondary"
+            size="sm"
+          >
+            <Dropdown.Item href="#/action-1">View Count</Dropdown.Item>
+            <Dropdown.Item href="#/action-2">
+              Amazon Best Sellers Rank
+            </Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Price: High-low</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Price: Low-High</Dropdown.Item>
+            <Dropdown.Item href="#/action-3">Newest</Dropdown.Item>
+          </DropdownButton>
+        </Col>
+      </Row>
 
-          {console.log(categoryValue)}
-
+      <Row
+        style={{
+          marginTop: '10px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Col
+          style={{
+            padding: '9px',
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
           <ProductCard
             p_imgUrl="p_image"
             p_name="p_name"
             p_price="p_price"
             p_toDetail="p_no + 링크 넣기"
           />
-          <ProductCard />
         </Col>
       </Row>
     </Container>

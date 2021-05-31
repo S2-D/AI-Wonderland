@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+// CSS 버튼으로 완전 예쁜 거 발견! 쓰면 좋을 듯!
+// https://freefrontend.com/css-buttons/
 function IntroTalk() {
   const rabbitSaying = [
     {
