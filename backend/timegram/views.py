@@ -80,7 +80,7 @@ class TimegramCreate(viewsets.ViewSet):
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def likeList(request, id):
+def like_list(request, id):
     """
     선택된 타임그램의 좋아요 개수 조회
     ---
@@ -133,7 +133,7 @@ def likeList(request, id):
 
 @swagger_auto_schema(methods=['post'], manual_parameters=[headers], request_body=LikeCreateSerializer,)
 @api_view(['POST'])
-def likePost(request):
+def like_post(request):
     """
     타임그램의 좋아요 누르기
     ---
