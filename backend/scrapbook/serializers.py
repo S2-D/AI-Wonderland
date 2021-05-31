@@ -8,7 +8,7 @@ class ScrapbookSerializer(serializers.ModelSerializer):
             mem_id = validated_data['mem_id'],
             p_no   = validated_data['p_no'],
         )
-        scrap_item.save()
+        
         return scrap_item
     
     class Meta:

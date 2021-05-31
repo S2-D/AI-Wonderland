@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -169,16 +169,9 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:3000',
-#     'http://127.0.0.1:3000',
-#     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:8000',
-#     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:8001',
-#     'http://elice-kdt-ai-track-vm-ai-23.koreacentral.cloudapp.azure.com:80',
-#     )
 CORS_ALLOW_ALL_ORIGINS = True
 
-# swagger setting
+# Swagger setting
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
         'Bearer': {
@@ -187,5 +180,5 @@ SWAGGER_SETTINGS = {
             'in': 'header'
         }
     },
-   'USE_SESSION_AUTH': False
+   'USE_SESSION_AUTH': False,
 }
