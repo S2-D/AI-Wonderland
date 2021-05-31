@@ -25,7 +25,6 @@ class ScrapbookList(viewsets.ViewSet):
 
         return queryset
     
-    # get으로 query param 요청할 때 사용
     param_mem_id = openapi.Parameter(
         'mem_id',
         openapi.IN_QUERY, 
@@ -61,7 +60,7 @@ class ScrapbookList(viewsets.ViewSet):
                     }, status = status.HTTP_200_OK
                 )
     
-    @swagger_auto_schema(request_body = ScrapbookSerializer,) # post 사용할때 request body 필요할 때 사용
+    @swagger_auto_schema(request_body = ScrapbookSerializer,)
     def create(self, request):
         """
         mem_id : 스크랩북에 등록할 회원 id 를 입력하세요.
