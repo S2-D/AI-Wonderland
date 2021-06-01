@@ -1,35 +1,59 @@
 import React, { useEffect, useState } from 'react';
-
-import ProductCard from './ProductCard.js';
-import { Container, Row, Col, DropdownButton, Dropdown } from 'react-bootstrap';
+import axios from 'axios';
 import baseUrl from '../../url/http.js';
 
+import { Container, Row, Col, DropdownButton, Dropdown } from 'react-bootstrap';
+import ProductCard from './ProductCard.js';
 import dropdown from './dropdown.css';
 
 export default function ProductCategory() {
   // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타
   const [categoryValue, setCategoryValue] = useState(1);
   const categories = [
-    { name: 'Tops', value: 1 },
-    { name: 'Bottoms', value: 2 },
-    { name: 'Shoes', value: 3 },
-    { name: 'Others', value: 4 },
-    { name: 'Timegram', value: 5 },
+    { id: 1, name: 'Tops', value: 1 },
+    { id: 2, name: 'Bottoms', value: 2 },
+    { id: 3, name: 'Shoes', value: 3 },
+    { id: 4, name: 'Others', value: 4 },
   ];
 
   // ordering -p_readcount : 조회 순, -p_price : 가격 순, -p_rank : 랭킹 순, -p_date : 등록일 순
   const [orderingValue, setOrderingValue] = useState('-p_readcount');
   const orders = [
-    { value: '-p_readcount' },
-    { value: '-p_price' },
-    { value: '-p_rank' },
-    { value: '-p_date' },
+    { id: 1, name: 'View Count', value: '-p_readcount' },
+    { id: 2, name: 'Amazon Best Sellers Rank', value: '-p_price' },
+    { id: 3, name: 'Price: High-Low', value: '-p_rank' },
+    // { id: 4,name: 'Price: Low-High', value: '' },
+    { id: 5, name: 'Newest', value: '-p_date' },
   ];
   const [pageNumber, setPageNumber] = useState(1);
 
   // 상품 데이터 받아오기
+  const productsUrl = `${baseUrl}/products/productlist/?pcategory_code=${categoryValue}&ordering=${orderingValue}&page=${pageNumber}`;
   const [products, setProducts] = useState([]);
-  const productsUrl = `${baseUrl}/products/?pcategory_code=${categoryValue}&ordering=${orderingValue}&page=${pageNumber}`;
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    // 상품 전체 데이터 받아오기(디폴트 정렬)
+    async function getProductList() {
+      try {
+        setLoading(true);
+        // 데이터 받아오기 전 로딩
+        const response = await axios.get(productsUrl);
+        console.log(response.status);
+        console.log(response.data.results);
+        if (response.status === 200) {
+          setProducts(response.data.results);
+        } else if (response.status === 404) {
+          console.log('404 진입' + response);
+          alert('Fail to load the product data');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getProductList();
+    setLoading(false);
+  }, [productsUrl]);
 
   return (
     <Container
@@ -47,12 +71,15 @@ export default function ProductCategory() {
         }}
       >
         <Col md="auto" sm="auto" xs="auto">
-          {categories.map((category, idx) => (
+          {categories.map((category, id) => (
             <li
-              key={idx}
+              key={id}
               name={category.name}
               value={category.value}
-              onClick={(e) => setCategoryValue(e.currentTarget.value)}
+              onClick={(e) => {
+                setCategoryValue(e.target.value);
+                console.log(e.target.value);
+              }}
               style={{
                 display: 'inline-flex',
                 float: 'center',
@@ -68,6 +95,21 @@ export default function ProductCategory() {
               {category.name}
             </li>
           ))}
+          <li
+            style={{
+              display: 'inline-flex',
+              float: 'center',
+              // justifyContent: 'space-around',
+              padding: '5px',
+              listStyle: 'none',
+              height: '26px',
+              fontSize: '13px',
+              fontWeight: '700',
+              color: '#999',
+            }}
+          >
+            Timegrame
+          </li>
           <DropdownButton
             title="Sort by"
             style={{
@@ -77,13 +119,21 @@ export default function ProductCategory() {
             variant="Secondary"
             size="sm"
           >
-            <Dropdown.Item href="#/action-1">View Count</Dropdown.Item>
-            <Dropdown.Item href="#/action-2">
-              Amazon Best Sellers Rank
-            </Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Price: High-low</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Price: Low-High</Dropdown.Item>
-            <Dropdown.Item href="#/action-3">Newest</Dropdown.Item>
+            {orders.map((order, id) => (
+              <Dropdown.Item
+                key={id}
+                name={order.name}
+                value={order.value}
+                onClick={(e) => {
+                  setOrderingValue(order.value);
+                  // console.log(orderingValue);
+                  // console.log(order.value);
+                  // console.log(e.target.value);
+                }}
+              >
+                {order.name}
+              </Dropdown.Item>
+            ))}
           </DropdownButton>
         </Col>
       </Row>
@@ -105,12 +155,15 @@ export default function ProductCategory() {
             alignItems: 'center',
           }}
         >
-          <ProductCard
-            p_imgUrl="p_image"
-            p_name="p_name"
-            p_price="p_price"
-            p_toDetail="p_no + 링크 넣기"
-          />
+          {products.map((product, idx) => (
+            <ProductCard
+              key={idx}
+              p_imgUrl={product.p_image}
+              p_name={product.p_name}
+              p_price={product.p_price}
+              p_toDetail={product.p_no}
+            />
+          ))}
         </Col>
       </Row>
     </Container>
