@@ -10,6 +10,10 @@ import re
 JWT_PAYLOAD_HANDLER = api_settings.JWT_PAYLOAD_HANDLER
 JWT_ENCODE_HANDLER = api_settings.JWT_ENCODE_HANDLER
 
+class UserMoneySerializer(serializers.ModelSerializer):
+    class Meta :
+        model = User
+        fields = ['money']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
