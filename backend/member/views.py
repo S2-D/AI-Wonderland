@@ -11,9 +11,9 @@ from drf_yasg.utils import swagger_auto_schema
 
 
 headers = openapi.Parameter(
-    'Headers',
-    openapi.IN_HEADER, 
-    description='Authorization jwt {access_token}', 
+    'Authorization',
+    openapi.IN_HEADER,
+    description='jwt {access_token}',
     type=openapi.TYPE_STRING,
     required=True
 )
@@ -23,7 +23,7 @@ headers = openapi.Parameter(
         manual_parameters=[headers]
     )
 @api_view(['GET'])
-def mypageInfo(request, id):
+def mypage_info(request, id):
     """
     id : 마이페이지 정보를 가져올 회원 id를 입력하세요.
 
@@ -42,7 +42,7 @@ def mypageInfo(request, id):
 @swagger_auto_schema(methods=['post'], request_body=UserCreateSerializer)
 @api_view(['POST'])
 @permission_classes([AllowAny])
-def signUp(request):
+def sign_up(request):
     if request.method == 'POST':
         serializer = UserCreateSerializer(data = request.data)
 
@@ -78,7 +78,7 @@ def signUp(request):
 @swagger_auto_schema(methods=['post'], request_body=UserLoginSerializer)
 @api_view(['POST'])
 @permission_classes([AllowAny])
-def signIn(request):
+def sign_in(request):
 
     if request.method == 'POST':
         serializer = UserLoginSerializer(data = request.data)
