@@ -33,17 +33,8 @@ class ScrapbookList(viewsets.ViewSet):
         required=True
     )
 
-    param_p_no = openapi.Parameter(
-        'p_no',
-        openapi.IN_QUERY, 
-        description='여긴 입력하지 마세요! (수정예정)', 
-        type=openapi.TYPE_STRING,
-        required=False
-    )
-    
     @swagger_auto_schema(
-        manual_parameters = [param_mem_id, param_p_no],
-        query_serializer = ScrapbookSerializer,
+        manual_parameters = [param_mem_id],
     )
     def list(self, request):
         """
@@ -51,7 +42,7 @@ class ScrapbookList(viewsets.ViewSet):
         """
         qs = self.get_queryset()
         serializer = ScrapbookSerializer(qs, many=True, read_only=True)
-        # return Response(serializer.data)
+        
         return Response (
                     {
                         "status_code": status.HTTP_200_OK,
