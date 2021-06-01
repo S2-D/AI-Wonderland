@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     # apps
     'member',
     'products',
-    # 'timegram',
+    'timegram',
     'scrapbook',
 ]
 

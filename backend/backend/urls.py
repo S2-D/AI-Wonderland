@@ -26,9 +26,8 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/member/', include('member.urls')),
-    path('api/token/', obtain_jwt_token),
-    path('api/token/verify/', verify_jwt_token),
-    path('api/token/refresh/', refresh_jwt_token),
+    path('api/timegram/', include('timegram.urls')),
+
 
     path('api/products/', include('products.urls')),
     path('api/scrapbook/', include('scrapbook.urls')),
