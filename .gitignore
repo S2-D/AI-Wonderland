@@ -194,3 +194,10 @@ sketch
 
 # config
 config/*
+
+mysql.cnf
+migrations/*
+backend/*/migrations/*
+backend/scrapbook/migrations/*
+
+nohup.out

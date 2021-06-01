@@ -34,7 +34,17 @@
     | Backend-server | Django, MariaDB, MongoDB | 웹 백엔드 서버 구동, 상품 및 회원 정보 |
     | AI | Tensorflow | 데이터셋 분석 및 추천 로직 구현 |
 
-
+2-1. MariaDB Connection 설정 
+    - 1) `backend`폴더 안에 `mysql.cnf` 파일을 생성합니다. 
+    - 2) `mysql.cnf`파일에 아래 형식에 맞춰 `DB 정보(database, host, user, password)` 를 입력하고 저장해주세요. 
+    ```
+    [client]
+    database = ai_wonderland
+    host = localhost
+    user = root
+    password = mysqlpwd
+    default-character-set = utf8
+    ```
 
 ## 4. 구현 기능
 - 구현해야 하는 세부 기능들을 명세하고, 우선순위를 설정합니다. 이후 우선순위를 바탕으로 개발을 진행합니다.
