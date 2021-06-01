@@ -4,10 +4,24 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.permissions import AllowAny
 
 from .models import User
-from .serializers import UserSerializer, UserCreateSerializer, UserLoginSerializer
+from .serializers import UserSerializer, UserCreateSerializer, UserLoginSerializer, UserMoneySerializer
+
+from django.http import JsonResponse
+from rest_framework.parsers import JSONParser
 
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+
+@api_view(['GET'])
+def getMoney(request, id):
+    if request.method == 'GET':
+        memberInfo = User.objects.filter(pk = id)
+        serializer = UserMoneySerializer(memberInfo, many=True)
+        return Response (
+                    {
+                        "money": serializer.data
+                    }, status = status.HTTP_200_OK
+                )
 
 
 headers = openapi.Parameter(
@@ -30,7 +44,7 @@ def mypage_info(request, id):
     """
     if request.method == 'GET':
         memberInfo = User.objects.filter(pk = id)
-        serializer = UserSerializer(memberInfo, many=True)
+        serializer = UserMoneySerializer(memberInfo, many=True)
         return Response (
                     {
                         "status_code": status.HTTP_200_OK,
