@@ -1,0 +1,74 @@
+@font-face {
+  font-family: 'neodgm';
+  src: url('../../../font/neodgm_code.ttf');
+}
+
+.footer {
+  padding-top: 25px;
+  background-color: #ffffff;
+  background-color: #f9f9f9;
+  padding: 13px 0 0;
+  width: 100%;
+  height: 80%;
+}
+
+.footer .service_Name {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  font-size: 18px;
+  color: #5b5752;
+  font-family: 'neodgm';
+  padding: 13px 18px;
+  line-height: 1.43;
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+}
+
+.footer .item_content label {
+  display: inline-block;
+  color: #bbb8b5;
+  margin-right: 7px;
+  line-height: 1.67;
+  font-size: 16px;
+  vertical-align: top;
+  font-family: 'neodgm';
+}
+
+.footer .item_content ul {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  padding: 13px 18px;
+}
+
+.footer .item_content li {
+  margin-bottom: 6px;
+}
+
+.footer .item_content span {
+  display: inline-block;
+  color: #5b5752;
+  line-height: 1.67;
+  font-size: 14px;
+  font-family: 'neodgm';
+}
+
+.copyright {
+  padding: 13px 18px;
+  font-size: 15px;
+  color: #bbb8b5;
+  line-height: 1.54;
+  font-family: 'neodgm';
+}
+
+.gitlab_address {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  font-size: 14px;
+  color: #5b5752;
+  font-family: 'neodgm';
+  line-height: 1.43;
+  padding: 13px 18px;
+}
