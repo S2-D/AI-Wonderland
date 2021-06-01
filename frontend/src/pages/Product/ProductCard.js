@@ -7,11 +7,6 @@ const imageUrl = 'image/sample.jpg'; // 차후 url 형식으로 바꿔주어야 
 
 export default function ProductCard(props) {
   return (
-    // 카테고리 버튼
-
-    // 정렬 기준
-
-    // 개별 상품
     <Card
       style={{
         display: 'inline-flex',
@@ -62,8 +57,7 @@ export default function ProductCard(props) {
             marginBottom: '0',
           }}
         >
-          {props.p_name} 말을 엄청나게 많이 해보자 상품명이 길어지면 줄어드는지
-          어떤지
+          {props.p_name}
         </Card.Text>
         <Card.Link herf={props.p_toDetail} style={{ flex: '1' }}>
           {/* flex: '1'을 설정해주지 않으면 오른쪽 정렬 불가능함. 주의하기! */}
