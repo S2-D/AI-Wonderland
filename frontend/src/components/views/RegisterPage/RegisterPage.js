@@ -39,7 +39,7 @@ const schema = yup.object().shape({
 function RegisterPage() {
   let history = useHistory();
   const post = (data) => {
-    axios.post(baseUrl + 'api/member/signUp/', data).then((response) => {
+    axios.post(baseUrl + '/member/signUp/', data).then((response) => {
       console.log('response: ', response.data.status);
       if (response.data.status === 'success') {
         alert('회원가입이 완료되었습니다.');

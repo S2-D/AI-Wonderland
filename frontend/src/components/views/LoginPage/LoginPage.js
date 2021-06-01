@@ -17,7 +17,7 @@ function LoginPage({ setLoginUserId }) {
   } = useForm();
 
   const loginFormPost = (data) => {
-    axios.post(baseUrl + 'api/member/signIn/', data).then((response) => {
+    axios.post(baseUrl + '/member/signIn/', data).then((response) => {
       if (response.data.status === 'success') {
         console.log(response.data);
         const access_token = response.data.status.access_token;
