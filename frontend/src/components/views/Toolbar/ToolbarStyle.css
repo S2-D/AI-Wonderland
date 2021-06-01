@@ -54,7 +54,7 @@ ul {
   background-size: 34px;
 }
 
-.toolbar .toolwrap li a.homeTouchIcon {
+.toolbar .toolwrap li a.homeIcon_touched {
   background-image: url('../../../utils/images/icon_img/home_touch.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
@@ -68,8 +68,22 @@ ul {
   background-size: 34px;
 }
 
+.toolbar .toolwrap li a.timegram_touched {
+  background-image: url('../../../utils/images/icon_img/timegram_touch.png');
+  background-position: center top 10px;
+  background-repeat: no-repeat;
+  background-size: 34px;
+}
+
 .toolbar .toolwrap li a.search {
   background-image: url('../../../utils/images/icon_img/search.png');
+  background-position: center top 10px;
+  background-repeat: no-repeat;
+  background-size: 34px;
+}
+
+.toolbar .toolwrap li a.search_touched {
+  background-image: url('../../../utils/images/icon_img/search_touch.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
@@ -81,9 +95,22 @@ ul {
   background-repeat: no-repeat;
   background-size: 34px;
 }
+.toolbar .toolwrap li a.scrapbook_touched {
+  background-image: url('../../../utils/images/icon_img/inventory_touch.png');
+  background-position: center top 10px;
+  background-repeat: no-repeat;
+  background-size: 34px;
+}
 
 .toolbar .toolwrap li a.mypage {
   background-image: url('../../../utils/images/icon_img/mypage.png');
+  background-position: center top 10px;
+  background-repeat: no-repeat;
+  background-size: 34px;
+}
+
+.toolbar .toolwrap li a.mypage_touched {
+  background-image: url('../../../utils/images/icon_img/mypage_touch.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
