@@ -9,6 +9,7 @@ import Intro from './pages/Intro/Intro';
 import ProductList from './pages/Product/ProductList';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import ProductDetail from './pages/Product/ProductDetail';
 // 최상위 컴포넌트에 적용해주면 일괄 적용 가능함
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route exact path="/" component={Intro} />
           {/* 상품 리스트 페이지 연결  */}
           <Route exact path="/productList" component={ProductList} />
+          <Route exact path="/productDetail" component={ProductDetail} />
         </Switch>
       </div>
     </Router>
