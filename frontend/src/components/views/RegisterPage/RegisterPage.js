@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Col, Form, Button, InputGroup } from 'react-bootstrap';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
@@ -51,6 +51,7 @@ function RegisterPage() {
       }
     });
   };
+
   return (
     <Formik
       validationSchema={schema}
@@ -71,7 +72,7 @@ function RegisterPage() {
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
-              placeholder="Enter email"
+              placeholder="Enter your email."
               name="email"
               value={values.email || ''}
               onChange={handleChange}
@@ -83,7 +84,7 @@ function RegisterPage() {
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
-              placeholder="Password"
+              placeholder="Enter your password."
               name="password"
               value={values.password || ''}
               onChange={handleChange}
@@ -107,7 +108,7 @@ function RegisterPage() {
             <Form.Label>Nickname</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Enter your Nickname."
+              placeholder="Enter your nickname."
               name="nickname"
               value={values.nickname || ''}
               onChange={handleChange}

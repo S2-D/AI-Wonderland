@@ -1,9 +1,66 @@
+@font-face {
+  font-family: 'neodgm';
+  src: url('../../../font/neodgm_code.ttf');
+}
+
 .gnb_container {
-  position: absolute;
-  overflow: hidden;
-  top: 0;
-  left: 10px;
+  background-color: #ffffff;
+  height: 75px;
+  padding-top: 5px;
   bottom: 0;
-  height: 60px;
-  font-size: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  z-index: 20;
+  border-bottom: 2px solid #e9e8e2;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.right_container {
+  width: 150px;
+  height: 70px;
+  float: right;
+  border: 3px solid #a29bfe;
+  border-radius: 10px;
+}
+.coin_img {
+  padding: 5px;
+  margin-top: 15px;
+}
+
+.left_container {
+  float: left;
+}
+
+.logo {
+  display: block;
+  width: 134px;
+  height: 70px;
+  object-fit: cover;
+}
+
+.compass {
+  background-color: #a29bfe;
+  font-size: 15px;
+  top: 1px;
+  width: 100%;
+  margin-top: 3px;
+}
+
+.compass a {
+  text-decoration: none;
+}
+
+.compass .gnb_login {
+  float: right;
+  z-index: 20;
+}
+
+.wallet {
+  float: right;
+  padding: 20px 20px 20px 0px;
+  font-size: 20px;
+  font-family: 'neodgm';
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ToolbarStyle from './ToolbarStyle.css';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ function Toolbar() {
       <nav className="toolbar">
         <ul className="toolwrap">
           <li>
-            <Link to="/main" className="home">
+            <Link to="/main" className="homeIcon">
               Home
             </Link>
           </li>

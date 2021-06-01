@@ -42,41 +42,56 @@ ul {
   padding-top: 40px;
   text-align: center;
   font-family: 'neodgm';
-  font-size: 12px;
+  font-size: 15px;
   color: black;
+  text-decoration: none;
 }
 
-.toolbar .toolwrap li a.home {
+.toolbar .toolwrap li a.homeIcon {
   background-image: url('../../../utils/images/icon_img/home.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
-  background-size: 30px;
+  background-size: 34px;
+}
+
+.toolbar .toolwrap li a.homeTouchIcon {
+  background-image: url('../../../utils/images/icon_img/home_touch.png');
+  background-position: center top 10px;
+  background-repeat: no-repeat;
+  background-size: 34px;
 }
 
 .toolbar .toolwrap li a.timegram {
   background-image: url('../../../utils/images/icon_img/timegram.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
-  background-size: 30px;
+  background-size: 34px;
 }
 
 .toolbar .toolwrap li a.search {
   background-image: url('../../../utils/images/icon_img/search.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
-  background-size: 30px;
+  background-size: 34px;
 }
 
 .toolbar .toolwrap li a.scrapbook {
   background-image: url('../../../utils/images/icon_img/inventory.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
-  background-size: 30px;
+  background-size: 34px;
 }
 
 .toolbar .toolwrap li a.mypage {
   background-image: url('../../../utils/images/icon_img/mypage.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
-  background-size: 30px;
+  background-size: 34px;
+}
+
+.menu-active {
+  background: orange;
+}
+.menu {
+  background-color: yellowgreen;
 }

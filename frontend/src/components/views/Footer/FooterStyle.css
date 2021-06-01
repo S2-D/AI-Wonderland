@@ -9,13 +9,14 @@
   background-color: #f9f9f9;
   padding: 13px 0 0;
   width: 100%;
+  height: 80%;
 }
 
 .footer .service_Name {
   position: relative;
   overflow: hidden;
   display: block;
-  font-size: 14px;
+  font-size: 18px;
   color: #5b5752;
   font-family: 'neodgm';
   padding: 13px 18px;
@@ -29,7 +30,7 @@
   color: #bbb8b5;
   margin-right: 7px;
   line-height: 1.67;
-  font-size: 12px;
+  font-size: 16px;
   vertical-align: top;
   font-family: 'neodgm';
 }
@@ -49,13 +50,13 @@
   display: inline-block;
   color: #5b5752;
   line-height: 1.67;
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'neodgm';
 }
 
 .copyright {
   padding: 13px 18px;
-  font-size: 13px;
+  font-size: 15px;
   color: #bbb8b5;
   line-height: 1.54;
   font-family: 'neodgm';
