@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
+from member.models import User
 
 
 class Timegram(models.Model):
