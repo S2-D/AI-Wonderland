@@ -57,6 +57,9 @@ export default function ProductList() {
         }
       } catch (error) {
         console.log(error);
+        // console.log(response);
+        const response = await axios.get(productsUrl);
+        console.log(response.status);
       }
     }
     getProductList();
