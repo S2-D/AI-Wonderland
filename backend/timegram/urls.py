@@ -10,6 +10,6 @@ router.register(r'timegramCreate', views.TimegramCreate)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('like/<int:id>', views.likeList),
-    path('like/', views.likePost),
+    path('like/<int:id>', views.like_list),
+    path('like/', views.like_post),
 ]

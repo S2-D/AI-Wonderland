@@ -18,7 +18,7 @@ class Timegram(models.Model):
     p_no6 = models.CharField(max_length=20, blank=True)
     total_price = models.IntegerField(default=0)
     mem = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name='회원 ID')
+        'member.User', on_delete=models.CASCADE, verbose_name='회원 ID')
 
     def __str__(self):
         return self.title
@@ -26,7 +26,7 @@ class Timegram(models.Model):
 
 class Like(models.Model):
     mem = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name='회원 ID')
+        'member.User', on_delete=models.CASCADE, verbose_name='회원 ID')
     timegram = models.ForeignKey(
-        Timegram, on_delete=models.CASCADE, verbose_name='타임그램 ID')
+        'timegram.Timegram', on_delete=models.CASCADE, verbose_name='타임그램 ID')
     flag = models.BooleanField(default=True)
