@@ -19,7 +19,7 @@ class Product(models.Model):
     p_nlp = models.CharField(max_length=100, null=True, verbose_name='nlp 여부')
     pcategory_code = models.ForeignKey('products.Category', on_delete=models.CASCADE, verbose_name='상품카테고리 코드')
     p_keyword = models.CharField(max_length=200, null=True, verbose_name='상품 반응 키워드')
-    
+
 # 아마존 상품 리뷰
 class Review(models.Model):
     review_no = models.IntegerField(primary_key=True, verbose_name='리뷰번호')
