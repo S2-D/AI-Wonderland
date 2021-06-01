@@ -194,5 +194,4 @@ sketch
 
 # config
 config/*
-
-mysql.cnf
+/frontend/src/url/http.js
