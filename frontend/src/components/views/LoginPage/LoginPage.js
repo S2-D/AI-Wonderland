@@ -20,10 +20,9 @@ function LoginPage({ setLoginUserId }) {
     axios.post(baseUrl + '/member/signIn/', data).then((response) => {
       if (response.data.status === 'success') {
         console.log(response.data);
-        const access_token = response.data.status.access_token;
+        const access_token = response.data.token;
         localStorage.setItem('access_token', access_token);
-        console.log(response.data.status);
-        // setLoginUserId(response.data.status.token);
+        // setLoginUserId(response.data.token);
         history.push('/main');
       } else {
         alert(response.data.result.error);
@@ -33,6 +32,7 @@ function LoginPage({ setLoginUserId }) {
   };
 
   const onSubmit = (data) => {
+    console.log(data);
     loginFormPost(data);
   };
 
@@ -67,10 +67,11 @@ function LoginPage({ setLoginUserId }) {
 
       {/* login button */}
       <input className="btnLogin" type="submit" value="Login" />
+      <p>If you don't have ID, click the button "Sign Up"!</p>
       <input
         className="btnSignup"
         type="button"
-        value="SignUp"
+        value="Sign Up"
         onClick={onClickSignup}
       />
     </Form>
