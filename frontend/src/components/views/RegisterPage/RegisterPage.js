@@ -42,12 +42,12 @@ function RegisterPage() {
     axios.post(baseUrl + '/member/signUp/', data).then((response) => {
       console.log('response: ', response.data.status);
       if (response.data.status === 'success') {
-        alert('회원가입이 완료되었습니다.');
+        alert('Register Complete!');
         history.push('/login');
       } else {
         alert(response.data.status.error);
         console.log(response);
-        history.push('/signUp');
+        history.push('/register');
       }
     });
   };
