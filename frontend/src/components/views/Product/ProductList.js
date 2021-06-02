@@ -7,7 +7,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import baseUrl from '../../url/http.js';
+import baseUrl from '../../../url/http';
 
 import { Container, Row, Col, DropdownButton, Dropdown } from 'react-bootstrap';
 import ProductCard from './ProductCard.js';
