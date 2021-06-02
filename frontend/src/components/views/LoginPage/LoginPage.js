@@ -25,7 +25,7 @@ function LoginPage({ setLoginUserId }) {
         // setLoginUserId(response.data.token);
         history.push('/main');
       } else {
-        alert(response.data.result.error);
+        alert(response.data.error);
         document.getElementById('password').focus();
       }
     });

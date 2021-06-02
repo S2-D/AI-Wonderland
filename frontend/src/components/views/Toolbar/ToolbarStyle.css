@@ -7,7 +7,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  width: 500px;
+  width: 100%;
   display: block;
   height: 65px;
   background-color: rgb(255, 255, 255);
@@ -35,7 +35,7 @@ ul {
   position: relative;
 }
 
-.toolbar .toolwrap li a {
+.toolbar .toolwrap li button {
   display: block;
   height: 100%;
   padding-top: 40px;
@@ -44,80 +44,74 @@ ul {
   font-size: 15px;
   color: black;
   text-decoration: none;
+  margin: auto;
 }
 
-.toolbar .toolwrap li a.homeIcon {
+.toolbar .toolwrap li button.homeIcon {
   background-image: url('../../../utils/images/icon_img/home.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
 }
 
-.toolbar .toolwrap li a.homeIcon_touched {
+.toolbar .toolwrap li button.homeIcon_touched {
   background-image: url('../../../utils/images/icon_img/home_touch.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
 }
 
-.toolbar .toolwrap li a.timegram {
+.toolbar .toolwrap li button.timegram {
   background-image: url('../../../utils/images/icon_img/timegram.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
 }
 
-.toolbar .toolwrap li a.timegram_touched {
+.toolbar .toolwrap li button.timegram_touched {
   background-image: url('../../../utils/images/icon_img/timegram_touch.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
 }
 
-.toolbar .toolwrap li a.search {
+.toolbar .toolwrap li button.search {
   background-image: url('../../../utils/images/icon_img/search.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
 }
 
-.toolbar .toolwrap li a.search_touched {
+.toolbar .toolwrap li button.search_touched {
   background-image: url('../../../utils/images/icon_img/search_touch.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
 }
 
-.toolbar .toolwrap li a.scrapbook {
+.toolbar .toolwrap li button.scrapbook {
   background-image: url('../../../utils/images/icon_img/inventory.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
 }
-.toolbar .toolwrap li a.scrapbook_touched {
+.toolbar .toolwrap li button.scrapbook_touched {
   background-image: url('../../../utils/images/icon_img/inventory_touch.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
 }
 
-.toolbar .toolwrap li a.mypage {
+.toolbar .toolwrap li button.mypage {
   background-image: url('../../../utils/images/icon_img/mypage.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
 }
 
-.toolbar .toolwrap li a.mypage_touched {
+.toolbar .toolwrap li button.mypage_touched {
   background-image: url('../../../utils/images/icon_img/mypage_touch.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
   background-size: 34px;
-}
-
-.menu-active {
-  background: orange;
-}
-.menu {
-  background-color: yellowgreen;
 }

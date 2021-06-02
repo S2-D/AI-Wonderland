@@ -1,6 +1,7 @@
 import React from 'react';
 import GNBStyle from './GNBStyle.css';
 import { Link } from 'react-router-dom';
+import Compass from './Compass';
 
 function GNB() {
   return (
@@ -20,11 +21,7 @@ function GNB() {
           <div className="wallet">$100,000</div>
         </div>
       </div>
-      <div className="compass">
-        <Link to="/main">
-          <p>Main</p>
-        </Link>
-      </div>
+      <Compass />
     </>
   );
 }

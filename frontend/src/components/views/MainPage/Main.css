@@ -37,10 +37,9 @@ li.item {
   display: inline-block;
   vertical-align: top;
   padding-bottom: 0px;
-  margin: 0 8px;
+  margin: 8px;
   border-radius: 10px;
   box-shadow: 0 8px 16px 0 rgb(0 0 0 / 12%);
-  background-color: #ffffff;
 }
 
 .item_box .item a {

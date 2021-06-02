@@ -41,23 +41,6 @@
   object-fit: cover;
 }
 
-.compass {
-  background-color: #a29bfe;
-  font-size: 15px;
-  top: 1px;
-  width: 100%;
-  margin-top: 3px;
-}
-
-.compass a {
-  text-decoration: none;
-}
-
-.compass .gnb_login {
-  float: right;
-  z-index: 20;
-}
-
 .wallet {
   float: right;
   padding: 20px 20px 20px 0px;

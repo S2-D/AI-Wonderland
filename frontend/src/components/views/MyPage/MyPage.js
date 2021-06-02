@@ -3,5 +3,9 @@ import GNB from '../GNB/GNB';
 import Footer from '../Footer/Footer';
 
 function Mypage() {
-  return <></>;
+  return (
+    <>
+      <div></div>
+    </>
+  );
 }
