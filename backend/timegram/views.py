@@ -12,14 +12,6 @@ from rest_framework_jwt.settings import api_settings
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
-headers = openapi.Parameter(
-    'Authorization',
-    openapi.IN_HEADER,
-    description='jwt {access_token}',
-    type=openapi.TYPE_STRING,
-    required=True
-)
-
 
 class TimegramList(viewsets.ReadOnlyModelViewSet):
     """
@@ -50,7 +42,7 @@ class TimegramCreate(viewsets.ViewSet):
     serializer_class = TimegramCreateSerializer
     authentication_classes = (authentication.JSONWebTokenAuthentication,)
 
-    @swagger_auto_schema(manual_parameters=[headers], request_body=TimegramCreateSerializer,)
+    @swagger_auto_schema(request_body=TimegramCreateSerializer,)
     def create(self, request):
         """
         타임그램 등록하기
@@ -87,6 +79,7 @@ def like_list(request, id):
     id : 타임그램의 id를 입력하세요.
     total_like : 해당 타임그램의 좋아요 개수입니다.
     """
+
     if request.method == 'GET':
         likeList = Like.objects.raw(
             """
@@ -104,6 +97,7 @@ def like_list(request, id):
                 WHERE id = %s
             """, [id]
         )
+
         if len(likeList) > 0:
             data = {
                 "id": likeList[0].id,
@@ -131,7 +125,7 @@ def like_list(request, id):
             )
 
 
-@swagger_auto_schema(methods=['post'], manual_parameters=[headers], request_body=LikeCreateSerializer,)
+@swagger_auto_schema(methods=['post'], request_body=LikeCreateSerializer,)
 @api_view(['POST'])
 def like_post(request):
     """
