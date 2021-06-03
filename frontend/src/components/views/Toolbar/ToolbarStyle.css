@@ -79,27 +79,27 @@ ul {
   background-image: url('../../../utils/images/icon_img/search.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
-  background-size: 34px;
+  background-size: 38px;
 }
 
 .toolbar .toolwrap li button.search_touched {
   background-image: url('../../../utils/images/icon_img/search_touch.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
-  background-size: 34px;
+  background-size: 38px;
 }
 
 .toolbar .toolwrap li button.scrapbook {
   background-image: url('../../../utils/images/icon_img/inventory.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
-  background-size: 34px;
+  background-size: 38px;
 }
 .toolbar .toolwrap li button.scrapbook_touched {
   background-image: url('../../../utils/images/icon_img/inventory_touch.png');
   background-position: center top 10px;
   background-repeat: no-repeat;
-  background-size: 34px;
+  background-size: 38px;
 }
 
 .toolbar .toolwrap li button.mypage {
