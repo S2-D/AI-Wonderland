@@ -4,8 +4,15 @@ import withRouter from './withRouter';
 import CompassStyle from './CompassStyle.css';
 
 function Compass() {
+  //유저의 Url 위치를 알려주는 코드
   const pathname = location.pathname;
-  const userLocation = pathname.replace('/', '').concat(' >');
+
+  //첫글자만 대문자로 뽑아주는 코드
+  const firstLetter = pathname.charAt(1).toUpperCase();
+
+  const restWords = pathname.slice(2);
+
+  const userLocation = (firstLetter + restWords).concat(' >').replace('/', '');
 
   return (
     <div className="compass">
