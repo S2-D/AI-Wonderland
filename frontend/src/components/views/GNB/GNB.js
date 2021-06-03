@@ -2,6 +2,7 @@ import React from 'react';
 import GNBStyle from './GNBStyle.css';
 import { Link } from 'react-router-dom';
 import Compass from './Compass';
+import Wallet from './Wallet';
 
 function GNB() {
   return (

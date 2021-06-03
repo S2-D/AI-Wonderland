@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import withRouter from './withRouter';
 import CompassStyle from './CompassStyle.css';
 
 function Compass() {
