@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'antd/dist/antd.css';
 import { withRouter, Link } from 'react-router-dom';
 import Main from './Main.css';
 import GNB from '../GNB/GNB';
@@ -81,7 +80,7 @@ function MainPage() {
         </div>
         <div className="topItems_Bottoms">
           <h2>TOP 4 items by Bottoms</h2>
-          <p>Best 4 items by Categories!</p>
+          <p className="subAd">Best 4 items by Categories!</p>
           <ul className="item_box">
             <li className="item">
               <Link to="/" className="curation_item">
@@ -135,7 +134,7 @@ function MainPage() {
         </div>
         <div className="topItems_Shoes">
           <h2>TOP 4 items by Shoes</h2>
-          <p>Best 4 items by Categories!</p>
+          <p className="subAd">Best 4 items by Categories!</p>
           <ul className="item_box">
             <li className="item">
               <Link to="/" className="curation_item">
@@ -189,7 +188,7 @@ function MainPage() {
         </div>
         <div className="topItems_Others">
           <h2>TOP 4 items by Others</h2>
-          <p>Best 4 items by Categories!</p>
+          <p className="subAd">Best 4 items by Categories!</p>
           <ul className="item_box">
             <li className="item">
               <Link to="/" className="curation_item">
