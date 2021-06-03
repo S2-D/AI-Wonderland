@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'antd/dist/antd.css';
 import { withRouter, Link } from 'react-router-dom';
 import Main from './Main.css';
 import GNB from '../GNB/GNB';
