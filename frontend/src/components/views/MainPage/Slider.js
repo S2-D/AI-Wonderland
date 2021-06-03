@@ -7,22 +7,23 @@ import 'swiper/swiper.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 
-import './SliderStyle.css';
+import SliderStyle from './SliderStyle.css';
 
 // import Swiper core and required modules
-import SwiperCore, { Keyboard, Pagination, Navigation } from 'swiper/core';
+import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
 
 // install Swiper modules
-SwiperCore.use([Keyboard, Pagination, Navigation]);
+SwiperCore.use([Autoplay, Pagination, Navigation]);
 
-export default function MainSlider() {
+export default function App() {
   return (
     <>
       <Swiper
-        slidesPerView={1}
         spaceBetween={30}
-        keyboard={{
-          enabled: true,
+        centeredSlides={true}
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
         }}
         pagination={{
           clickable: true,
@@ -30,9 +31,20 @@ export default function MainSlider() {
         navigation={true}
         className="mySwiper"
       >
-        <SwiperSlide className="slide_1"></SwiperSlide>
-        <SwiperSlide className="slide_2"></SwiperSlide>
-        <SwiperSlide className="slide_3"></SwiperSlide>
+        <SwiperSlide className="slide_1">
+          <img src="./images/welcome_image/welcome1.png" />
+          <p className="slideInfo">Welcome to the 2000's!</p>
+        </SwiperSlide>
+        <SwiperSlide className="slide_2">
+          <img src="./images/welcome_image/welcome2.png" />
+          <p className="slideInfo">
+            Click the camera icon below. <br></br>You can find your friends.
+          </p>
+        </SwiperSlide>
+        <SwiperSlide className="slide_3">
+          <img src="./images/welcome_image/welcome3.gif" />
+          <p className="slideInfo">Go to My Page and check the attendance!</p>
+        </SwiperSlide>
       </Swiper>
     </>
   );

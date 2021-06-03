@@ -18,7 +18,6 @@ function GNB() {
             className="coin_img"
             width="35px"
           />
-          <div className="wallet">$100,000</div>
         </div>
       </div>
       <Compass />
