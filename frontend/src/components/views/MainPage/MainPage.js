@@ -27,7 +27,7 @@ function MainPage() {
         <MainSlider />
         <div className="topItems_Tops">
           <h2>TOP 4 items by Tops</h2>
-          <p>Best 4 items by Categories!</p>
+          <p className="subAd">Best 4 items by Categories!</p>
           <ul className="item_box">
             <li className="item">
               <Link to="/" className="curation_item">

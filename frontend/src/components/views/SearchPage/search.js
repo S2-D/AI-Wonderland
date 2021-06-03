@@ -1,10 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import Toolbar from '../Toolbar/Toolbar';
+import Compass from '../GNB/Compass';
 
 function SearchPage() {
   return (
     <>
+      <Compass />
       <div>
         <input
           type="text"
