@@ -1,38 +1,31 @@
 import React, { useState } from 'react';
 import ToolbarStyle from './ToolbarStyle.css';
 import { Link, useHistory } from 'react-router-dom';
+import BaseUrl from '../../../url/http';
+import { set } from 'react-hook-form';
 
 function Toolbar() {
   const history = useHistory();
-  const [homeicon, setHomeIconState] = useState(false);
-  const [timegramicon, setTimeIconState] = useState(false);
-  const [searchicon, setSearchIconState] = useState(false);
-  const [scrapicon, setScrapIconState] = useState(false);
-  const [myicon, setMyIconState] = useState(false);
+  const pathname = location.pathname;
 
   const handleHome = () => {
-    setHomeIconState(!homeicon);
     history.push('/main');
   };
 
   const handleTimegram = () => {
-    setTimeIconState(!timegramicon);
-    history.push('/main');
+    history.push('/timegram');
   };
 
   const handleSearch = () => {
-    setSearchIconState(!searchicon);
-    history.push('/main');
+    history.push('/search');
   };
 
   const handleScrapbook = () => {
-    setScrapIconState(!scrapicon);
-    history.push('/main');
+    history.push('/scrapbook');
   };
 
   const handleMypage = () => {
-    setMyIconState(!myicon);
-    history.push('/main');
+    history.push('/mypage');
   };
 
   return (
@@ -42,8 +35,7 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              to="/main"
-              className={'homeIcon' + (!homeicon ? '' : '_touched')}
+              className={'homeIcon' + (pathname === '/main' ? '_touched' : '')}
               onClick={handleHome}
             >
               Home
@@ -52,8 +44,9 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              to="/"
-              className={'timegram' + (!timegramicon ? '' : '_touched')}
+              className={
+                'timegram' + (pathname === '/timegram' ? '_touched' : '')
+              }
               onClick={handleTimegram}
             >
               Timegram
@@ -62,8 +55,7 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              to="/"
-              className={'search' + (!searchicon ? '' : '_touched')}
+              className={'search' + (pathname === '/search' ? '_touched' : '')}
               onClick={handleSearch}
             >
               Search
@@ -72,8 +64,9 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              to="/"
-              className={'scrapbook' + (!scrapicon ? '' : '_touched')}
+              className={
+                'scrapbook' + (pathname === '/scrapbook' ? '_touched' : '')
+              }
               onClick={handleScrapbook}
             >
               Scrapbook
@@ -82,8 +75,7 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              to="/"
-              className={'mypage' + (!myicon ? '' : '_touched')}
+              className={'mypage' + (pathname === '/mypage' ? '_touched' : '')}
               onClick={handleMypage}
             >
               My Page

@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Toolbar from '../Toolbar/Toolbar';
 
 function SearchPage() {
   return (
@@ -12,6 +13,7 @@ function SearchPage() {
         />
         <button type="submit">검색</button>
       </div>
+      <Toolbar />
     </>
   );
 }
