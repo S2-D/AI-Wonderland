@@ -8,6 +8,7 @@ import SearchPage from './components/views/SearchPage/search';
 import ProductList from './components/views/Product/ProductList';
 import ProductDetail from './components/views/Product/ProductDetail';
 import Intro from './components/views/Intro/Intro';
+import MyPage from './components/views/MyPage/MyPage';
 
 import 'bootstrap/dist/css/bootstrap.css';
 // 최상위 컴포넌트에 적용해주면 일괄 적용 가능함
@@ -33,6 +34,8 @@ function App() {
           <Route exact path="/search" component={SearchPage} />
           {/* 상품 상세 페이지 연결 */}
           <Route exact path="/productDetail" component={ProductDetail} />
+          {/* 마이페이지 */}
+          <Route exact path="/mypage" component={MyPage} />
         </Switch>
       </div>
     </Router>
