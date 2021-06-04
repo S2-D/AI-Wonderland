@@ -28,7 +28,7 @@ urlpatterns = [
     path('api/member/', include('member.urls')),
     path('api/timegram/', include('timegram.urls')),
 
-
+    path('api/attendance/', include('attendance.urls')),
 
     path('api/products/', include('products.urls')),
     path('api/scrapbook/', include('scrapbook.urls')),
