@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import isLogin from '../../../utils/lib/isLogin';
+import isLogin from '../../../url/lib/isLogin';
 
 //to do: 로그인. 로그아웃 컨펌창 띄워서 받고 하기!(https://studyingych.tistory.com/62)
 export default function Logout() {
