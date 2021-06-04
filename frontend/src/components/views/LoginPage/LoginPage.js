@@ -4,8 +4,8 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-
 import baseUrl from '../../../url/http';
+
 import LoginPageStyle from './LoginPageStyle.css';
 
 function LoginPage({ setLoginUserId }) {

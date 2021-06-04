@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import CompassStyle from './CompassStyle.css';
+import Logout from '../LoginPage/Logout';
 
 function Compass() {
   //유저의 Url 위치를 알려주는 코드
@@ -18,6 +19,7 @@ function Compass() {
       <Link to={pathname}>
         <p>{userLocation}</p>
       </Link>
+      <Logout />
     </div>
   );
 }
