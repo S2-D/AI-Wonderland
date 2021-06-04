@@ -4,6 +4,7 @@
 // 3) 이미지 조건부 렌더링
 // 4) 가격 정렬 api 받아오기
 // 5) 로딩 중 표시 추가
+// 6) http://localhost:3000/productList/p_category?=Top 로, 링크 붙여주기
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -47,6 +48,7 @@ export default function ProductList() {
         setLoading(true);
         // 데이터 받아오기 전 로딩
         const response = await axios.get(productsUrl);
+        console.log(response);
         console.log(response.status);
         console.log(response.data.results);
         if (response.status === 200) {
@@ -57,9 +59,6 @@ export default function ProductList() {
         }
       } catch (error) {
         console.log(error);
-        // console.log(response);
-        const response = await axios.get(productsUrl);
-        console.log(response.status);
       }
     }
     getProductList();
