@@ -166,8 +166,6 @@ export default function ProductDetail() {
             // height: 'auto',
           }}
         >
-          <p className="p-1">Sub-Category: {productInfo.pcategory_code}</p>
-          {/* 카테고리 연동 어떻게 하지..? */}
           <p className="p-1">
             Amazon Best Sellers Rank: 441908
             {/* {productInfo.p_rank} */}
