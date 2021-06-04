@@ -102,6 +102,9 @@ def attendance_info(request):
             serializer = AttendanceSerializer(data = request.data)
     #serializer로 validation, 성공시 출첵
             if serializer.is_valid(raise_exception=True):
+                memberInfo = User.objects.get(pk=request.data['mem_id'])
+                memberInfo.money += 300
+                memberInfo.save() 
                 serializer.save()
                 return Response (
                     {
