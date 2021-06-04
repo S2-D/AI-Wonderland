@@ -5,12 +5,16 @@ import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import MainPage from './components/views/MainPage/MainPage';
 import SearchPage from './components/views/SearchPage/search';
-
-import 'bootstrap/dist/css/bootstrap.css';
 import ProductList from './components/views/Product/ProductList';
 import ProductDetail from './components/views/Product/ProductDetail';
 import Intro from './components/views/Intro/Intro';
+import MyPage from './components/views/MyPage/MyPage';
+
+import 'bootstrap/dist/css/bootstrap.css';
 // 최상위 컴포넌트에 적용해주면 일괄 적용 가능함
+
+import PublicRoute from './url/lib/PublicRoute';
+import PrivateRoute from './url/lib/PrivateRoute';
 
 function App() {
   return (
@@ -20,17 +24,26 @@ function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           {/* 인트로 페이지  연결 */}
-          <Route exact path="/" component={Intro} />
+          <PublicRoute component={Intro} path="/" exact />
           {/* 로그인 페이지  연결 */}
-          <Route exact path="/login" component={LoginPage} />
+          <PublicRoute restricted component={LoginPage} path="/login" exact />
           {/* 회원가입 페이지  연결 */}
-          <Route exact path="/register" component={RegisterPage} />
+          <PublicRoute
+            restricted
+            component={RegisterPage}
+            path="/register"
+            exact
+          />
           {/* 메인 페이지  연결 */}
-          <Route exact path="/main" component={MainPage} />
+          <PublicRoute component={MainPage} path="/main" exact />
           {/* 상품 리스트 페이지 연결  */}
-          <Route exact path="/productList" component={ProductList} />
-          <Route exact path="/productDetail" component={ProductDetail} />
-          <Route exact path="/search" component={SearchPage} />
+          <Route component={ProductList} path="/productList" exact />
+          {/* 검색 페이지 연결 */}
+          <Route component={SearchPage} path="/search" exact />
+          {/* 상품 상세 페이지 연결 */}
+          <Route component={ProductDetail} path="/productDetail" exact />
+          {/* 마이페이지 */}
+          <Route component={MyPage} path="/mypage" exact />
         </Switch>
       </div>
     </Router>

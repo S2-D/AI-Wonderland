@@ -4,8 +4,8 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-
 import baseUrl from '../../../url/http';
+
 import LoginPageStyle from './LoginPageStyle.css';
 
 function LoginPage({ setLoginUserId }) {
@@ -25,7 +25,7 @@ function LoginPage({ setLoginUserId }) {
         // setLoginUserId(response.data.token);
         history.push('/main');
       } else {
-        alert(response.data.result.error);
+        alert(response.data.error);
         document.getElementById('password').focus();
       }
     });

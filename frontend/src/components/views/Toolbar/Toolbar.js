@@ -1,32 +1,31 @@
 import React, { useState } from 'react';
 import ToolbarStyle from './ToolbarStyle.css';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import BaseUrl from '../../../url/http';
+import { set } from 'react-hook-form';
 
 function Toolbar() {
-  const [homeicon, setHomeIconState] = useState(false);
-  const [timegramicon, setTimeIconState] = useState(false);
-  const [searchicon, setSearchIconState] = useState(false);
-  const [scrapicon, setScrapIconState] = useState(false);
-  const [myicon, setMyIconState] = useState(false);
+  const history = useHistory();
+  const pathname = location.pathname;
 
-  const handleHomeIconTouched = () => {
-    setHomeIconState(!homeicon);
+  const handleHome = () => {
+    history.push('/main');
   };
 
-  const handleTimeIconTouched = () => {
-    setTimeIconState(!timegramicon);
+  const handleTimegram = () => {
+    history.push('/timegram');
   };
 
-  const handleSearchIconTouched = () => {
-    setSearchIconState(!searchicon);
+  const handleSearch = () => {
+    history.push('/search');
   };
 
-  const handleScrapIconTouched = () => {
-    setScrapIconState(!scrapicon);
+  const handleScrapbook = () => {
+    history.push('/scrapbook');
   };
 
-  const handleMyIconTouched = () => {
-    setMyIconState(!myicon);
+  const handleMypage = () => {
+    history.push('/mypage');
   };
 
   return (
@@ -34,49 +33,53 @@ function Toolbar() {
       <nav className="toolbar">
         <ul className="toolwrap">
           <li>
-            <Link
-              to="/main"
-              className={'homeIcon' + (!homeicon ? '' : '_touched')}
-              onClick={handleHomeIconTouched}
+            <button
+              type="button"
+              className={'homeIcon' + (pathname === '/main' ? '_touched' : '')}
+              onClick={handleHome}
             >
               Home
-            </Link>
+            </button>
           </li>
           <li>
-            <Link
-              to="/"
-              className={'timegram' + (!timegramicon ? '' : '_touched')}
-              onClick={handleTimeIconTouched}
+            <button
+              type="button"
+              className={
+                'timegram' + (pathname === '/timegram' ? '_touched' : '')
+              }
+              onClick={handleTimegram}
             >
               Timegram
-            </Link>
+            </button>
           </li>
           <li>
-            <Link
-              to="/"
-              className={'search' + (!searchicon ? '' : '_touched')}
-              onClick={handleSearchIconTouched}
+            <button
+              type="button"
+              className={'search' + (pathname === '/search' ? '_touched' : '')}
+              onClick={handleSearch}
             >
               Search
-            </Link>
+            </button>
           </li>
           <li>
-            <Link
-              to="/"
-              className={'scrapbook' + (!scrapicon ? '' : '_touched')}
-              onClick={handleScrapIconTouched}
+            <button
+              type="button"
+              className={
+                'scrapbook' + (pathname === '/scrapbook' ? '_touched' : '')
+              }
+              onClick={handleScrapbook}
             >
               Scrapbook
-            </Link>
+            </button>
           </li>
           <li>
-            <Link
-              to="/"
-              className={'mypage' + (!myicon ? '' : '_touched')}
-              onClick={handleMyIconTouched}
+            <button
+              type="button"
+              className={'mypage' + (pathname === '/mypage' ? '_touched' : '')}
+              onClick={handleMypage}
             >
               My Page
-            </Link>
+            </button>
           </li>
         </ul>
       </nav>
