@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'neodgm';
+  /* 이름 선언 */
+  src: url('../../../fonts/neodgm.woff') format('woff');
+  /* 내가 저장한 경로! */
+}

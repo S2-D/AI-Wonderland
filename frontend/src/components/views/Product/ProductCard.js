@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import styled, { css } from 'styled-components';
 
 // 카드 이미지 설정
-const imageUrl = 'image/sample.jpg'; // 차후 url 형식으로 바꿔주어야 함
+const imageUrl = 'images/sample.jpg'; // 차후 url 형식으로 바꿔주어야 함
 
 export default function ProductCard(props) {
   return (

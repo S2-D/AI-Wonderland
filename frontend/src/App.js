@@ -4,11 +4,12 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import MainPage from './components/views/MainPage/MainPage';
-import Intro from './pages/Intro/Intro';
-import ProductList from './pages/Product/ProductList';
 import SearchPage from './components/views/SearchPage/search';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import ProductList from './components/views/Product/ProductList';
+import ProductDetail from './components/views/Product/ProductDetail';
+import Intro from './components/views/Intro/Intro';
 // 최상위 컴포넌트에 적용해주면 일괄 적용 가능함
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
           <Route exact path="/main" component={MainPage} />
           {/* 상품 리스트 페이지 연결  */}
           <Route exact path="/productList" component={ProductList} />
-          {/* 검색 페이지 연결 */}
+          <Route exact path="/productDetail" component={ProductDetail} />
           <Route exact path="/search" component={SearchPage} />
         </Switch>
       </div>
