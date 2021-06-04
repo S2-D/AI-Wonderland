@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'products',
     'timegram',
     'scrapbook',
-    
+    'attendance',
 ]
 
 MIDDLEWARE = [
