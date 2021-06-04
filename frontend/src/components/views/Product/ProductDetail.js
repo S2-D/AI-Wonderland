@@ -1,34 +1,38 @@
 // 1) 상세 레이아웃 - 예시 url로 잡기, 순풍이 공식문서 바로가기 https://tailwindcss.com/docs/justify-content
 // 2) 데이터 불러오기 분석 - 페이지 이동 시에 asin 넘버를 어떻게 물고 올 것인지
 // 3) 캐러솔 실패하면 끊어서. JS에서도 리스트 저장할 때 슬라이스 가능할 것임
-// 4) 리뷰 데이터 로드 -> 그냥 펑션 따로 빼서 하면 편할 듯
+// 4) 리뷰 데이터 로드 -> 그냥 펑션 따로 빼서 하면 편할 듯 > 이거 버튼 클릭할 때마다다 response.data = 기존 response.data + 새 reponse.data 해주면 됨
 // 5) 리뷰 클릭 시 이동 > ref 사용해서 구현
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
+import NlpDescription from './NlpDescription';
+import Carousel from './Carousel';
 
 import 'tailwindcss/tailwind.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const productInfoUrl = `${baseUrl}/products/productlist/B00007GDFV/`;
+const reviewInfoUrl = `${baseUrl}/products/reviewlist/?p_no=B00007GDFV`;
+
+const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // 예시 배열임. 나중에 꼭 지우기(To-do)
+// const userKeyWords = []; // 예시 배열임. 나중에 꼭 지우기(To-do)
+// const nlpDescription = [
+//   "Beautifully rendered, heartbreakingly adorab, item description example sentences this is amoomal deajanchi janchihanikka I'm hungry, but the train goes on. I like the song 'Ms little perfect' haha.",
+// ];
+const nlpDescription = []; // 예시 배열임. 나중에 꼭 지우기(To-do)
 
 export default function ProductDetail() {
   const [productInfo, setProductInfo] = useState([]);
   const [reviewInfo, setReviewInfo] = useState([]);
-  const [recommendProducts, setRecommendProducts] = useState([]);
+  const [accessToken, setAccessToken] = useState('');
+  const [userNo, setUserNo] = useState(0);
   const [category, setCategory] = useState([]);
-
   // 데이터 받아오기 아래는 다 예시 url임. 나중에 바꿔야 함.
   // useEffect 안에 setState 3개. 프론트 url에 asin 붙이는 거는 app.js에서 path 뒷부분에 스트링 붙이는 거 찾아보기!
-  const productInfoUrl = `${baseUrl}/products/productlist/B00007GDFV/`;
-  const categoryUrl = `${baseUrl}/products/categotylist/${category}/`;
-  const reviewInfoUrl = `${baseUrl}/products/reviewlist/?p_no=B00007GDFV`;
-  const recommendProductsUrl = `${baseUrl}/products/productTop4List/?pcategory_code=1`;
 
-  const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // 예시 배열임. 나중에 꼭 지우기(To-do)
-  // const userKeyWords = []; // 예시 배열임. 나중에 꼭 지우기(To-do)
-  // const nlpDescription = [
-  //   "Beautifully rendered, heartbreakingly adorab, item description example sentences this is amoomal deajanchi janchihanikka I'm hungry, but the train goes on. I like the song 'Ms little perfect' haha.",
-  // ];
-  const nlpDescription = []; // 예시 배열임. 나중에 꼭 지우기(To-do)
-  // 상품 이미지 설정
   useEffect(() => {
     async function getProductInfo() {
       try {
@@ -48,6 +52,25 @@ export default function ProductDetail() {
   }, [productInfoUrl]);
 
   useEffect(() => {
+    async function getUser() {
+      try {
+        const access_token = localStorage.getItem('access_token');
+        const response = await axios.get(`${baseUrl}/member/auth/`, {
+          headers: { Authorization: `jwt ${access_token}` },
+        });
+        if (response.data.status === 'success') {
+          console.log(response.data);
+          setUserNo(response.data.user.id);
+          setAccessToken(access_token);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getUser();
+  }, []);
+
+  useEffect(() => {
     async function getReviewInfo() {
       try {
         const response = await axios.get(reviewInfoUrl);
@@ -64,47 +87,27 @@ export default function ProductDetail() {
     getReviewInfo();
   }, [reviewInfoUrl]);
 
-  useEffect(() => {
-    async function getRecommendProducts() {
-      try {
-        const response = await axios.get(recommendProductsUrl);
-        if (response.status === 200) {
-          setRecommendProducts(response.data);
-        } else if (response.status === 404) {
-          console.log('404 진입' + response);
-          alert('Fail to load the recommend data');
+  const addtoScrapbook = () => {
+    axios
+      .post(
+        `${baseUrl}/scrapbook/scrapbooklist/`,
+        {
+          mem_id: userNo,
+          p_no: 'B000072XRF',
+        },
+        {
+          headers: {
+            Authorization: `jwt ${accessToken}`,
+          },
         }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getRecommendProducts();
-  }, [recommendProductsUrl]);
-
-  // useEffect(() => {
-  //   async function getCategory() {
-  //     try {
-  //       const response = await axios.get(categoryUrl);
-  //       console.log(response.status);
-  //       console.log(response.data);
-  //       if (response.status === 200) {
-  //         setCategory(response.data);
-  //       } else if (response.status === 404) {
-  //         console.log('404 진입' + response);
-  //         alert('Fail to load the category data');
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   getCategory();
-  // }, [categoryUrl]);
+      )
+      .then((response) => {
+        // console.log(response);
+        console.log(response.data.message);
+      });
+  };
 
   return (
-    // 그리드를 플렉스로 감싸서 가운데 정렬 > 그 안에서 그리드로 레이아웃
-    //   전체 박스는 min-max-300이 맞을 듯?
-    //   그 안에 이미지는 min-max-240이 맞겠고. width를 고정시키자
-    //   flex-flow: column;
     <div className="flex my-4 justify-center font-mono">
       <div className="flex flex-col gap-3 justify-center">
         <div
@@ -114,7 +117,6 @@ export default function ProductDetail() {
             height: 'auto',
           }}
         >
-          {/* 그리드에서는 수평, 수직축의 갭을 구분해서 넣어줄 수 있음 */}
           <div className="col-span-2 p-4 flex justify-center">
             <img
               style={{
@@ -153,9 +155,18 @@ export default function ProductDetail() {
                 width: '270px',
                 height: '35px',
               }}
+              onClick={() => {
+                {
+                  if (userNo === 0) {
+                    alert('Please login to continue.');
+                  } else {
+                    alert('The item is added to the scrapbook.');
+                    addtoScrapbook();
+                  }
+                }
+              }}
             >
               Add to Scrapbook
-              {/* onClick 시 alert 노출되고, api에 post 요청이 가도록 설계해야 함 */}
             </button>
           </div>
         </div>
@@ -166,12 +177,12 @@ export default function ProductDetail() {
             // height: 'auto',
           }}
         >
-          <p className="p-1">
+          <p className="p-1 m-0">
             Amazon Best Sellers Rank: 441908
             {/* {productInfo.p_rank} */}
           </p>
-          <p className="p-1">ASIN: {productInfo.p_no}</p>
-          <p className="p-1">Date First Available: {productInfo.p_date}</p>
+          <p className="p-1 m-0">ASIN: {productInfo.p_no}</p>
+          <p className="p-1 m-0">Date First Available: {productInfo.p_date}</p>
         </div>
         <div
           className="shadow-sm py-2 px-3"
@@ -184,43 +195,46 @@ export default function ProductDetail() {
 
           {nlpDescription.length > 0 ? (
             <p className="p-1 text-xs text-justify font-medium">
+              {/* {productInfo.p_description} */}
               nlpDescription
             </p>
           ) : (
-            <p className="flex flex-wrap justify-center p-1 text-xs text-center font-semibold text-gray-500">
+            <p className="flex flex-wrap justify-center p-1 text-xs text-center font-semibold text-gray-700">
               <img
                 src="./images/rabbit_example.jpg"
                 className="rounded-3xl m-4"
                 style={{ width: '200px' }}
               />
               Okay, our database does not have this detail about the item.
-              <br></br> But it does not mean that it is forever lost!
+              <br></br> How about we go back in time and extract the information
+              instead?*
               <button
                 type="button"
-                className="bg-purple-500 hover:bg-purple-800 m-3 text-md text-white font-semibold rounded-lg"
+                className="bg-purple-500 hover:bg-purple-800 m-3 text-lg text-white font-semibold rounded-lg"
                 style={{
                   fontFamily: 'neodgm',
                   width: '200px',
                   height: '35px',
                 }}
                 onClick={() => {
-                  alert('Traveling through Time & Restoring Data');
-                  // 토글 스테이터스를 하나 만들면 됨...
-                  return (
-                    <p>
-                      Awesome nlp text. This is amoomal deajanchi again, I'm so
-                      happy but tired at the same time. Let's go traveling. I
-                      don't know if this spelling is wright but I don't xx care.
-                    </p>
-                  );
+                  {
+                    if (
+                      window.confirm('Traveling through Time & Restoring Data')
+                    ) {
+                      return <NlpDescription />;
+                    } else {
+                      console.log('시간 여행 버튼 취소 클릭');
+                    }
+                  }
                 }}
               >
-                Let's do the time warp again
+                Execute
               </button>
+              <p className="font-semibold text-gray-400">
+                * Powered by Alice the AI Rabbit
+              </p>
             </p>
           )}
-
-          {/* {productInfo.p_description} */}
         </div>
         <div
           className="shadow-sm py-2 px-3 text-md font-medium"
@@ -230,10 +244,10 @@ export default function ProductDetail() {
           }}
         >
           {/* 상품 인포 2 */}
-          <p className="pl-1 pt-1 pb-3 text-sm font-semibold">
+          <p className="pl-1 pt-1 pb-1 text-sm font-semibold">
             AI Review Analysis
           </p>
-          <div className="inline-flex flex-wrap justify-center gap-x-3 gap-y-2">
+          <div className="inline-flex flex-wrap justify-center gap-x-3 gap-y-2 m-2">
             {userKeyWords.length > 0 ? (
               userKeyWords.map((keyWord, idx) => (
                 <div
@@ -253,6 +267,22 @@ export default function ProductDetail() {
             )}
           </div>
           {/* <p>{productInfo.p_keyword}</p> */}
+        </div>
+
+        <div
+          className="shadow-sm py-2 px-3 text-md font-medium"
+          style={{
+            maxWidth: '310px',
+            height: 'auto',
+          }}
+        >
+          {/* 추천 상품 */}
+          <p className="pl-1 pt-1 pb-3 text-sm font-semibold">
+            Customers who bought this item also bought
+          </p>
+          <div className="rounded-none shadow-none">
+            <Carousel />
+          </div>
         </div>
       </div>
     </div>

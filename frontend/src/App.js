@@ -37,11 +37,11 @@ function App() {
           {/* 메인 페이지  연결 */}
           <PublicRoute component={MainPage} path="/main" exact />
           {/* 상품 리스트 페이지 연결  */}
-          <Route component={ProductList} path="/productList" exact />
+          <PublicRoute component={ProductList} path="/productList" exact />
           {/* 검색 페이지 연결 */}
           <Route component={SearchPage} path="/search" exact />
           {/* 상품 상세 페이지 연결 */}
-          <Route component={ProductDetail} path="/productDetail" exact />
+          <PublicRoute component={ProductDetail} path="/productDetail" exact />
           {/* 마이페이지 */}
           <Route component={MyPage} path="/mypage" exact />
         </Switch>
