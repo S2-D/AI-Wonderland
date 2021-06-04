@@ -3,39 +3,88 @@ import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
 import { Link } from 'react-router-dom';
 import Wallet from '../GNB/Wallet';
+import Logout from '../LoginPage/Logout';
 
 function MyPage() {
   return (
     <>
       <GNB />
-      <div className="flow-root flow-root grid-cols-6 gap-x-2 gap-y-4 min-w-full md:min-w-full">
-        <ul className="myPage_Container">
-          <li className="myPage_userInfo">
-            <span>
-              <img
-                src="./images/icon_img/anonymous.png"
-                className="profileImg"
-              />
-            </span>
-            <div>
-              <p>nickname</p>
-              <p>Useremail</p>
-              <Wallet />
-            </div>
-          </li>
-          <li className="myScrapbook_link">
-            <Link to={'/scrapbook'}>My Scrapbook</Link>
-          </li>
-          <li className="myLookbook_link">
-            <Link to={'/lookbook'}>My Lookbook</Link>
-          </li>
-          <li className="myAttendance_link">
-            <Link to={'/attendance'}>Attendance</Link>
-          </li>
-          <li className="logOut_link">
-            <button type="submit">Log Out</button>
-          </li>
-        </ul>
+      <div className="grid grid-rows-2 grid-flow-col justify-center">
+        <div
+          className="userInfo"
+          style={{
+            backgroundColor: 'yellow',
+          }}
+        >
+          <div className="col-span-2 w-40 h-40 p-4 flex">
+            <img
+              src="./images/icon_img/anonymous.png"
+              style={{
+                borderRadius: '50%',
+                backgroundColor: 'pink',
+              }}
+            />
+          </div>
+          <div
+            className="col-span-1"
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            <span>Nickname</span>
+          </div>
+          <div
+            className="col-span-1"
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            <span>Email</span>
+          </div>
+          <div
+            className="col-span-1"
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            <Wallet />
+          </div>
+        </div>
+        <div className="gird grid-row-4 grid-col-4 gap-4 justify-center">
+          <div
+            className="col-span-2"
+            style={{
+              textAlign: 'right',
+            }}
+          >
+            <Link to="/scrapbook">My Scrapbook</Link>
+          </div>
+          <div
+            className="col-span-2"
+            style={{
+              textAlign: 'right',
+            }}
+          >
+            <Link to="/">My Lookbook</Link>
+          </div>
+          <div
+            className="col-span-2"
+            style={{
+              textAlign: 'right',
+            }}
+          >
+            <Link to="/attendance">Check-in</Link>
+          </div>
+          <div
+            className="col-span-2"
+            style={{
+              textAlign: 'center',
+              backgroundColor: 'hotpink',
+            }}
+          >
+            <Logout />
+          </div>
+        </div>
       </div>
       <Toolbar />
     </>

@@ -44,9 +44,7 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              className={
-                'timegram' + (pathname === '/timegram' ? '_touched' : '')
-              }
+              className={'timegram' + (pathname === '/' ? '_touched' : '')}
               onClick={handleTimegram}
             >
               Timegram
@@ -64,9 +62,7 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              className={
-                'scrapbook' + (pathname === '/scrapbook' ? '_touched' : '')
-              }
+              className={'scrapbook' + (pathname === '/' ? '_touched' : '')}
               onClick={handleScrapbook}
             >
               Scrapbook
