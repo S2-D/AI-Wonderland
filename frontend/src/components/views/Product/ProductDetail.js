@@ -1,6 +1,8 @@
 // 1) 상세 레이아웃 - 예시 url로 잡기, 순풍이 공식문서 바로가기 https://tailwindcss.com/docs/justify-content
 // 2) 데이터 불러오기 분석 - 페이지 이동 시에 asin 넘버를 어떻게 물고 올 것인지
 // 3) 캐러솔 실패하면 끊어서. JS에서도 리스트 저장할 때 슬라이스 가능할 것임
+// 4) 리뷰 데이터 로드 -> 그냥 펑션 따로 빼서 하면 편할 듯
+// 5) 리뷰 클릭 시 이동 > ref 사용해서 구현
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
@@ -31,7 +33,6 @@ export default function ProductDetail() {
     async function getProductInfo() {
       try {
         const response = await axios.get(productInfoUrl);
-        console.log(response.status);
         console.log(response.data);
         if (response.status === 200) {
           setProductInfo(response.data);
@@ -50,8 +51,6 @@ export default function ProductDetail() {
     async function getReviewInfo() {
       try {
         const response = await axios.get(reviewInfoUrl);
-        console.log(response.status);
-        console.log(response.data);
         if (response.status === 200) {
           setReviewInfo(response.data);
         } else if (response.status === 404) {
@@ -69,8 +68,6 @@ export default function ProductDetail() {
     async function getRecommendProducts() {
       try {
         const response = await axios.get(recommendProductsUrl);
-        console.log(response.status);
-        console.log(response.data);
         if (response.status === 200) {
           setRecommendProducts(response.data);
         } else if (response.status === 404) {

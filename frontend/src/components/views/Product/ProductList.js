@@ -48,6 +48,7 @@ export default function ProductList() {
         setLoading(true);
         // 데이터 받아오기 전 로딩
         const response = await axios.get(productsUrl);
+        console.log(response);
         console.log(response.status);
         console.log(response.data.results);
         if (response.status === 200) {
