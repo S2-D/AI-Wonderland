@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import baseUrl from '../../../url/http';
 
 // Import Swiper React components
@@ -19,15 +19,19 @@ import axios from 'axios';
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
-const recommendProductsUrl = `${baseUrl}/products/productTop4List/?pcategory_code=1`;
+// 추천 아이템 api URL (지금은 예시 데이터임)
+const search_p_no = 'B00006MVYA';
+const recommendProductsUrl = `${baseUrl}/products/alsoboughtlist/?search_p_no=${search_p_no}`;
 
 export default function Carousel() {
+  // api에서 정보 불러오기 - To-Do 나중에 백엔드에 p_no으로 맵함수 안의 맵으로 다시 불러와야 하는 것인지 물어보기(당연한 것 같지만)
   const [recommendProducts, setRecommendProducts] = useState([]);
   useEffect(() => {
     async function getRecommendProducts() {
       try {
         const response = await axios.get(recommendProductsUrl);
         console.log(response.data.data);
+        console.log(response.data.data[0]);
         if (response.status === 200) {
           setRecommendProducts(response.data.data);
         } else if (response.status === 404) {

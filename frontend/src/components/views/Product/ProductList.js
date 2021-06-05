@@ -1,10 +1,9 @@
 // To-do :
 // 1) 컴포넌트 url 변경(나윤님과 합의해 공통 페이지 만들기!) v
-// 2) 무한 스크롤링 적용하기
-// 3) 이미지 조건부 렌더링
-// 4) 가격 정렬 api 받아오기
-// 5) 로딩 중 표시 추가
-// 6) http://localhost:3000/productList/p_category?=Top 로, 링크 붙여주기
+// 2) 이미지 조건부 렌더링
+// 3) 가격 정렬 api 받아오기
+// 4) 로딩 중 표시 추가
+// 5) http://localhost:3000/productList/p_category?=Top 로, 링크 붙여주기
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';

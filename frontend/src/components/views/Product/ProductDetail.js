@@ -1,6 +1,6 @@
-// 1) 상세 레이아웃 - 예시 url로 잡기, 순풍이 공식문서 바로가기 https://tailwindcss.com/docs/justify-content
-// 2) 데이터 불러오기 분석 - 페이지 이동 시에 asin 넘버를 어떻게 물고 올 것인지
-// 3) 캐러솔 실패하면 끊어서. JS에서도 리스트 저장할 때 슬라이스 가능할 것임
+// 1) 데이터 불러오기 분석 - 페이지 이동 시에 asin 넘버를 어떻게 물고 올 것인지
+// 2) 추천 아이템 연결 - 캐러솔로
+// 3) NLP 조건부 랜더링
 // 4) 리뷰 데이터 로드 -> 그냥 펑션 따로 빼서 하면 편할 듯 > 이거 버튼 클릭할 때마다다 response.data = 기존 response.data + 새 reponse.data 해주면 됨
 // 5) 리뷰 클릭 시 이동 > ref 사용해서 구현
 
@@ -17,12 +17,12 @@ import 'react-toastify/dist/ReactToastify.css';
 const productInfoUrl = `${baseUrl}/products/productlist/B00007GDFV/`;
 const reviewInfoUrl = `${baseUrl}/products/reviewlist/?p_no=B00007GDFV`;
 
-const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // 예시 배열임. 나중에 꼭 지우기(To-do)
-// const userKeyWords = []; // 예시 배열임. 나중에 꼭 지우기(To-do)
+const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
+// const userKeyWords = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 // const nlpDescription = [
 //   "Beautifully rendered, heartbreakingly adorab, item description example sentences this is amoomal deajanchi janchihanikka I'm hungry, but the train goes on. I like the song 'Ms little perfect' haha.",
 // ];
-const nlpDescription = []; // 예시 배열임. 나중에 꼭 지우기(To-do)
+const nlpDescription = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 
 export default function ProductDetail() {
   const [productInfo, setProductInfo] = useState([]);
@@ -124,7 +124,7 @@ export default function ProductDetail() {
                 height: 'auto',
               }}
               src="https://images-na.ssl-images-amazon.com/images/I/41Rtah4DGHL.jpg"
-              // 지금은 예시 이미지. 나중에 상품 정보에서 꺼내와야 함
+              // 지금은 api 완성 전 예시 이미지. 나중에 상품 정보에서 꺼내와야 함
             ></img>
           </div>
           <div className="col-span-1 pl-3 flex justify-start">
@@ -199,7 +199,7 @@ export default function ProductDetail() {
               nlpDescription
             </p>
           ) : (
-            <p className="flex flex-wrap justify-center p-1 text-xs text-center font-semibold text-gray-700">
+            <div className="flex flex-wrap justify-center p-1 text-xs text-center font-semibold text-gray-700">
               <img
                 src="./images/rabbit_example.jpg"
                 className="rounded-3xl m-4"
@@ -233,7 +233,7 @@ export default function ProductDetail() {
               <p className="font-semibold text-gray-400">
                 * Powered by Alice the AI Rabbit
               </p>
-            </p>
+            </div>
           )}
         </div>
         <div
