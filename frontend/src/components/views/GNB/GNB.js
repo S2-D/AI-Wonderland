@@ -14,7 +14,9 @@ function GNB() {
           </Link>
         </div>
         <div className="right_container">
-          <div className="wallet">$100,000</div>
+          <div className="wallet">
+            <Wallet />
+          </div>
         </div>
       </div>
       <Compass />

@@ -1,42 +1,59 @@
-import Reac, { useEffect } from 'react';
-import Wallet from '../GNB/Wallet';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import baseUrl from '../../../url/http';
 
 export default function Info() {
-  const authUrl = `${baseUrl}/member/auth`;
-  const mypageUrl = `${baseUrl}/member/${id}`;
-  const [userInfo, setUserInfo] = useState(1);
+  const [nickName, setNickName] = useState('');
+  const [money, setMoney] = useState('');
+  const [accessToken, setAccessToken] = useState('');
+  const [userId, setUserId] = useState('');
+  const [Email, setUserEmail] = useState('');
 
-  const response = axios.get(authUrl);
-
-  const key = 'jwt ' + localStorage.getItem('access_token');
-  const userData = [
-    { id: 1, name: 'id' },
-    { id: 2, name: 'email' },
-    { id: 3, name: 'nickname' },
-    { id: 4, name: 'money' },
-  ];
+  const MyPageInfoUrl = `localhost:3000/mypage`;
 
   useEffect(() => {
-    async function getUserData() {
+    async function getUserAuth() {
       try {
-        const response = await axios.get(myUrl);
-        console.log(response.status);
-        console.log(response.data.results);
-        if (response.status === 200) {
-          setProducts(response.data.results);
-        } else if (response.status === 404) {
-          console.log('404 진입' + response);
-          alert('Fail to load the product data');
+        const access_token = localStorage.getItem('access_token');
+        const response = await axios.get(`${baseUrl}/member/auth/`, {
+          headers: { Authorization: `jwt ${access_token}` },
+        });
+        if (response.data.status === 'success') {
+          console.log(response.data);
+          setUserId(response.data.user.id);
+          setAccessToken(access_token);
+          setNickName(response.data.user.nickname);
+          setMoney(response.data.user.money);
+          setUserEmail(response.data.user.email);
         }
       } catch (error) {
         console.log(error);
-        const response = await axios.get(productsUrl);
-        console.log(response.status);
       }
     }
-    getProductData();
-  }, [productsUrl]);
+    getUserAuth();
+  }, [MyPageInfoUrl]);
+
+  //추후 API 수정되면 코드 다시 짜기.
+  // useEffect(() => {
+  //   async function getmyPageInfo() {
+  //     try {
+  //       const response = await axios.get(`${baseUrl}/member/${userId}`, {
+  //         headers: {
+  //           Authorization: `jwt ${accessToken}`,
+  //         },
+  //       });
+  //       if (response.data.status === 'success') {
+  //         console.log(response.data);
+  //         setNickName(response.data.nickname);
+  //         console.log(nickName);
+  //         setMoney(response.data.money);
+  //         console.log(money);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // });
 
   return (
     <div
@@ -66,7 +83,7 @@ export default function Info() {
             textAlign: 'center',
           }}
         >
-          <span>Nickname</span>
+          <span>{nickName}</span>
         </div>
         <div
           className="col-span-1"
@@ -74,7 +91,7 @@ export default function Info() {
             textAlign: 'center',
           }}
         >
-          <span>Email</span>
+          <span>{Email}</span>
         </div>
         <div
           className="col-span-1"
@@ -82,7 +99,7 @@ export default function Info() {
             textAlign: 'center',
           }}
         >
-          <Wallet />
+          <span>{money}</span>
         </div>
       </div>
     </div>

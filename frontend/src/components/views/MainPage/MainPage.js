@@ -31,7 +31,7 @@ export default function MainPage() {
         console.log(response.status);
         console.log(response.data.results);
         if (response.status === 200) {
-          setProducts(response.data.results);
+          console.log(response.data);
         } else if (response.status === 404) {
           console.log('404 진입' + response);
           alert('Fail to load the product data');
