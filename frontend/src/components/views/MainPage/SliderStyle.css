@@ -13,15 +13,16 @@ body {
   padding: 0;
 }
 
-.swiper-container {
+.MainSwiper .swiper-container {
   width: 100%;
   padding-bottom: 30%;
   box-shadow: 0 8px 16px 0 rgb(0 0 0 / 12%);
   margin-top: 18px;
   border-radius: 20px;
+  height: 100%;
 }
 
-.swiper-slide {
+.MainSwiper .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
@@ -54,15 +55,15 @@ body {
   position: relative;
 }
 
-.swiper-pagination-bullet {
-  background-color: white;
+.MainSwiper .swiper-pagination-bullet {
+  background: #fff !important;
 }
 
-.swiper-button-next {
+.MainSwiper .swiper-button-next {
   color: white;
 }
 
-.swiper-button-prev {
+.MainSwiper .swiper-button-prev {
   color: white;
 }
 

@@ -3,11 +3,11 @@ import axios from 'axios';
 import baseUrl from '../../../url/http';
 
 export default function Info() {
-  const [nickName, setNickName] = useState('');
-  const [money, setMoney] = useState('');
+  const [Nickname, setNickName] = useState('');
+  const [Money, setMoney] = useState('');
   const [accessToken, setAccessToken] = useState('');
-  const [userId, setUserId] = useState('');
-  const [Email, setUserEmail] = useState('');
+  const [userId, setId] = useState('');
+  const [Email, setEmail] = useState('');
 
   const MyPageInfoUrl = `localhost:3000/mypage`;
 
@@ -19,12 +19,12 @@ export default function Info() {
           headers: { Authorization: `jwt ${access_token}` },
         });
         if (response.data.status === 'success') {
-          console.log(response.data);
-          setUserId(response.data.user.id);
+          // console.log(response.data);
+          setId(response.data.user.id);
           setAccessToken(access_token);
           setNickName(response.data.user.nickname);
           setMoney(response.data.user.money);
-          setUserEmail(response.data.user.email);
+          setEmail(response.data.user.email);
         }
       } catch (error) {
         console.log(error);
@@ -59,13 +59,13 @@ export default function Info() {
     <div
       className="grid grid-rows-1 grid-flow-col p-4 w-full justify-center font-mono"
       style={{
-        backgroundColor: 'black',
+        backgroundColor: '#fdcb6e',
       }}
     >
       <div
         className="userInfo"
         style={{
-          backgroundColor: 'yellow',
+          marginTop: '0px',
         }}
       >
         <div className="col-span-1 w-40 h-40 p-4 mx-20">
@@ -83,7 +83,7 @@ export default function Info() {
             textAlign: 'center',
           }}
         >
-          <span>{nickName}</span>
+          <span>{Nickname}</span>
         </div>
         <div
           className="col-span-1"
@@ -99,7 +99,7 @@ export default function Info() {
             textAlign: 'center',
           }}
         >
-          <span>{money}</span>
+          <span>{Money}</span>
         </div>
       </div>
     </div>
