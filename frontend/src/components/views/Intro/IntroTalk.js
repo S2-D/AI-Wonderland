@@ -14,7 +14,8 @@ function IntroTalk() {
     },
     {
       id: 3,
-      text: "I'll take you to the vintage shop of the past. * Go and find yourself.",
+      text:
+        "I'll take you to the vintage shop of the past. * Go and find yourself.",
     },
     {
       id: 4,

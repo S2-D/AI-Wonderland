@@ -21,7 +21,7 @@ SwiperCore.use([Navigation, Pagination]);
 
 const recommendProductsUrl = `${baseUrl}/products/productTop4List/?pcategory_code=1`;
 
-export default function Carousel(props) {
+export default function Carousel() {
   const [recommendProducts, setRecommendProducts] = useState([]);
   useEffect(() => {
     async function getRecommendProducts() {

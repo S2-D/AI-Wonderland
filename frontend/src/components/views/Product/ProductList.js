@@ -12,7 +12,7 @@ import baseUrl from '../../../url/http';
 
 import { Container, Row, Col, DropdownButton, Dropdown } from 'react-bootstrap';
 import ProductCard from './ProductCard.js';
-import dropdown from './dropdown.css';
+import Styleddropdown from './Styleddropdown.css';
 
 export default function ProductList() {
   // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타
