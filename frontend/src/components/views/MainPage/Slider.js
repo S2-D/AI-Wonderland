@@ -29,7 +29,7 @@ export default function App() {
           clickable: true,
         }}
         navigation={true}
-        className="mySwiper"
+        className="mySwiper1"
       >
         <SwiperSlide className="slide_1">
           <img src="./images/welcome_image/welcome1.png" />
