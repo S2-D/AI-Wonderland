@@ -3,11 +3,25 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 
 class UserManager(BaseUserManager):
+    def create_user(self, email, nickname, password=None):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            email=self.normalize_email(email),
+            nickname=nickname
+        )
+
+        user.set_password(password)
+        user.is_admin = False
+        user.save(using=self._db)
+        return user
+
     def create_superuser(self, email, nickname, password):
         user = self.create_user(
             email,
-            password = password,
-            nickname = nickname
+            password=password,
+            nickname=nickname
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -16,12 +30,12 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     email = models.EmailField(
-        verbose_name = 'email',
-        max_length = 255,
-        unique = True,
+        verbose_name='email',
+        max_length=255,
+        unique=True,
     )
     nickname = models.CharField(max_length=20, verbose_name='별명')
-    money = models.IntegerField(blank=True, default=1000, verbose_name='가상머니')
+    money = models.FloatField(blank=True, default=1000, verbose_name='가상머니')
     joindate = models.DateTimeField(auto_now_add=True, verbose_name="가입일")
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

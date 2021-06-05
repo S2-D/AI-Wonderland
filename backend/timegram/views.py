@@ -1,5 +1,6 @@
 from rest_framework import generics, viewsets, status, views, permissions
 from rest_framework_jwt import authentication
+from rest_framework.pagination import PageNumberPagination
 
 from .models import Timegram, Like
 from .serializers import TimegramListSerializer, TimegramCreateSerializer, LikeCreateSerializer
@@ -12,14 +13,6 @@ from rest_framework_jwt.settings import api_settings
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 
-headers = openapi.Parameter(
-    'Authorization',
-    openapi.IN_HEADER,
-    description='jwt {access_token}',
-    type=openapi.TYPE_STRING,
-    required=True
-)
-
 
 class TimegramList(viewsets.ReadOnlyModelViewSet):
     """
@@ -27,19 +20,41 @@ class TimegramList(viewsets.ReadOnlyModelViewSet):
     ---
     parameter 없으면 전체 리스트를 가져옵니다.
     page : 조회할 페이지를 입력하세요.(페이지당 20개씩)
+    ordering : 정렬할 필드를 선택하세요. -dt_created  : 최신 순 , -total_like  : 좋아요 순, total_price :낮은 가격순, -total_price : 높은 가격순
     """
-    queryset = Timegram.objects.raw(
-        """
-        SELECT
-            *
-        FROM timegram_timegram t
-        INNER JOIN member_user m
-            ON t.mem_id = m.id
-        """
-    )
+    queryset = Timegram.objects.all()
     serializer_class = TimegramListSerializer
     permission_classes = (permissions.AllowAny,)
     authentication_classes = (authentication.JSONWebTokenAuthentication,)
+    
+    param_ordering = openapi.Parameter(
+        'ordering',
+        openapi.IN_QUERY, 
+        description='정렬 필드', 
+        type=openapi.TYPE_STRING,
+        required=False
+    )
+    
+    param_page = openapi.Parameter(
+        'page',
+        openapi.IN_QUERY, 
+        description='페이지 번호', 
+        type=openapi.TYPE_STRING,
+        required=False
+    )
+    @swagger_auto_schema(
+        manual_parameters = [param_ordering, param_page],
+    )
+    def list(self, request):
+        ordering = self.request.query_params.get('ordering', None)
+        queryset = self.queryset.all()
+        if ordering is not None:
+            list_queryset = queryset.order_by(ordering)
+        paginator = PageNumberPagination()
+        page = paginator.paginate_queryset(list_queryset, request)
+        serializer = TimegramListSerializer(page, many=True)
+
+        return paginator.get_paginated_response(serializer.data)
 
 
 class TimegramCreate(viewsets.ViewSet):
@@ -50,7 +65,7 @@ class TimegramCreate(viewsets.ViewSet):
     serializer_class = TimegramCreateSerializer
     authentication_classes = (authentication.JSONWebTokenAuthentication,)
 
-    @swagger_auto_schema(manual_parameters=[headers], request_body=TimegramCreateSerializer,)
+    @swagger_auto_schema(request_body=TimegramCreateSerializer,)
     def create(self, request):
         """
         타임그램 등록하기
@@ -87,6 +102,7 @@ def like_list(request, id):
     id : 타임그램의 id를 입력하세요.
     total_like : 해당 타임그램의 좋아요 개수입니다.
     """
+
     if request.method == 'GET':
         likeList = Like.objects.raw(
             """
@@ -104,6 +120,7 @@ def like_list(request, id):
                 WHERE id = %s
             """, [id]
         )
+
         if len(likeList) > 0:
             data = {
                 "id": likeList[0].id,
@@ -131,7 +148,7 @@ def like_list(request, id):
             )
 
 
-@swagger_auto_schema(methods=['post'], manual_parameters=[headers], request_body=LikeCreateSerializer,)
+@swagger_auto_schema(methods=['post'], request_body=LikeCreateSerializer,)
 @api_view(['POST'])
 def like_post(request):
     """

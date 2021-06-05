@@ -1,9 +1,10 @@
 from django.urls import path, include
-from .views import mypage_info, sign_up, sign_in, getMoney
+from . import views
 
 urlpatterns = [
-    path('<int:id>', mypage_info),
-    path('signUp/', sign_up),
-    path('signIn/', sign_in),
-    path('getMoney/<int:id>', getMoney),
+    path('<int:id>', views.mypage_info),
+    path('signUp/', views.sign_up),
+    path('signIn/', views.sign_in),
+    path('auth/', views.authenticated_user),
+    path('getMoney/<int:id>', views.getMoney),
 ]
