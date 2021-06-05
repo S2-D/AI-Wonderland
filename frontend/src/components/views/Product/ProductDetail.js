@@ -29,10 +29,11 @@ export default function ProductDetail() {
   const [reviewInfo, setReviewInfo] = useState([]);
   const [accessToken, setAccessToken] = useState('');
   const [userNo, setUserNo] = useState(0);
-  const [category, setCategory] = useState([]);
+  const [onToggle, setOnToggle] = useState(false);
   // 데이터 받아오기 아래는 다 예시 url임. 나중에 바꿔야 함.
   // useEffect 안에 setState 3개. 프론트 url에 asin 붙이는 거는 app.js에서 path 뒷부분에 스트링 붙이는 거 찾아보기!
 
+  // API - 개별 상품 정보 받아오기
   useEffect(() => {
     async function getProductInfo() {
       try {
@@ -51,6 +52,7 @@ export default function ProductDetail() {
     getProductInfo();
   }, [productInfoUrl]);
 
+  // API - 로그인 유저 정보 받아오기
   useEffect(() => {
     async function getUser() {
       try {
@@ -70,6 +72,7 @@ export default function ProductDetail() {
     getUser();
   }, []);
 
+  // API - 개별 상품의 리뷰 정보 받아오기
   useEffect(() => {
     async function getReviewInfo() {
       try {
@@ -87,6 +90,7 @@ export default function ProductDetail() {
     getReviewInfo();
   }, [reviewInfoUrl]);
 
+  // API - 로그인 유저의 스크랩북에 상품 추가하기
   const addtoScrapbook = () => {
     axios
       .post(
@@ -217,17 +221,11 @@ export default function ProductDetail() {
                   height: '35px',
                 }}
                 onClick={() => {
-                  {
-                    if (
-                      window.confirm('Traveling through Time & Restoring Data')
-                    ) {
-                      return <NlpDescription />;
-                    } else {
-                      console.log('시간 여행 버튼 취소 클릭');
-                    }
-                  }
+                  alert('Traveling through Time & Restoring Data');
+                  setOnToggle(true);
                 }}
               >
+                {console.log('NLP 생성 버튼 클릭 상태 : ' + onToggle)}
                 Execute
               </button>
               <p className="font-semibold text-gray-400">
