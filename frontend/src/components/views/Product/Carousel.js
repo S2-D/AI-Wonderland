@@ -1,11 +1,13 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { Route, Link } from 'react-router-dom';
+
 import baseUrl from '../../../url/http';
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import 'swiper/swiper.min.css';
+// import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.min.css';
 
@@ -16,7 +18,6 @@ import 'tailwindcss/tailwind.css';
 import SwiperCore, { Navigation, Pagination } from 'swiper/core';
 import axios from 'axios';
 
-// install Swiper modules
 SwiperCore.use([Navigation, Pagination]);
 
 const recommendProductsUrl = `${baseUrl}/products/productTop4List/?pcategory_code=1`;
@@ -42,49 +43,53 @@ export default function Carousel(props) {
   }, [recommendProductsUrl]);
 
   return (
-    <div>
-      <Swiper
-        slidesPerView={1}
-        spaceBetween={10}
-        centeredSlides={true}
-        pagination={{
-          clickable: true,
-        }}
-        navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-        }}
-        className="mySwiper"
-      >
-        {recommendProducts.map((recommendProduct, idx) => (
-          <SwiperSlide
-            key={idx}
-            className="flex flex-col justify-center p-1 text-xs text-center font-semibold text-gray-700"
-          >
-            {/* <p>{recommendProduct.p_image}</p> */}
-            <img
-              src="https://images-na.ssl-images-amazon.com/images/I/51KgzdilYAL.jpg"
-              style={{ width: '200px', height: 'auto' }}
-            ></img>
-            <p className="p-3 mb-0 text-sm" style={{ marginRight: 'auto' }}>
-              {recommendProduct.p_brand}
-            </p>
-            <p
-              className="pl-2 pr-2 text-left font-medium"
-              style={{ marginRight: 'auto' }}
-            >
-              {recommendProduct.p_name} hitop shoes this is line by hungry
-              developer
-            </p>
-            <p
-              className="pl-3 mb-0 text-sm font-semibold text-gray-600"
-              style={{ marginRight: 'auto' }}
-            >
-              {recommendProduct.p_price}
-            </p>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div className="swiper-container-swiper1">
+      <div className="swiper-wrapper1">
+        <Swiper
+          slidesPerView={1}
+          spaceBetween={10}
+          centeredSlides={true}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={{
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }}
+        >
+          {recommendProducts.map((recommendProduct, idx) => (
+            <Link to="/productList" style={{ textDecoration: 'none' }}>
+              <SwiperSlide
+                key={idx}
+                className="flex flex-col justify-center p-1 text-xs text-center font-semibold text-gray-700"
+              >
+                {/* <p>{recommendProduct.p_image}</p> */}
+                <img
+                  src="https://images-na.ssl-images-amazon.com/images/I/51KgzdilYAL.jpg"
+                  style={{ width: '200px', height: 'auto' }}
+                ></img>
+                <p className="p-3 mb-0 text-sm" style={{ marginRight: 'auto' }}>
+                  {recommendProduct.p_brand}
+                </p>
+                <p
+                  className="pl-2 pr-2 text-left font-medium"
+                  style={{ marginRight: 'auto' }}
+                >
+                  {recommendProduct.p_name} hitop shoes this is line by hungry
+                  developer
+                </p>
+                <p
+                  className="pl-3 mb-0 text-sm font-semibold text-gray-600"
+                  style={{ marginRight: 'auto' }}
+                >
+                  {recommendProduct.p_price}
+                </p>
+              </SwiperSlide>
+            </Link>
+          ))}
+          <div className="swiper-pagination swiper-pagination1"></div>
+        </Swiper>
+      </div>
     </div>
   );
 }

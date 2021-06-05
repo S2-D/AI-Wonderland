@@ -5,14 +5,13 @@
 // 5) 리뷰 클릭 시 이동 > ref 사용해서 구현
 
 import React, { useEffect, useState } from 'react';
+
 import axios from 'axios';
 import baseUrl from '../../../url/http';
 import NlpDescription from './NlpDescription';
 import Carousel from './Carousel';
 
 import 'tailwindcss/tailwind.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const productInfoUrl = `${baseUrl}/products/productlist/B00007GDFV/`;
 const reviewInfoUrl = `${baseUrl}/products/reviewlist/?p_no=B00007GDFV`;
@@ -217,19 +216,21 @@ export default function ProductDetail() {
                   height: '35px',
                 }}
                 onClick={() => {
-                  {
-                    if (
-                      window.confirm('Traveling through Time & Restoring Data')
-                    ) {
-                      return <NlpDescription />;
-                    } else {
-                      console.log('시간 여행 버튼 취소 클릭');
-                    }
-                  }
+                  // {
+                  //   if (
+                  //     window.confirm('Traveling through Time & Restoring Data')
+                  //     window.confirm === true >> const onToggle
+                  //   ) {
+                  //     return <NlpDescription />;
+                  //   } else {
+                  //     console.log('시간 여행 버튼 취소 클릭');
+                  //   }
+                  // }
                 }}
               >
                 Execute
               </button>
+              {/* if onToggle */}
               <p className="font-semibold text-gray-400">
                 * Powered by Alice the AI Rabbit
               </p>
@@ -280,9 +281,9 @@ export default function ProductDetail() {
           <p className="pl-1 pt-1 pb-3 text-sm font-semibold">
             Customers who bought this item also bought
           </p>
-          <div className="rounded-none shadow-none">
-            <Carousel />
-          </div>
+          {/* <div className="rounded-none shadow-none"> */}
+          <Carousel />
+          {/* </div> */}
         </div>
       </div>
     </div>
