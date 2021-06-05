@@ -2,8 +2,8 @@ from rest_framework import generics, viewsets, filters, permissions, status
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
-from .models import Category, Product, Review
-from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ProductTop4Serializer
+from .models import Category, Product, Review, Also_bought
+from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ProductTop4Serializer, AlsoBoughtSerializer
 from django.shortcuts import get_object_or_404
 
 from drf_yasg import openapi
@@ -101,12 +101,12 @@ class ReviewList(viewsets.ReadOnlyModelViewSet):
         """
         ReviewList API : 특정 상품 리뷰 리스트 조회
         ---
-        p_no  : 조회할 상품의 asin 을 입력하세요.
+        p_no : 조회할 상품의 asin 을 입력하세요.
         """
         asin = self.request.query_params.get('p_no', None)
-        list_queryset = self.queryset.filter(p_no = asin)
-        
+        list_queryset = self.queryset.filter(p_no = asin).order_by('-review_vote', '-review_date')
         paginator = PageNumberPagination()
+        
         page = paginator.paginate_queryset(list_queryset, request)
         serializer = ReviewSerializer(page, many=True)
 
@@ -153,3 +153,40 @@ class ProductTop4List(viewsets.ViewSet):
                         "data": serializer.data
                     }, status = status.HTTP_200_OK
                 )
+
+class AlsoBoughtList(viewsets.ViewSet):
+    """
+    AlsoBoughtList API
+    """
+    queryset = Product.objects.all()
+    serializer_class = ProductTop4Serializer
+    permission_classes = [permissions.AllowAny,]
+
+    param_p_no = openapi.Parameter(
+        'search_p_no',
+        openapi.IN_QUERY, 
+        description='asin', 
+        type=openapi.TYPE_STRING,
+        required=True
+    )
+
+    @swagger_auto_schema(
+        manual_parameters = [param_p_no],
+    )
+    def list(self, request):
+        """
+        search_p_no : 조회할 상품의 asin 을 입력하세요.
+        """
+        asin = self.request.query_params.get('search_p_no', None)
+
+        also_queryset = Also_bought.objects.filter(search_p_no = asin)
+        serializer = AlsoBoughtSerializer(also_queryset, many=True)
+        
+        return Response (
+                    {
+                        "status_code": status.HTTP_200_OK,
+                        "status": "success",
+                        "data": serializer.data
+                    }, status = status.HTTP_200_OK
+                )
+

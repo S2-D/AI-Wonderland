@@ -11,5 +11,7 @@ urlpatterns = [
     path('productlist/', views.ProductList.as_view({'get': 'list'}), name='product-list'),
     path('productlist/<str:pk>/', views.ProductList.as_view({'get': 'retrieve'}), name='product-detail'),
     path('reviewlist/', views.ReviewList.as_view({'get': 'list'}), name='review-list'),
-    path('productTop4List/', views.ProductTop4List.as_view({'get': 'list'}), name='producttop4-list'),
+    path('top4list/', views.ProductTop4List.as_view({'get': 'list'}), name='producttop4-list'),
+    path('alsoboughtlist/', views.AlsoBoughtList.as_view({'get': 'list'}), name='alsoBought-list'),
+    
 ]
