@@ -33,6 +33,5 @@ class Review(models.Model):
 
 # 함께 구매한 상품
 class Also_bought(models.Model):
-    p_no = models.ForeignKey('products.Product', on_delete=models.CASCADE, verbose_name='함께 구매한 상품의 asin 번호')
-    search_p_no = models.CharField(max_length=100, verbose_name='기준이 되는 상품 asin 번호')
-    
+    p_no = models.ForeignKey('products.Product', on_delete=models.CASCADE, verbose_name='원상품의 asin')
+    search_p_no = models.CharField(max_length=100, verbose_name='함께 구매한 상품')
