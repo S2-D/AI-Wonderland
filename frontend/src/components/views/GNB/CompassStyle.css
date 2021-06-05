@@ -22,3 +22,7 @@
   color: #341f97;
   font-size: 110%;
 }
+
+.button.logOut {
+  float: left;
+}
