@@ -14,9 +14,9 @@ from drf_yasg.utils import swagger_auto_schema
 
 
 @api_view(['GET'])
-def getMoney(request, id):
+def getMoney(request):
     if request.method == 'GET':
-        memberInfo = User.objects.filter(pk=id)
+        memberInfo = User.objects.filter(pk=request.user.id)
         serializer = UserMoneySerializer(memberInfo, many=True)
         return Response(
             {
@@ -27,14 +27,13 @@ def getMoney(request, id):
 
 @swagger_auto_schema(method='get')
 @api_view(['GET'])
-def mypage_info(request, id):
+def mypage_info(request):
     """
     마이페이지의 정보 조회(별명, 가상머니)
     ---
-    id : 마이페이지 정보를 가져올 회원 id를 입력하세요.
     """
     if request.method == 'GET':
-        memberInfo = User.objects.filter(pk=id)
+        memberInfo = User.objects.filter(pk=request.user.id)
 
         if str(memberInfo[0].email) != str(request.user):
             return Response(
@@ -146,6 +145,7 @@ def authenticated_user(request):
     로그인 후 발급받은 토큰을 headers에 추가하세요.
     Authorization : jwt {access_token}
     """
+
     user = {
         "id": request.user.id,
         "email": request.user.email,
