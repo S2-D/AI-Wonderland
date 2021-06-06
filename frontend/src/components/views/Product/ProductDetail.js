@@ -117,9 +117,9 @@ export default function ProductDetail() {
           </div>
           <div className="col-span-1 pr-3 flex justify-end">
             {/* <p className="text-sm">{reviewInfo.count} Reviews</p> */}
-            <p className="text-sm underline" onClick={scrollToReview}>
+            <button className="text-sm underline" onClick={scrollToReview}>
               ** Reviews
-            </p>
+            </button>
           </div>
           <div className="col-span-2 p-3">
             <p className="text-md font-medium">{productInfo.p_name}</p>
