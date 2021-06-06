@@ -1,9 +1,8 @@
 // 1) 데이터 불러오기 분석 - 페이지 이동 시에 asin 넘버를 어떻게 물고 올 것인지
 // 2) 추천 아이템 연결 - 상품 넘버 연결 필요 (Link to 미작동 문제 해결해야 함)
 // 4) 리뷰 데이터 로드 -> 그냥 펑션 따로 빼서 하면 편할 듯 > 이거 버튼 클릭할 때마다다 response.data = 기존 response.data + 새 reponse.data 해주면 됨
-// 5) 리뷰 클릭 시 이동 > ref 사용해서 구현
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
 import ProductDetailRecommend from './ProductDetailRecommend';
@@ -12,7 +11,6 @@ import ProductDetailReview from './ProductDetailReview';
 import 'tailwindcss/tailwind.css';
 
 const productInfoUrl = `${baseUrl}/products/productlist/B00007GDFV/`;
-const reviewInfoUrl = `${baseUrl}/products/reviewlist/?p_no=B00007GDFV`;
 
 const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 // const userKeyWords = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
@@ -23,11 +21,14 @@ const nlpDescription = [
 
 export default function ProductDetail() {
   const [productInfo, setProductInfo] = useState([]);
-  const [reviewInfo, setReviewInfo] = useState([]);
   const [accessToken, setAccessToken] = useState('');
   const [userNo, setUserNo] = useState(0);
   const [onToggle, setOnToggle] = useState(false);
-  // 데이터 받아오기 아래는 다 예시 url임. 나중에 바꿔야 함.
+
+  const reviewRef = useRef(null);
+  const scrollToReview = () => reviewRef.current.scrollIntoView();
+
+  // 아래는 다 예시 url임. 나중에 바꿔야 함.
   // useEffect 안에 setState 3개. 프론트 url에 asin 붙이는 거는 app.js에서 path 뒷부분에 스트링 붙이는 거 찾아보기!
 
   // API - 개별 상품 정보 받아오기
@@ -68,26 +69,6 @@ export default function ProductDetail() {
     }
     getUser();
   }, []);
-
-  // API - 개별 상품의 리뷰 정보 받아오기
-  useEffect(() => {
-    async function getReviewInfo() {
-      try {
-        // const response = await axios.get(reviewInfoUrl);
-        const response = await axios.get('https://randomuser.me/api/');
-        if (response.status === 200) {
-          setReviewInfo(response.results);
-          // 지금은 예시 유알엘임. 고치기
-        } else if (response.status === 404) {
-          console.log('404 진입' + response);
-          alert('Fail to load the review data');
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getReviewInfo();
-  }, [reviewInfoUrl]);
 
   // API - 로그인 유저의 스크랩북에 상품 추가하기
   const addtoScrapbook = () => {
@@ -136,7 +117,9 @@ export default function ProductDetail() {
           </div>
           <div className="col-span-1 pr-3 flex justify-end">
             {/* <p className="text-sm">{reviewInfo.count} Reviews</p> */}
-            <p className="text-sm"> ** Reviews</p>
+            <p className="text-sm underline" onClick={scrollToReview}>
+              ** Reviews
+            </p>
           </div>
           <div className="col-span-2 p-3">
             <p className="text-md font-medium">{productInfo.p_name}</p>
@@ -304,7 +287,7 @@ export default function ProductDetail() {
           <p className="pl-1 pt-1 pb-3 text-sm font-semibold">
             Customer Reviews
           </p>
-          <div className="rounded-none shadow-none">
+          <div className="rounded-none shadow-none" ref={reviewRef}>
             <ProductDetailReview />
           </div>
         </div>
