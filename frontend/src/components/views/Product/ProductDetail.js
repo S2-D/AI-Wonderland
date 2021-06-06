@@ -1,13 +1,11 @@
 // 1) 데이터 불러오기 분석 - 페이지 이동 시에 asin 넘버를 어떻게 물고 올 것인지
-// 2) 추천 아이템 연결 - 캐러솔로
-// 3) NLP 조건부 랜더링
+// 2) 추천 아이템 연결 - 상품 넘버 연결 필요 (Link to 미작동 문제 해결해야 함)
 // 4) 리뷰 데이터 로드 -> 그냥 펑션 따로 빼서 하면 편할 듯 > 이거 버튼 클릭할 때마다다 response.data = 기존 response.data + 새 reponse.data 해주면 됨
 // 5) 리뷰 클릭 시 이동 > ref 사용해서 구현
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
-import NlpDescription from './NlpDescription';
 import Carousel from './Carousel';
 
 import 'tailwindcss/tailwind.css';
@@ -19,10 +17,10 @@ const reviewInfoUrl = `${baseUrl}/products/reviewlist/?p_no=B00007GDFV`;
 
 const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 // const userKeyWords = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
-// const nlpDescription = [
-//   "Beautifully rendered, heartbreakingly adorab, item description example sentences this is amoomal deajanchi janchihanikka I'm hungry, but the train goes on. I like the song 'Ms little perfect' haha.",
-// ];
-const nlpDescription = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
+const itemDescription = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
+const nlpDescription = [
+  "Beautifully rendered, heartbreakingly adorab, item description example sentences this is amoomal deajanchi janchihanikka I'm hungry, but the train goes on. I like the song 'Ms little perfect' these day. I'm not sure if this paragraph's grammer is right though.",
+];
 
 export default function ProductDetail() {
   const [productInfo, setProductInfo] = useState([]);
@@ -114,6 +112,7 @@ export default function ProductDetail() {
   return (
     <div className="flex my-4 justify-center font-mono">
       <div className="flex flex-col gap-3 justify-center">
+        {/* 상품 정보 (1) - 이미지, 브랜드, 리뷰 수, 상품명, 가격, 스크랩북에 추가 */}
         <div
           className="grid grid-cols-2 gap-x-2 gap-y-1 p-1 auto-rows-auto shadow-sm"
           style={{
@@ -174,6 +173,8 @@ export default function ProductDetail() {
             </button>
           </div>
         </div>
+
+        {/* 상품 정보 (2) - 아마존 랭킹 순위, 상품 번호(ASIN), 등록 날짜 */}
         <div
           className="shadow-sm py-2 px-3 text-xs font-medium"
           style={{
@@ -188,6 +189,8 @@ export default function ProductDetail() {
           <p className="p-1 m-0">ASIN: {productInfo.p_no}</p>
           <p className="p-1 m-0">Date First Available: {productInfo.p_date}</p>
         </div>
+
+        {/* 상품 정보 (3) -상품 상세 설명 */}
         <div
           className="shadow-sm py-2 px-3"
           style={{
@@ -196,11 +199,11 @@ export default function ProductDetail() {
           }}
         >
           <p className="flex p-1 text-sm font-semibold">Item Description</p>
-
-          {nlpDescription.length > 0 ? (
+          {itemDescription.length > 0 ? (
             <p className="p-1 text-xs text-justify font-medium">
+              {/* {productInfo.p_description.length > 0} */}
               {/* {productInfo.p_description} */}
-              nlpDescription
+              Show nomal item description
             </p>
           ) : (
             <div className="flex flex-wrap justify-center p-1 text-xs text-center font-semibold text-gray-700">
@@ -233,6 +236,11 @@ export default function ProductDetail() {
               </p>
             </div>
           )}
+          {onToggle === true ? (
+            <p className="p-3 text-xs text-justify font-medium break-all">
+              {nlpDescription}
+            </p>
+          ) : null}
         </div>
         <div
           className="shadow-sm py-2 px-3 text-md font-medium"
