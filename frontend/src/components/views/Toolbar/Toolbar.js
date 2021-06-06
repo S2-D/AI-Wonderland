@@ -13,7 +13,7 @@ function Toolbar() {
   };
 
   const handleTimegram = () => {
-    history.push('/timegram');
+    history.push('/main');
   };
 
   const handleSearch = () => {
@@ -21,7 +21,7 @@ function Toolbar() {
   };
 
   const handleScrapbook = () => {
-    history.push('/scrapbook');
+    history.push('/main');
   };
 
   const handleMypage = () => {

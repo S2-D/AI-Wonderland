@@ -41,7 +41,7 @@ ul {
   padding-top: 35px;
   text-align: center;
   font-family: 'neodgm';
-  font-size: 15px;
+  font-size: 14px;
   color: black;
   text-decoration: none;
   margin: auto;
@@ -51,82 +51,82 @@ ul {
   background-image: url('../../../utils/images/icon_img/home.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
-  background-size: 38px;
+  background-size: 34px;
 }
 
 .toolbar .toolwrap li button.homeIcon_touched {
   background-image: url('../../../utils/images/icon_img/home_touch.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
-  background-size: 38px;
+  background-size: 34px;
 
   color: #6c5ce7;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .toolbar .toolwrap li button.timegram {
   background-image: url('../../../utils/images/icon_img/timegram.png');
   background-position: center top 6px;
   background-repeat: no-repeat;
-  background-size: 34px;
+  background-size: 30px;
 }
 
 .toolbar .toolwrap li button.timegram_touched {
   background-image: url('../../../utils/images/icon_img/timegram_touch.png');
   background-position: center top 6px;
   background-repeat: no-repeat;
-  background-size: 34px;
+  background-size: 30px;
 
   color: #6c5ce7;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .toolbar .toolwrap li button.search {
   background-image: url('../../../utils/images/icon_img/search.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
-  background-size: 38px;
+  background-size: 35px;
 }
 
 .toolbar .toolwrap li button.search_touched {
   background-image: url('../../../utils/images/icon_img/search_touch.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
-  background-size: 38px;
+  background-size: 35px;
 
   color: #6c5ce7;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .toolbar .toolwrap li button.scrapbook {
   background-image: url('../../../utils/images/icon_img/inventory.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
-  background-size: 38px;
+  background-size: 34px;
 }
 .toolbar .toolwrap li button.scrapbook_touched {
   background-image: url('../../../utils/images/icon_img/inventory_touch.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
-  background-size: 38px;
+  background-size: 34px;
 
   color: #6c5ce7;
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .toolbar .toolwrap li button.mypage {
   background-image: url('../../../utils/images/icon_img/mypage.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
-  background-size: 38px;
+  background-size: 35px;
 }
 
 .toolbar .toolwrap li button.mypage_touched {
   background-image: url('../../../utils/images/icon_img/mypage_touch.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
-  background-size: 40px;
+  background-size: 35px;
 
   color: #6c5ce7;
-  font-size: 18px;
+  font-size: 14px;
 }

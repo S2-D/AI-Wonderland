@@ -6,7 +6,7 @@ module.exports = function (app) {
     '/api',
     createProxyMiddleware({
       target:
-        'elice-kdt-ai-track-vm-ai-24.koreacentral.cloudapp.azure.com:8000/',
+        'elice-kdt-ai-track-vm-distribute-23.koreacentral.cloudapp.azure.com',
       changeOrigin: true,
     })
   );

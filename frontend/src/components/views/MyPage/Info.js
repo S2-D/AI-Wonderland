@@ -9,7 +9,8 @@ export default function Info() {
   const [userId, setId] = useState('');
   const [Email, setEmail] = useState('');
 
-  const MyPageInfoUrl = `localhost:3000/mypage`;
+  const Url = location.href;
+  const MyPageInfoUrl = Url;
 
   useEffect(() => {
     async function getUserAuth() {
