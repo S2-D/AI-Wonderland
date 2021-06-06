@@ -35,6 +35,8 @@ export default function ProductDetail() {
   const reviewRef = useRef(null);
   const scrollToReview = () => reviewRef.current.scrollIntoView();
 
+  // const [Random, setRandom] = useState(0);
+  // const [randomAvatarName, setrandomAvatarName] = useState('initialState')
   const random = Math.floor(Math.random() * avatarName.avatarName.length);
   const randomAvatarName = (random, avatarName.avatarName[random]);
   console.log('리뷰러 이름 랜덤 : ', randomAvatarName);
@@ -321,53 +323,68 @@ export default function ProductDetail() {
           <p className="p-1 text-sm font-semibold" ref={reviewRef}>
             Customer Reviews
           </p>
-          <div
-            className="grid grid-cols-5 gap-x-2 gap-y-1 p-1 auto-rows-auto"
-            style={{
-              maxWidth: '310px',
-              height: 'auto',
-            }}
-          >
-            {/* {reviewInfo.results} */}
-            <div className="col-span-1 pl-2 flex justify-start items-center">
-              <Avatar
-                size={40}
-                name={randomAvatarName}
-                // variant="beam"
-                variant="pixel"
-                colors={['#8b5cf6', '#ff00ff', '#5d1cf2', '#ff7f00', '#9d6cff']}
-              />
+          {reviewInfo.map((review, idx) => (
+            <div
+              key={idx}
+              className="grid grid-cols-5 gap-x-2 gap-y-1 p-3 mb-3 auto-rows-auto bg-purple-50 rounded-lg"
+              style={{
+                maxWidth: '310px',
+                height: 'auto',
+              }}
+            >
+              <div className="col-span-1 pl-2 flex justify-start items-center">
+                <Avatar
+                  size={40}
+                  name={randomAvatarName}
+                  // variant="beam"
+                  variant="pixel"
+                  colors={[
+                    '#8b5cf6',
+                    '#ff00ff',
+                    '#5d1cf2',
+                    '#ff7f00',
+                    '#9d6cff',
+                  ]}
+                />
+              </div>
+              <div className="col-span-4 flex flex-col justify-center">
+                <p className="flex justify-start pl-1 mb-0 text-xs font-semibold">
+                  {review.summary}
+                </p>
+                {
+                  <p className="flex justify-end pt-1 pr-2 mb-0 text-xs font-medium">
+                    {/* Darrow H Ankrum II */}
+                    by {review.review_memID}
+                  </p>
+                }
+              </div>
+              <div className="col-span-5 flex justify-center">
+                <p className="px-3 py-2 mb-0 text-xs font-medium">
+                  {review.review_content}
+                  {/* mother-in-law wanted it as a present for her sister. she liked
+                  it and said it would work. */}
+                </p>
+              </div>
+              <div className="col-span-3 flex justify-start ">
+                <p className="pl-4 mb-0 text-xs font-medium">
+                  {review.review_date}
+                  {/* 2013-09-22 */}
+                </p>
+              </div>
+              <div className="col-span-2 flex justify-end">
+                <p className="pr-1 mb-0 text-xs font-semibold text-purple-600">
+                  {review.review_vote} users
+                  <i
+                    className="far fa-thumbs-up"
+                    style={{
+                      color: '#8b5cf6',
+                      padding: '5px',
+                    }}
+                  ></i>
+                </p>
+              </div>
             </div>
-            <div className="col-span-4 flex flex-col justify-center">
-              <p className="pl-1 mb-0 text-sm font-semibold">
-                This is the title
-                {reviewInfo.summary}
-              </p>
-              <p className="pl-1 mb-0 text-xs font-medium text-grey">
-                {/* reviewInfo.review_vote */} 99
-                <i
-                  className="far fa-thumbs-up"
-                  style={{
-                    color: '#8b5cf6',
-                    padding: '5px',
-                  }}
-                ></i>
-                Darrow H Ankrum II
-                {/* reviewInfo.review_memID */}
-              </p>
-            </div>
-            <div className="col-span-5 flex justify-center">
-              <p className="px-3 py-2 mb-0 text-xs font-medium">
-                mother-in-law wanted it as a present for her sister. she liked
-                it and said it would work.
-              </p>
-              {/* reviewInfo.review_content */}
-            </div>
-            <div className="col-span-5 flex justify-end">
-              <p className="pr-5 mb-0 text-xs font-medium">2013-09-22</p>
-              {/* reviewInfo.review_date */}
-            </div>
-          </div>
+          ))}
           <div className="col-span-5 m-3 flex justify-center">
             <button
               type="button"
