@@ -6,11 +6,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
-import Carousel from './Carousel';
+import ProductDetailRecommend from './ProductDetailRecommend';
+import ProductDetailReview from './ProductDetailReview';
 
 import 'tailwindcss/tailwind.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 const productInfoUrl = `${baseUrl}/products/productlist/B00007GDFV/`;
 const reviewInfoUrl = `${baseUrl}/products/reviewlist/?p_no=B00007GDFV`;
@@ -74,9 +73,11 @@ export default function ProductDetail() {
   useEffect(() => {
     async function getReviewInfo() {
       try {
-        const response = await axios.get(reviewInfoUrl);
+        // const response = await axios.get(reviewInfoUrl);
+        const response = await axios.get('https://randomuser.me/api/');
         if (response.status === 200) {
-          setReviewInfo(response.data);
+          setReviewInfo(response.results);
+          // 지금은 예시 유알엘임. 고치기
         } else if (response.status === 404) {
           console.log('404 진입' + response);
           alert('Fail to load the review data');
@@ -134,7 +135,8 @@ export default function ProductDetail() {
             <p className="text-sm font-semibold">{productInfo.p_brand}</p>
           </div>
           <div className="col-span-1 pr-3 flex justify-end">
-            <p className="text-sm">{reviewInfo.count} Reviews</p>
+            {/* <p className="text-sm">{reviewInfo.count} Reviews</p> */}
+            <p className="text-sm"> ** Reviews</p>
           </div>
           <div className="col-span-2 p-3">
             <p className="text-md font-medium">{productInfo.p_name}</p>
@@ -275,6 +277,7 @@ export default function ProductDetail() {
           {/* <p>{productInfo.p_keyword}</p> */}
         </div>
 
+        {/* 상품 인포 4 - 추천 상품 */}
         <div
           className="shadow-sm py-2 px-3 text-md font-medium"
           style={{
@@ -282,12 +285,27 @@ export default function ProductDetail() {
             height: 'auto',
           }}
         >
-          {/* 추천 상품 */}
           <p className="pl-1 pt-1 pb-3 text-sm font-semibold">
             Customers who bought this item also bought
           </p>
           <div className="rounded-none shadow-none">
-            <Carousel />
+            <ProductDetailRecommend />
+          </div>
+        </div>
+
+        {/* 상품 인포 5 - 리뷰 불러오기 */}
+        <div
+          className="shadow-sm py-2 px-3 text-md font-medium"
+          style={{
+            maxWidth: '310px',
+            height: 'auto',
+          }}
+        >
+          <p className="pl-1 pt-1 pb-3 text-sm font-semibold">
+            Customer Reviews
+          </p>
+          <div className="rounded-none shadow-none">
+            <ProductDetailReview />
           </div>
         </div>
       </div>

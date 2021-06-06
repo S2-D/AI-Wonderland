@@ -23,7 +23,7 @@ SwiperCore.use([Navigation, Pagination]);
 const search_p_no = 'B00006MVYA';
 const recommendProductsUrl = `${baseUrl}/products/alsoboughtlist/?search_p_no=${search_p_no}`;
 
-export default function Carousel() {
+export default function ProductDetailRecommend() {
   // api에서 정보 불러오기
   // 현재 데이터가 array 안에 담겨 있지 않음 + 예시 데이터라 캐러솔 확인 불충분
   // To-Do 나중에 백엔드에 p_no으로 맵함수 안의 맵으로 다시 불러와야 하는 것인지 물어보기(당연한 것 같지만)
