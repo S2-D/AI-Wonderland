@@ -1,6 +1,6 @@
 // 1) 데이터 불러오기 분석 - 페이지 이동 시에 asin 넘버를 어떻게 물고 올 것인지
 // 2) 추천 아이템 연결 - 상품 넘버 연결 필요 (Link to 미작동 문제 해결해야 함)
-// 4) 리뷰 데이터 로드 -> 그냥 펑션 따로 빼서 하면 편할 듯 > 이거 버튼 클릭할 때마다다 response.data = 기존 response.data + 새 reponse.data 해주면 됨
+// 3) 리뷰 데이터 로드 -> 처음에는 1개만 보여주기? 포커스를 어떻게 다시 위로 올릴 건지?
 
 import React, { useEffect, useState, useRef } from 'react';
 
@@ -13,9 +13,6 @@ import 'tailwindcss/tailwind.css';
 import Avatar from 'boring-avatars'; // 아바타 자동 생성 라이브러리
 import avatarName from './ProductDetailAvatarName';
 
-const productInfoUrl = `${baseUrl}/products/productlist/8037200124/`;
-const reviewInfoUrl = `${baseUrl}/products/reviewlist/?page=1&p_no=B00007GDFV`;
-
 const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 // const userKeyWords = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 const itemDescription = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
@@ -27,9 +24,10 @@ export default function ProductDetail() {
   const [productInfo, setProductInfo] = useState([]);
   const [accessToken, setAccessToken] = useState('');
   const [userNo, setUserNo] = useState(0);
-  const [onToggle, setOnToggle] = useState(false);
+  const [nlpOnToggle, setNlpOnToggle] = useState(false);
 
-  const [pageNo, setPageNo] = useState(1);
+  const [reviewPage, setReviewPage] = useState(1);
+  const [reviewNextPage, setreviewNextPage] = useState(1);
   const [reviewCount, setReviewCount] = useState(0);
   const [reviewInfo, setReviewInfo] = useState([]);
   const reviewRef = useRef(null);
@@ -43,6 +41,8 @@ export default function ProductDetail() {
 
   // 아래는 다 예시 url임. 나중에 바꿔야 함.
   // useEffect 안에 setState 3개. 프론트 url에 asin 붙이는 거는 app.js에서 path 뒷부분에 스트링 붙이는 거 찾아보기!
+  const productInfoUrl = `${baseUrl}/products/productlist/8037200124/`;
+  const reviewInfoUrl = `${baseUrl}/products/reviewlist/?page=${reviewPage}&p_no=B00007GDFV`;
 
   // API - 개별 상품 정보 받아오기
   useEffect(() => {
@@ -106,7 +106,6 @@ export default function ProductDetail() {
   };
 
   // API - 개별 상품의 리뷰 정보 받아오기
-  const reviewInfoUrl = `${baseUrl}/products/reviewlist/?page=1&p_no=B00007GDFV`;
   useEffect(() => {
     async function getReviewInfo() {
       try {
@@ -115,7 +114,9 @@ export default function ProductDetail() {
         console.log('리뷰 데이터 : ', response.data.results);
         if (response.status === 200) {
           setReviewCount(response.data.count);
-          setReviewInfo(response.data.results);
+          setreviewNextPage(response.data.next);
+          console.log(response.data.next);
+          setReviewInfo([...reviewInfo, ...response.data.results]);
         } else if (response.status === 404) {
           console.log('404 진입', response);
           alert('Fail to load the review data');
@@ -126,6 +127,10 @@ export default function ProductDetail() {
     }
     getReviewInfo();
   }, [reviewInfoUrl]);
+
+  const loadMoreReview = () => {
+    setReviewPage((reviewPage) => reviewPage + 1);
+  };
 
   return (
     <div className="flex my-4 justify-center font-mono">
@@ -246,10 +251,10 @@ export default function ProductDetail() {
                 }}
                 onClick={() => {
                   alert('Traveling through Time & Restoring Data');
-                  setOnToggle(true);
+                  setNlpOnToggle(true);
                 }}
               >
-                {console.log('NLP 생성 버튼 클릭 상태 : ' + onToggle)}
+                {console.log('NLP 생성 버튼 클릭 상태 : ' + nlpOnToggle)}
                 Execute
               </button>
               <p className="font-semibold text-gray-400">
@@ -257,7 +262,7 @@ export default function ProductDetail() {
               </p>
             </div>
           )}
-          {onToggle === true ? (
+          {nlpOnToggle === true ? (
             <p className="p-2 text-xs text-center font-medium break-words">
               {nlpDescription}
             </p>
@@ -365,15 +370,15 @@ export default function ProductDetail() {
                   it and said it would work. */}
                 </p>
               </div>
-              <div className="col-span-3 flex justify-start ">
+              <div className="col-span-3 flex justify-start self-center">
                 <p className="pl-4 mb-0 text-xs font-medium">
                   {review.review_date}
                   {/* 2013-09-22 */}
                 </p>
               </div>
-              <div className="col-span-2 flex justify-end">
+              <div className="col-span-2 flex justify-end self-center">
                 <p className="pr-1 mb-0 text-xs font-semibold text-purple-600">
-                  {review.review_vote} users
+                  {review.review_vote} people
                   <i
                     className="far fa-thumbs-up"
                     style={{
@@ -386,19 +391,22 @@ export default function ProductDetail() {
             </div>
           ))}
           <div className="col-span-5 m-3 flex justify-center">
-            <button
-              type="button"
-              className="bg-purple-600 text-sm text-white font-semibold rounded-lg"
-              style={{
-                fontFamily: 'neodgm',
-                width: '180px',
-                height: '30px',
-              }}
-            >
-              + Load More Reviews
-            </button>
+            {reviewNextPage === null ? null : (
+              <button
+                type="button"
+                className="bg-purple-600 text-sm text-white font-semibold rounded-lg"
+                style={{
+                  fontFamily: 'neodgm',
+                  width: '180px',
+                  height: '30px',
+                }}
+                onClick={loadMoreReview}
+              >
+                + Load More Reviews
+              </button>
+            )}
           </div>
-          {/* 주의: 그럼 만약에 더 로드할 리뷰가 없으면..? */}
+          {console.log('다음 리뷰 페이지 : ', reviewNextPage)}
         </div>
       </div>
     </div>
