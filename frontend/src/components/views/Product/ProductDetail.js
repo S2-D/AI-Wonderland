@@ -3,15 +3,16 @@
 // 4) 리뷰 데이터 로드 -> 그냥 펑션 따로 빼서 하면 편할 듯 > 이거 버튼 클릭할 때마다다 response.data = 기존 response.data + 새 reponse.data 해주면 됨
 
 import React, { useEffect, useState, useRef } from 'react';
+
 import axios from 'axios';
 import baseUrl from '../../../url/http';
+
 import ProductDetailRecommend from './ProductDetailRecommend';
 import ProductDetailReview from './ProductDetailReview';
 
 import 'tailwindcss/tailwind.css';
 
-const productInfoUrl = `${baseUrl}/products/productlist/B00007GDFV/`;
-
+const productInfoUrl = `${baseUrl}/products/productlist/8037200124/`;
 const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 // const userKeyWords = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 const itemDescription = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
@@ -36,15 +37,15 @@ export default function ProductDetail() {
     async function getProductInfo() {
       try {
         const response = await axios.get(productInfoUrl);
-        console.log(response.data);
+        console.log('상품 데이터 : ', response.p_no);
         if (response.status === 200) {
           setProductInfo(response.data);
         } else if (response.status === 404) {
-          console.log('404 진입' + response);
+          console.log('404 진입 ', response);
           alert('Fail to load the product data');
         }
       } catch (error) {
-        console.log(error);
+        console.log('상품 데이터 : ', error);
       }
     }
     getProductInfo();
@@ -55,6 +56,7 @@ export default function ProductDetail() {
     async function getUser() {
       try {
         const access_token = localStorage.getItem('access_token');
+        console.log('memNO 데이터 : ', access_token);
         const response = await axios.get(`${baseUrl}/member/auth/`, {
           headers: { Authorization: `jwt ${access_token}` },
         });
@@ -64,7 +66,7 @@ export default function ProductDetail() {
           setAccessToken(access_token);
         }
       } catch (error) {
-        console.log(error);
+        console.log('memNO 데이터 : ', error);
       }
     }
     getUser();
@@ -112,17 +114,17 @@ export default function ProductDetail() {
               // 지금은 api 완성 전 예시 이미지. 나중에 상품 정보에서 꺼내와야 함
             ></img>
           </div>
-          <div className="col-span-1 pl-3 flex justify-start">
-            <p className="text-sm font-semibold">{productInfo.p_brand}</p>
+          <div className="col-span-1 pl-3 pr-0 pt-0 pb-0 flex justify-start">
+            <p className="m-0 text-sm font-semibold">{productInfo.p_brand}</p>
           </div>
-          <div className="col-span-1 pr-3 flex justify-end">
+          <div className="col-span-1 pr-3 m-0 flex justify-end">
             {/* <p className="text-sm">{reviewInfo.count} Reviews</p> */}
             <button className="text-sm underline" onClick={scrollToReview}>
               ** Reviews
             </button>
           </div>
           <div className="col-span-2 p-3">
-            <p className="text-md font-medium">{productInfo.p_name}</p>
+            <p className="text-md font-medium m-0">{productInfo.p_name}</p>
           </div>
           <div className="col-span-2 pl-4 text-lg font-semibold">
             <img
@@ -132,7 +134,7 @@ export default function ProductDetail() {
               width="35px"
               style={{ display: 'inline', marginTop: '0px' }}
             />
-            {productInfo.p_price}
+            $ 16,000 {productInfo.p_price}
           </div>
           <div className="col-span-2 p-3 flex justify-center">
             <button
@@ -185,7 +187,7 @@ export default function ProductDetail() {
         >
           <p className="flex p-1 text-sm font-semibold">Item Description</p>
           {itemDescription.length > 0 ? (
-            <p className="p-1 text-xs text-justify font-medium">
+            <p className="p-2 text-xs text-center font-medium break-words">
               {/* {productInfo.p_description.length > 0} */}
               {/* {productInfo.p_description} */}
               Show nomal item description
@@ -222,7 +224,7 @@ export default function ProductDetail() {
             </div>
           )}
           {onToggle === true ? (
-            <p className="p-3 text-xs text-justify font-medium break-all">
+            <p className="p-2 text-xs text-center font-medium break-words">
               {nlpDescription}
             </p>
           ) : null}
@@ -289,6 +291,8 @@ export default function ProductDetail() {
           </p>
           <div className="rounded-none shadow-none" ref={reviewRef}>
             <ProductDetailReview />
+            <button>Load Reviews</button>
+            {/* 주의: 그럼 만약에 더 로드할 리뷰가 없으면..? */}
           </div>
         </div>
       </div>

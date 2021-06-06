@@ -32,8 +32,8 @@ export default function ProductDetailRecommend() {
     async function getRecommendProducts() {
       try {
         const response = await axios.get(recommendProductsUrl);
-        console.log(response.data.data);
-        console.log(response.data.data[0].p_no);
+        console.log('추천 상품 데이터 : ', response);
+        console.log('추천 상품 데이터 : ', response.data.data[0].p_no);
         if (response.status === 200) {
           setRecommendProducts(response.data.data);
         } else if (response.status === 404) {
@@ -41,7 +41,7 @@ export default function ProductDetailRecommend() {
           alert('Fail to load the recommend data');
         }
       } catch (error) {
-        console.log(error);
+        console.log('추천 상품 데이터 : ' + error);
       }
     }
     getRecommendProducts();
