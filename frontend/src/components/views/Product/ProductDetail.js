@@ -249,7 +249,7 @@ export default function ProductDetail() {
             height: 'auto',
           }}
         >
-          {/* 상품 인포 2 */}
+          {/* 상품 인포 3 - AI 유저 키워드 */}
           <p className="pl-1 pt-1 pb-1 text-sm font-semibold">
             AI Review Analysis
           </p>
