@@ -20,7 +20,7 @@ import axios from 'axios';
 SwiperCore.use([Navigation, Pagination]);
 
 // 추천 아이템 api URL (지금은 예시 데이터임)
-const search_p_no = 'B00006MVYA';
+const search_p_no = 'B00005OTJ8';
 const recommendProductsUrl = `${baseUrl}/products/alsoboughtlist/?search_p_no=${search_p_no}`;
 
 export default function ProductDetailRecommend() {
@@ -32,16 +32,16 @@ export default function ProductDetailRecommend() {
     async function getRecommendProducts() {
       try {
         const response = await axios.get(recommendProductsUrl);
-        console.log('추천 상품 데이터 : ', response);
-        console.log('추천 상품 데이터 : ', response.data.data[0].p_no);
+        console.log('추천 상품 데이터 : ', response.data);
+        // console.log('추천 상품 데이터 : ', response.data.data[0].p_no);
         if (response.status === 200) {
           setRecommendProducts(response.data.data);
         } else if (response.status === 404) {
-          console.log('404 진입' + response);
+          console.log('404 진입', response);
           alert('Fail to load the recommend data');
         }
       } catch (error) {
-        console.log('추천 상품 데이터 : ' + error);
+        console.log('추천 상품 데이터 : ', error);
       }
     }
     getRecommendProducts();

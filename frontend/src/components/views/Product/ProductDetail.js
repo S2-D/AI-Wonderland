@@ -8,11 +8,14 @@ import axios from 'axios';
 import baseUrl from '../../../url/http';
 
 import ProductDetailRecommend from './ProductDetailRecommend';
-import ProductDetailReview from './ProductDetailReview';
 
 import 'tailwindcss/tailwind.css';
+import Avatar from 'boring-avatars'; // 아바타 자동 생성 라이브러리
+import avatarName from './ProductDetailAvatarName';
 
 const productInfoUrl = `${baseUrl}/products/productlist/8037200124/`;
+const reviewInfoUrl = `${baseUrl}/products/reviewlist/?page=1&p_no=B00007GDFV`;
+
 const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 // const userKeyWords = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 const itemDescription = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
@@ -26,8 +29,15 @@ export default function ProductDetail() {
   const [userNo, setUserNo] = useState(0);
   const [onToggle, setOnToggle] = useState(false);
 
+  const [pageNo, setPageNo] = useState(1);
+  const [reviewCount, setReviewCount] = useState(0);
+  const [reviewInfo, setReviewInfo] = useState([]);
   const reviewRef = useRef(null);
   const scrollToReview = () => reviewRef.current.scrollIntoView();
+
+  const random = Math.floor(Math.random() * avatarName.avatarName.length);
+  const randomAvatarName = (random, avatarName.avatarName[random]);
+  console.log('리뷰러 이름 랜덤 : ', randomAvatarName);
 
   // 아래는 다 예시 url임. 나중에 바꿔야 함.
   // useEffect 안에 setState 3개. 프론트 url에 asin 붙이는 거는 app.js에서 path 뒷부분에 스트링 붙이는 거 찾아보기!
@@ -37,7 +47,7 @@ export default function ProductDetail() {
     async function getProductInfo() {
       try {
         const response = await axios.get(productInfoUrl);
-        console.log('상품 데이터 : ', response.p_no);
+        console.log('상품 데이터 : ', response.data);
         if (response.status === 200) {
           setProductInfo(response.data);
         } else if (response.status === 404) {
@@ -93,6 +103,28 @@ export default function ProductDetail() {
       });
   };
 
+  // API - 개별 상품의 리뷰 정보 받아오기
+  const reviewInfoUrl = `${baseUrl}/products/reviewlist/?page=1&p_no=B00007GDFV`;
+  useEffect(() => {
+    async function getReviewInfo() {
+      try {
+        const response = await axios.get(reviewInfoUrl);
+        console.log('리뷰 총 갯수 : ', response.data.count);
+        console.log('리뷰 데이터 : ', response.data.results);
+        if (response.status === 200) {
+          setReviewCount(response.data.count);
+          setReviewInfo(response.data.results);
+        } else if (response.status === 404) {
+          console.log('404 진입', response);
+          alert('Fail to load the review data');
+        }
+      } catch (error) {
+        console.log('리뷰 데이터 : ', error);
+      }
+    }
+    getReviewInfo();
+  }, [reviewInfoUrl]);
+
   return (
     <div className="flex my-4 justify-center font-mono">
       <div className="flex flex-col gap-3 justify-center">
@@ -120,7 +152,7 @@ export default function ProductDetail() {
           <div className="col-span-1 pr-3 m-0 flex justify-end">
             {/* <p className="text-sm">{reviewInfo.count} Reviews</p> */}
             <button className="text-sm underline" onClick={scrollToReview}>
-              ** Reviews
+              {reviewCount} Reviews
             </button>
           </div>
           <div className="col-span-2 p-3">
@@ -286,14 +318,70 @@ export default function ProductDetail() {
             height: 'auto',
           }}
         >
-          <p className="pl-1 pt-1 pb-3 text-sm font-semibold">
+          <p className="p-1 text-sm font-semibold" ref={reviewRef}>
             Customer Reviews
           </p>
-          <div className="rounded-none shadow-none" ref={reviewRef}>
-            <ProductDetailReview />
-            <button>Load Reviews</button>
-            {/* 주의: 그럼 만약에 더 로드할 리뷰가 없으면..? */}
+          <div
+            className="grid grid-cols-5 gap-x-2 gap-y-1 p-1 auto-rows-auto"
+            style={{
+              maxWidth: '310px',
+              height: 'auto',
+            }}
+          >
+            {/* {reviewInfo.results} */}
+            <div className="col-span-1 pl-2 flex justify-start items-center">
+              <Avatar
+                size={40}
+                name={randomAvatarName}
+                // variant="beam"
+                variant="pixel"
+                colors={['#8b5cf6', '#ff00ff', '#5d1cf2', '#ff7f00', '#9d6cff']}
+              />
+            </div>
+            <div className="col-span-4 flex flex-col justify-center">
+              <p className="pl-1 mb-0 text-sm font-semibold">
+                This is the title
+                {reviewInfo.summary}
+              </p>
+              <p className="pl-1 mb-0 text-xs font-medium text-grey">
+                {/* reviewInfo.review_vote */} 99
+                <i
+                  className="far fa-thumbs-up"
+                  style={{
+                    color: '#8b5cf6',
+                    padding: '5px',
+                  }}
+                ></i>
+                Darrow H Ankrum II
+                {/* reviewInfo.review_memID */}
+              </p>
+            </div>
+            <div className="col-span-5 flex justify-center">
+              <p className="px-3 py-2 mb-0 text-xs font-medium">
+                mother-in-law wanted it as a present for her sister. she liked
+                it and said it would work.
+              </p>
+              {/* reviewInfo.review_content */}
+            </div>
+            <div className="col-span-5 flex justify-end">
+              <p className="pr-5 mb-0 text-xs font-medium">2013-09-22</p>
+              {/* reviewInfo.review_date */}
+            </div>
           </div>
+          <div className="col-span-5 m-3 flex justify-center">
+            <button
+              type="button"
+              className="bg-purple-600 text-sm text-white font-semibold rounded-lg"
+              style={{
+                fontFamily: 'neodgm',
+                width: '180px',
+                height: '30px',
+              }}
+            >
+              + Load More Reviews
+            </button>
+          </div>
+          {/* 주의: 그럼 만약에 더 로드할 리뷰가 없으면..? */}
         </div>
       </div>
     </div>

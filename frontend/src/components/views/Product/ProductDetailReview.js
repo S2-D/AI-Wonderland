@@ -43,7 +43,7 @@ export default function ProductDetailReview() {
       <div className="col-span-1 flex justify-start">
         <Avatar
           size={150}
-          name="Maria Mitchell"
+          name="Mary Baker"
           variant="beam"
           colors={['#FDBFFC', '#C32BA5', '#701D8C', '#FC3DFF', '#9004B7']}
         />
