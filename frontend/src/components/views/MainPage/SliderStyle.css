@@ -17,7 +17,7 @@ body {
   width: 100%;
   padding-bottom: 30%;
   box-shadow: 0 8px 16px 0 rgb(0 0 0 / 12%);
-  margin-top: 18px;
+  margin-top: 40px;
   border-radius: 20px;
   height: 100%;
 }
@@ -68,11 +68,11 @@ body {
 }
 
 .slideInfo {
-  font-family: 'neodgm';
-  color: #1e3799;
+  font-family: 'light_p';
+  color: #187fd9;
   background-color: transparent;
   position: absolute;
   margin-top: 133%;
   padding-left: 0px;
-  font-size: 100%;
+  font-size: 80%;
 }

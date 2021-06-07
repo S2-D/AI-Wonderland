@@ -53,7 +53,7 @@ export default function MainPage() {
         <div className="container">
           <div className="topItems_Tops">
             <h2>TOP 4 items by Tops</h2>
-            <p className="subAd">Explor the best items of the Tops.</p>
+            <p className="subAd">Explore the best items of the Tops.</p>
             <ul className="item_box">
               <li className="item">
                 <Link to="/" className="curation_item">
@@ -218,7 +218,7 @@ export default function MainPage() {
           <div className="topItems_Others">
             <h2>TOP 4 items by Others</h2>
             <p className="subAd">
-              Don't forget to add accessories to your scrapbook!
+              Don't forget to add accessories into your scrapbook!
             </p>
             <ul className="item_box">
               <li className="item">

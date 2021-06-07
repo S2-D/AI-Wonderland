@@ -3,21 +3,31 @@
   src: url('../../../fonts/neodgm_code.ttf');
 }
 
+@font-face {
+  font-family: 'light_p';
+  src: url('../../../fonts/light_pixel-7.ttf');
+}
+
+@font-face {
+  font-family: 'sb_pixel';
+  src: url('../../../fonts/small_bold_pixel-7.ttf');
+}
+
 .container h2 {
-  color: #6c5ce7;
-  font-family: 'neodgm';
+  color: #14c5d9;
+  font-family: 'light_p';
   padding: 10px 10px 0px 10px;
-  font-size: 30px;
+  font-size: 20px;
   margin-bottom: 0px;
   margin-top: 48px;
 }
 
 .container .subAd {
-  color: white;
-  font-family: 'neodgm';
-  font-size: 18px;
+  color: #14a1d9;
+  font-family: 'light_p';
+  font-size: 14px;
   padding-left: 10px;
-  background-color: #6c5ce7;
+  margin-top: 10px;
 }
 
 li.item {

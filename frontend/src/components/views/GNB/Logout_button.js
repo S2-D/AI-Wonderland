@@ -25,13 +25,29 @@ export default function LogoutButton() {
   //isLogin 함수가 true 상태면 로그인이 되었으니 로그아웃 버튼 보여주고, 아니면 로그인 버튼 보여주는 코드.
   return isLogin() === true ? (
     <>
-      <button type="submit" onClick={LogoutHandler} className="logOut">
+      <button
+        type="submit"
+        onClick={LogoutHandler}
+        className="logOut"
+        style={{
+          backgroundColor: '#16F2DC',
+          float: 'right',
+        }}
+      >
         LOGOUT
       </button>
     </>
   ) : (
     <>
-      <button type="submit" onClick={LoginHandler} className="logIn">
+      <button
+        type="submit"
+        onClick={LoginHandler}
+        className="logIn"
+        style={{
+          backgroundColor: '#16F2DC',
+          float: 'right',
+        }}
+      >
         LOGIN
       </button>
     </>

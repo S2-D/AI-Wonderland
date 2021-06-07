@@ -1,16 +1,10 @@
-@font-face {
-  font-family: 'neodgm';
-  src: url('../../../fonts/neodgm_code.ttf');
-}
-
 .compass {
-  background-color: #a29bfe;
-  font-size: 18px;
-  top: 1px;
+  background-color: #187fd9;
+  font-size: 13px;
   width: 100%;
-  margin-bottom: 10px;
   padding-left: 5px;
-  font-family: 'neodgm';
+  font-family: 'light_p';
+  margin-bottom: -20px;
 }
 
 .compass a {
@@ -19,10 +13,16 @@
 }
 
 .compass a:hover {
-  color: #341f97;
+  color: #13f2c9;
   font-size: 110%;
 }
 
 .button.logOut {
   float: left;
+  color: white;
+}
+
+.button.logOut:hover {
+  float: left;
+  color: white;
 }

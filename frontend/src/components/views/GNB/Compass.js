@@ -17,9 +17,11 @@ function Compass() {
   return (
     <div className="compass">
       <Link to={pathname}>
-        <p>{userLocation}</p>
+        <p>
+          {userLocation}
+          <LogoutButton />
+        </p>
       </Link>
-      <LogoutButton />
     </div>
   );
 }
