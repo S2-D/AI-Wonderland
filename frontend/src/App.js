@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import MainPage from './components/views/MainPage/MainPage';
+import TimegramPage from './components/views/TimegramPage/TimegramPage';
 import SearchPage from './components/views/SearchPage/search';
 import ProductList from './components/views/Product/ProductList';
 import ProductDetail from './components/views/Product/ProductDetail';
@@ -38,6 +39,8 @@ function App() {
           <PublicRoute component={MainPage} path="/main" exact />
           {/* 상품 리스트 페이지 연결  */}
           <PublicRoute component={ProductList} path="/productList" exact />
+          {/* 타임그램 페이지 연결 */}
+          <Route component={TimegramPage} path="/timegram" exact />
           {/* 검색 페이지 연결 */}
           <Route component={SearchPage} path="/search" exact />
           {/* 상품 상세 페이지 연결 */}
