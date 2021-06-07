@@ -4,14 +4,14 @@
 // 3) 가격 정렬 api 받아오기
 // 4) 로딩 중 표시 추가
 // 5) http://localhost:3000/productList/p_category?=Top 로, 링크 붙여주기
+// 테일윈드 드랍다운 버튼 있음~! https://tailwindui.com/components/application-ui/elements/dropdowns
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
 
-import { Container, Row, Col, DropdownButton, Dropdown } from 'react-bootstrap';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
 import ProductCard from './ProductCard.js';
-import Styleddropdown from './Styleddropdown.css';
 
 export default function ProductList() {
   // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타
@@ -65,117 +65,82 @@ export default function ProductList() {
   }, [productsUrl]);
 
   return (
-    <Container
-      style={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <Row
-        style={{
-          marginTop: '20px',
-          marginBottom: '20px',
-        }}
-      >
-        <Col md="auto" sm="auto" xs="auto">
-          {categories.map((category, id) => (
-            <li
-              key={id}
-              name={category.name}
-              value={category.value}
-              onClick={(e) => {
-                setCategoryValue(e.target.value);
-                console.log(e.target.value);
-              }}
-              style={{
-                display: 'inline-flex',
-                float: 'center',
-                // justifyContent: 'space-around',
-                padding: '5px',
-                listStyle: 'none',
-                height: '26px',
-                fontSize: '13px',
-                fontWeight: '700',
-                color: '#999',
-              }}
-            >
-              {category.name}
-            </li>
-          ))}
-          <li
-            style={{
-              display: 'inline-flex',
-              float: 'center',
-              // justifyContent: 'space-around',
-              padding: '5px',
-              listStyle: 'none',
-              height: '26px',
-              fontSize: '13px',
-              fontWeight: '700',
-              color: '#999',
-            }}
-          >
-            Timegrame
-          </li>
-          <DropdownButton
-            title="Sort by"
-            style={{
-              float: 'right',
-              padding: '10px',
-            }}
-            variant="Secondary"
-            size="sm"
-          >
-            {orders.map((order, id) => (
-              <Dropdown.Item
-                key={id}
-                name={order.name}
-                value={order.value}
-                onClick={(e) => {
-                  setOrderingValue(order.value);
-                  // console.log(orderingValue);
-                  // console.log(order.value);
-                  // console.log(e.target.value);
-                  // To-do: 왜 e.target.value로 불러오면 안 되는지, 혹은 뭐가 더 좋은 방법인지 물어보기
-                }}
-              >
-                {order.name}
-              </Dropdown.Item>
-            ))}
-          </DropdownButton>
-        </Col>
-      </Row>
-
-      <Row
-        style={{
-          marginTop: '10px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Col
+    <div>
+      {categories.map((category, id) => (
+        <li
+          key={id}
+          name={category.name}
+          value={category.value}
+          onClick={(e) => {
+            setCategoryValue(e.target.value);
+            console.log(e.target.value);
+          }}
           style={{
-            padding: '9px',
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: 'inline-flex',
+            float: 'center',
+            // justifyContent: 'space-around',
+            padding: '5px',
+            listStyle: 'none',
+            height: '26px',
+            fontSize: '13px',
+            fontWeight: '700',
+            color: '#999',
           }}
         >
-          {products.map((product, idx) => (
-            <ProductCard
-              key={idx}
-              p_imgUrl={product.p_image}
-              p_name={product.p_name}
-              p_price={product.p_price}
-              p_toDetail={product.p_no}
-            />
-          ))}
-        </Col>
-      </Row>
-    </Container>
+          {category.name}
+        </li>
+      ))}
+      <li
+        style={{
+          display: 'inline-flex',
+          float: 'center',
+          // justifyContent: 'space-around',
+          padding: '5px',
+          listStyle: 'none',
+          height: '26px',
+          fontSize: '13px',
+          fontWeight: '700',
+          color: '#999',
+        }}
+      >
+        Timegrame
+      </li>
+      <DropdownButton
+        title="Sort by"
+        style={{
+          float: 'right',
+          padding: '10px',
+        }}
+        variant="Secondary"
+        size="sm"
+      >
+        {orders.map((order, id) => (
+          <Dropdown.Item
+            key={id}
+            name={order.name}
+            value={order.value}
+            onClick={(e) => {
+              setOrderingValue(order.value);
+              // console.log(orderingValue);
+              // console.log(order.value);
+              // console.log(e.target.value);
+              // To-do: 왜 e.target.value로 불러오면 안 되는지, 혹은 뭐가 더 좋은 방법인지 물어보기
+            }}
+          >
+            {order.name}
+          </Dropdown.Item>
+        ))}
+      </DropdownButton>
+
+      {products.map((product, idx) => (
+        <ProductCard
+          key={idx}
+          p_imgUrl={product.p_image}
+          p_name={product.p_name}
+          p_price={product.p_price}
+          p_toDetail={product.p_no}
+        />
+      ))}
+    </div>
   );
 }

@@ -1,5 +1,4 @@
 import IntroTalk from './IntroTalk';
-import logo from './logoExamp.png';
 
 function Intro() {
   return (
@@ -11,7 +10,7 @@ function Intro() {
     <>
       <div className="container">
         <div className="logo">
-          <img src={logo} />
+          <img src="images/intro/intro_background.png" />
         </div>
         <IntroTalk />
       </div>

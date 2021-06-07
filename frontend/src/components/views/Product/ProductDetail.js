@@ -34,9 +34,8 @@ export default function ProductDetail() {
   const scrollToReview = () => reviewRef.current.scrollIntoView();
 
   // const [Random, setRandom] = useState(0);
-  // const [randomAvatarName, setrandomAvatarName] = useState('initialState')
   const random = Math.floor(Math.random() * avatarName.avatarName.length);
-  const randomAvatarName = (random, avatarName.avatarName[random]);
+  const [randomAvatarName, setrandomAvatarName] = useState('');
   console.log('리뷰러 이름 랜덤 : ', randomAvatarName);
 
   // 아래는 다 예시 url임. 나중에 바꿔야 함.
@@ -331,24 +330,28 @@ export default function ProductDetail() {
           {reviewInfo.map((review, idx) => (
             <div
               key={idx}
-              className="grid grid-cols-5 gap-x-2 gap-y-1 p-3 mb-3 auto-rows-auto bg-purple-50 rounded-lg"
+              className="grid grid-cols-5 gap-x-2 gap-y-1 p-3 mb-3 auto-rows-auto rounded-lg"
               style={{
                 maxWidth: '310px',
                 height: 'auto',
+                borderStyle: 'inset',
+                // backgroundColor: '#187FD9',
               }}
             >
               <div className="col-span-1 pl-2 flex justify-start items-center">
+                {() =>
+                  setrandomAvatarName(random, avatarName.avatarName[random])
+                }
                 <Avatar
                   size={40}
                   name={randomAvatarName}
-                  // variant="beam"
-                  variant="pixel"
+                  variant="beam"
                   colors={[
-                    '#8b5cf6',
-                    '#ff00ff',
-                    '#5d1cf2',
-                    '#ff7f00',
-                    '#9d6cff',
+                    '#187FD9',
+                    '#14A1D9',
+                    '#14C5D9',
+                    '#16F2DC',
+                    '#13F2C9',
                   ]}
                 />
               </div>
@@ -377,12 +380,12 @@ export default function ProductDetail() {
                 </p>
               </div>
               <div className="col-span-2 flex justify-end self-center">
-                <p className="pr-1 mb-0 text-xs font-semibold text-purple-600">
+                <p className="pr-1 mb-0 text-xs font-semibold">
                   {review.review_vote} people
                   <i
                     className="far fa-thumbs-up"
                     style={{
-                      color: '#8b5cf6',
+                      color: '#187FD9',
                       padding: '5px',
                     }}
                   ></i>
