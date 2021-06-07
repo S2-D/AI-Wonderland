@@ -14,13 +14,14 @@ export default function Attendance() {
   ]);
   const [prevUrlLink, setPrevUrlLink] = useState([]);
   const [nextUrlLink, setNextUrlLink] = useState([]);
+  const [token, setToken] = useState([]);
 
   async function getAttendanceInfo() {
     try {
       const response = await axios.get(infoUrl, {
         headers: {
           Authorization:
-            'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFiY0BleGFtcGxlLmNvbSIsImV4cCI6MTYyMzY1NjU0NSwiZW1haWwiOiJhYmNAZXhhbXBsZS5jb20iLCJvcmlnX2lhdCI6MTYyMzA1MTc0NX0.JVpXDPFqulNHLeZZ4UHT62fjn99am2XbaXSPiGKI2fs',
+            'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFiY0BleGFtcGxlLmNvbSIsImV4cCI6MTYyMzY5NjI5MSwiZW1haWwiOiJhYmNAZXhhbXBsZS5jb20iLCJvcmlnX2lhdCI6MTYyMzA5MTQ5MX0.iK-MTpxX1mqkk1gKBdaWr2Ns8UsPUueqn2H9GYqCuJE',
         },
       });
       console.log(response.data.results);
@@ -53,7 +54,7 @@ export default function Attendance() {
       .post(`http://127.0.0.1:8000/api/attendance/`, null, {
         headers: {
           Authorization:
-            'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFiY0BleGFtcGxlLmNvbSIsImV4cCI6MTYyMzY1NjU0NSwiZW1haWwiOiJhYmNAZXhhbXBsZS5jb20iLCJvcmlnX2lhdCI6MTYyMzA1MTc0NX0.JVpXDPFqulNHLeZZ4UHT62fjn99am2XbaXSPiGKI2fs',
+            'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFiY0BleGFtcGxlLmNvbSIsImV4cCI6MTYyMzY5NjI5MSwiZW1haWwiOiJhYmNAZXhhbXBsZS5jb20iLCJvcmlnX2lhdCI6MTYyMzA5MTQ5MX0.iK-MTpxX1mqkk1gKBdaWr2Ns8UsPUueqn2H9GYqCuJE',
         },
       })
       .then((response) => {
