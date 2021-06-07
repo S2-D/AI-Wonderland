@@ -15,3 +15,8 @@ class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
         fields = ('mem_id', 'attendance_date')
+
+class AttendanceInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Attendance
+        fields = '__all__'
