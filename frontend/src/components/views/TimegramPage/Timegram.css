@@ -43,33 +43,8 @@
   text-indent: 0;
 }
 
-.btn_like .ani_heart_m {
+.btn_like {
   margin: -63px 0 0 -63px;
-}
-
-.ani_heart_m {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 125px;
-  height: 125px;
-  margin: -63px 0 0 -63px;
-  pointer-events: none;
-}
-
-.ani_heart_m.hi {
-  background-image: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_on_m.png);
-  -webkit-background-size: 9000px 125px;
-  background-size: 9000px 125px;
-  animation: on_m 1.06s steps(72);
-}
-
-.ani_heart_m.bye {
-  background-image: url(https://mk.kakaocdn.net/dn/emoticon/static/images/webstore/retina/zzim_off_m.png);
-  -webkit-background-size: 8250px 125px;
-  background-size: 8250px 125px;
-  animation: off_m 1.06s steps(66);
 }
 
 @keyframes on_m {

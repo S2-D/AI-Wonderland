@@ -31,7 +31,6 @@ function TimegramPage() {
   const [isLike, setIsLike] = useState(false);
 
   async function onClickLike(e) {
-    console.log(e.target.id);
     const timegram_id = e.target.id;
 
     const data = {
@@ -57,7 +56,9 @@ function TimegramPage() {
           }
         });
     } catch (error) {
-      console.log(error);
+      if (error.message.slice(-3) == 401) {
+        alert('You must be logged in to click the like button!!');
+      }
     }
   }
 
@@ -65,9 +66,7 @@ function TimegramPage() {
     async function getCategoriesList() {
       try {
         const response = await axios.get(categoryUrl);
-        console.log(response);
-        console.log(response.status);
-        console.log(response.data.results);
+
         if (response.status === 200) {
           setCategories(response.data.results);
           getTimegramList();
@@ -83,9 +82,7 @@ function TimegramPage() {
     async function getTimegramList() {
       try {
         const response = await axios.get(timegramUrl);
-        console.log(response);
-        console.log(response.status);
-        console.log(response.data.results);
+
         if (response.status === 200) {
           setTimegrams(response.data.results);
           setLoading(true);
@@ -205,8 +202,10 @@ function TimegramPage() {
                   type="button"
                   className={isLike ? 'btn_like btn_unlike' : 'btn_like'}
                 >
-                  <span className="img_emoti">좋아요</span>
-                  <span className="like_span">
+                  <span id={timegram.id} className="img_emoti">
+                    좋아요
+                  </span>
+                  <span id={timegram.id} className="like_span">
                     {' '}
                     +{timegram.total_like} like!
                   </span>
