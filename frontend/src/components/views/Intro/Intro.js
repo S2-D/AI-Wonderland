@@ -1,21 +1,76 @@
+// 1) 레이아웃 잡기 - ** 중요! 저작권 표시해주기 (3시까지). 그리드에서 row도 써주면, 문제가 해결될 것
+// 2) 진입 시 로그인, 비로그인 구별 - memberauth로 하면 될 듯
+// 3) 토끼 랜덤 넣어서 대화창 보여주기
+// 4) Let's play some music
+
 import IntroTalk from './IntroTalk';
-import logo from './logoExamp.png';
+
+// nes.css 스타일
+import 'nes.css/css/nes.min.css';
 
 function Intro() {
   return (
-    // if (!user) - 차후 백엔드에서 유저 상태값 가져와서 관리?
-    // 첫 진입 시(로그인/비로그인 나누어야 함) - key를 받아와야 하고, 새로고침을 해도 유지가 되는 storage에서 받아와야 - mock 서버 만들어서 확인
-    // JWT - 예를 들어 크롬 브라우저에 있는 local Storage에 토큰이 있냐 없냐를 보고 판단하면 됨. 사실 백엔드에서도 로컬 스토리지의 토큰을 보고 판단을 함.
-    // mock-server 는 필요 없을 것. 슬기님께서 이미 세팅 중이심. 어떻게 확인하면 되는지는 어차피 오늘 내일 중으로 나올 예정임.
-
-    <>
-      <div className="container">
-        <div className="logo">
-          <img src={logo} />
+    <div className="flex my-3 justify-center">
+      <div
+        className="grid grid-cols-1  gap-10 rounded-md"
+        style={{
+          maxWidth: '310px',
+          height: 'auto',
+          backgroundImage: 'URL("images/intro/intro_background.png")',
+          backgroundSize: '310px auto',
+          backgroundRepeat: 'no-repeat',
+          backgroundColor: '#187FD9',
+          gridTemplateRows: '1fr 1fr 2fr 1fr',
+        }}
+      >
+        <div
+          className="col-span-1 flex justify-end m-1"
+          style={{ fontFamily: 'neodgm' }}
+        >
+          Sound effect
         </div>
-        <IntroTalk />
+        <div className="col-span-1 flex flex-wrap justify-center items-center text-white">
+          <p
+            style={{
+              fontFamily: 'BACKTO1982',
+              fontSize: '17px',
+              // fontFamily: 'small_bold_pixel-7',
+              // fontFamily: 'light_pixel-7',
+              // height: '30px',
+            }}
+          >
+            AI WONDERLAND
+          </p>
+          {/* <p>Welcome to the time store</p> */}
+        </div>
+        <div className="col-span-1 flex justify-center items-end">
+          <button
+            className="nes-btn"
+            style={{
+              fontFamily: 'BACKTO1982',
+              fontSize: '10px',
+              borderColor: 'blue',
+            }}
+          >
+            Click to start
+          </button>
+        </div>
+        <div
+          className="col-span-1 flex flex-wrap justify-center items-end mb-0"
+          style={{ fontFamily: 'neodgm' }}
+        >
+          <p classNmae="p-0 mb-0">Image copyright. All reserved.</p>
+          <p classNmae="p-0 mb-0">https://pixelins.tumblr.com/</p>
+        </div>
       </div>
-    </>
+    </div>
+
+    //   <div className="container">
+    //     <div className="logo">
+    //       <img src="images/intro/intro_background.png" />
+    //     </div>
+    //     <IntroTalk />
+    //   </div>
   );
 }
 
