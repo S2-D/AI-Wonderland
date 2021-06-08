@@ -40,26 +40,35 @@ class ScrapbookList(viewsets.ViewSet):
         
         user_id = self.request.query_params.get('mem_id', None)
         memberInfo = User.objects.filter(pk=user_id)
-        
-        if str(memberInfo[0].email) != str(self.request.user):
+
+        try :
+            if str(memberInfo[0].email) != str(self.request.user):
+                return Response(
+                {
+                    "status_code": status.HTTP_401_UNAUTHORIZED,
+                    "status": "error",
+                    "message": "본인 계정정보만 접근가능합니다."
+                }, status=status.HTTP_401_UNAUTHORIZED
+            )
+            
+            queryset = self.queryset.filter(mem_id = user_id)
+            serializer = ScrapbookSerializer(queryset, many=True, read_only=True)
+            
+            return Response (
+                        {
+                            "status_code": status.HTTP_200_OK,
+                            "status": "success",
+                            "data": serializer.data
+                        }, status = status.HTTP_200_OK
+                    )
+        except:
             return Response(
-            {
-                "status_code": status.HTTP_401_UNAUTHORIZED,
-                "status": "error",
-                "message": "본인 계정정보만 접근가능합니다."
-            }, status=status.HTTP_401_UNAUTHORIZED
-        )
-        
-        queryset = self.queryset.filter(mem_id = user_id)
-        serializer = ScrapbookSerializer(queryset, many=True, read_only=True)
-        
-        return Response (
-                    {
-                        "status_code": status.HTTP_200_OK,
-                        "status": "success",
-                        "data": serializer.data
-                    }, status = status.HTTP_200_OK
-                )
+                {
+                    "status_code": status.HTTP_400_BAD_REQUEST,
+                    "status": "error",
+                    "message": "계정정보를 확인하세요."
+                }, status=status.HTTP_400_BAD_REQUEST
+            )
         
     
     @swagger_auto_schema(request_body = ScrapbookCRUDSerializer,)
@@ -88,14 +97,14 @@ class ScrapbookList(viewsets.ViewSet):
                             "status_code": status.HTTP_201_CREATED,
                             "status": "success",
                             "data": serializer.data,
-                            'message': '스크랩북에 추가되었음'
+                            'message': '나의 스크랩북에 추가 되었습니다.'
                         }, status = status.HTTP_201_CREATED )
 
         except:
             return Response({
                 "status_code": status.HTTP_400_BAD_REQUEST,
                 'status': 'error',
-                'message': 'member id 와 asin 다시 확인하세요'
+                'message': 'member id 혹은 asin 잘못 입력되었습니다.'
                 }, status = status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, pk=None):

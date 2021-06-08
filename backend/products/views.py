@@ -45,7 +45,7 @@ class ProductList(viewsets.ViewSet):
     @swagger_auto_schema(
         manual_parameters = [param_pcategory_code, param_ordering, param_page],
     )
-    def list(self, request):
+    def list(self, request, pcategory_code=None):
         """
         ProductsList API : 전체 상품 리스트
         ---
@@ -53,18 +53,34 @@ class ProductList(viewsets.ViewSet):
         ordering : 정렬할 필드를 선택하세요. -p_readcount : 조회 순(기본, 입력안하면 조회순으로 정렬), -p_price : 가격 높은 순, p_price : 가격 낮은 순, -p_rank : 랭킹 순, -p_date : 등록일 순
         """
         
-        ordering = self.request.query_params.get('ordering', None)
         category_code = self.request.query_params.get('pcategory_code', None)
-        list_queryset = self.queryset.filter(pcategory_code = category_code)
+        
+        try :
+            list_queryset = self.queryset.filter(pcategory_code = category_code)
+            ordering = self.request.query_params.get('ordering', None)
 
-        if ordering is not None:
-            list_queryset = list_queryset.order_by(ordering)
+            if int(category_code) not in [1, 2, 3, 4]:
+                return Response({
+                    "status_code": status.HTTP_400_BAD_REQUEST,
+                    'status': 'error',
+                    'message': '카테고리 코드를 다시 확인 해주세요.'
+                    }, status = status.HTTP_400_BAD_REQUEST)
+            
+            if ordering is not None:
+                list_queryset = list_queryset.order_by(ordering)
 
-        paginator = PageNumberPagination()
-        page = paginator.paginate_queryset(list_queryset, request)
-        serializer = ProductSerializer(page, many=True)
+            paginator = PageNumberPagination()
+            page = paginator.paginate_queryset(list_queryset, request)
+            serializer = ProductSerializer(page, many=True)
 
-        return paginator.get_paginated_response(serializer.data)
+            return paginator.get_paginated_response(serializer.data)
+        except :
+            return Response({
+                    "status_code": status.HTTP_400_BAD_REQUEST,
+                    'status': 'error',
+                    'message': '카테고리 코드는 필수 입력사항 입니다.'
+                    }, status = status.HTTP_400_BAD_REQUEST)
+
 
     def retrieve(self, request, pk=None):
         """
@@ -72,7 +88,6 @@ class ProductList(viewsets.ViewSet):
         ---
         p_no  : 조회할 상품의 asin 을 입력하세요.
         """
-
         queryset = get_object_or_404(self.queryset, pk=pk)
         queryset.p_readcount += 1
         queryset.save()
@@ -80,11 +95,9 @@ class ProductList(viewsets.ViewSet):
         
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-class ReviewList(viewsets.ReadOnlyModelViewSet):
-    
+class ReviewList(viewsets.ViewSet):
     queryset = Review.objects.all()
     permission_classes = [permissions.AllowAny,]
-    serializer_class = ReviewSerializer
 
     param_p_no = openapi.Parameter(
         'p_no',
@@ -97,17 +110,26 @@ class ReviewList(viewsets.ReadOnlyModelViewSet):
     @swagger_auto_schema(
         manual_parameters = [param_p_no,],
     )
-    def list(self, request):
+    def list(self, request, p_no=None):
         """
         ReviewList API : 특정 상품 리뷰 리스트 조회
         ---
         p_no : 조회할 상품의 asin 을 입력하세요.
         """
+
         asin = self.request.query_params.get('p_no', None)
-        list_queryset = self.queryset.filter(p_no = asin).order_by('-review_vote', '-review_date')
-        paginator = PageNumberPagination()
+        if asin == None:
+                return Response({
+                    "status_code": status.HTTP_400_BAD_REQUEST,
+                    'status': 'error',
+                    'message': '조회할 상품의 asin 을 입력하세요.'
+                    }, status = status.HTTP_400_BAD_REQUEST)
+
+        list_queryset = self.queryset.filter(p_no = asin)
         
-        page = paginator.paginate_queryset(list_queryset, request)
+        paginator = PageNumberPagination()
+        paginator.page_size = 10
+        page = paginator.paginate_queryset(list_queryset.order_by('-review_vote', '-review_date'), request)
         serializer = ReviewSerializer(page, many=True)
 
         return paginator.get_paginated_response(serializer.data)
@@ -119,14 +141,6 @@ class ProductTop4List(viewsets.ViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductTop4Serializer
     permission_classes = [permissions.AllowAny,]
-
-    def get_queryset(self):
-        queryset = self.queryset
-        category_code = self.request.query_params.get('pcategory_code', None)
-
-        if category_code:
-            queryset = queryset.filter(pcategory_code = category_code)
-        return queryset
 
     param_pcategory_code = openapi.Parameter(
         'pcategory_code',
@@ -143,9 +157,19 @@ class ProductTop4List(viewsets.ViewSet):
         """
         pcategory_code : 카테고리 코드를 입력하세요. 1: 상의, 2: 하의, 3: 신발, 4: 기타
         """
-        qs = self.get_queryset().order_by('-p_readcount')[:4]
-        serializer = ProductSerializer(qs, many=True, read_only=True)
-        # return Response(serializer.data)
+        category_code = self.request.query_params.get('pcategory_code', None)
+        queryset = self.queryset.filter(pcategory_code = category_code)
+
+        if int(category_code) not in [1, 2, 3, 4]:
+            return Response({
+                "status_code": status.HTTP_400_BAD_REQUEST,
+                'status': 'error',
+                'message': '카테고리 코드를 다시 확인 해주세요.'
+                }, status = status.HTTP_400_BAD_REQUEST)
+        
+        queryset = queryset.order_by('-p_readcount')[:4]
+        serializer = ProductSerializer(queryset, many=True, read_only=True)
+        
         return Response (
                     {
                         "status_code": status.HTTP_200_OK,
@@ -197,7 +221,7 @@ class SearchList(viewsets.ViewSet):
     param_p_name = openapi.Parameter(
         'p_name',
         openapi.IN_QUERY,
-        description='검색어(제목)', 
+        description='검색어(상품 이름)', 
         type=openapi.TYPE_STRING,
         required=True
     )
@@ -213,7 +237,7 @@ class SearchList(viewsets.ViewSet):
     @swagger_auto_schema(
         manual_parameters = [param_p_name, param_ordering],
     )
-    def list(self, request):
+    def list(self, request, p_name=None):
         """
         SearchList API : 검색 결과 리스트
         ---
@@ -222,24 +246,25 @@ class SearchList(viewsets.ViewSet):
         """
         
         search_word = self.request.query_params.get('p_name', None)
+        # search_word = get_object_or_404(self.queryset, p_name=p_name)
         
-        if len(search_word) < 2:
+        try :
+            list_queryset = self.queryset.filter(p_name__icontains = search_word)
+
+            ordering = self.request.query_params.get('ordering', None)
+            if ordering is None or ordering == "":
+                list_queryset = list_queryset.order_by('-p_readcount')
+            else:
+                list_queryset = list_queryset.order_by(ordering)
+
+            paginator = PageNumberPagination()
+            page = paginator.paginate_queryset(list_queryset, request)
+            serializer = ProductSerializer(page, many=True)
+
+            return paginator.get_paginated_response(serializer.data)
+        except:
             return Response({
-                "status_code": status.HTTP_400_BAD_REQUEST,
-                'status': 'error',
-                'message': '검색어는 2글자 이상 입력해주세요.'
-                }, status = status.HTTP_400_BAD_REQUEST)
-        
-        ordering = self.request.query_params.get('ordering', None)
-        list_queryset = self.queryset.filter(p_name__icontains = search_word)
-
-        if ordering is None:
-            list_queryset = list_queryset.order_by('-p_readcount')
-        else:
-            list_queryset = list_queryset.order_by(ordering)
-
-        paginator = PageNumberPagination()
-        page = paginator.paginate_queryset(list_queryset, request)
-        serializer = ProductSerializer(page, many=True)
-
-        return paginator.get_paginated_response(serializer.data)
+                    "status_code": status.HTTP_400_BAD_REQUEST,
+                    'status': 'error',
+                    'message': '검색어는 2글자 이상 입력해주세요.'
+                    }, status = status.HTTP_400_BAD_REQUEST)
