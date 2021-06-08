@@ -48,6 +48,8 @@ function App() {
           <PublicRoute component={ProductDetail} path="/productDetail" exact />
           {/* 마이페이지 */}
           <PrivateRoute component={MyPage} path="/mypage" exact />
+          {/* Attendance */}
+          <PrivateRoute component={Attendance} path="/attendance" exact />
         </Switch>
       </div>
     </Router>

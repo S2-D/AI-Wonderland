@@ -14,7 +14,7 @@ export default function Attendance() {
   ]);
   const [prevUrlLink, setPrevUrlLink] = useState([]);
   const [nextUrlLink, setNextUrlLink] = useState([]);
-  const [token, setToken] = useState([]);
+  const access_token = localStorage.getItem('access_token');
 
   async function getAttendanceInfo() {
     try {
@@ -69,72 +69,75 @@ export default function Attendance() {
   return (
     <>
       <GNB />
-      <h4
-        className="mb-3 fw-normal text-center"
-        style={{
-          fontFamily: 'neodgm',
-        }}
-      >
-        Attendance Check
-      </h4>
-      {attendanceInfo.map((record, idx) => (
-        <div key={idx} className="card shadow-sm mx-auto w-80 mb-1">
-          <div className="row no-gutters align-items-center">
-            <div className="col-2">
-              <img
-                className="m-2"
-                src="https://images-na.ssl-images-amazon.com/images/I/41Rtah4DGHL.jpg"
-              ></img>
-            </div>
-            <div className="col-10 text-right">
-              <p
-                className="m-2"
-                style={{
-                  fontFamily: 'neodgm',
-                }}
-              >
-                {record.attendance_date}
-              </p>
+      <div className="">
+        <br></br>
+        <h4
+          className="mb-3 fw-normal text-center"
+          style={{
+            fontFamily: 'neodgm',
+          }}
+        >
+          Attendance Check
+        </h4>
+        {attendanceInfo.map((record, idx) => (
+          <div key={idx} className="card shadow-sm mx-auto w-80 mb-1">
+            <div className="row no-gutters align-items-center">
+              <div className="col-2">
+                <img
+                  className="m-2"
+                  src="https://images-na.ssl-images-amazon.com/images/I/41Rtah4DGHL.jpg"
+                ></img>
+              </div>
+              <div className="col-10 text-right">
+                <p
+                  className="m-2"
+                  style={{
+                    fontFamily: 'neodgm',
+                  }}
+                >
+                  {record.attendance_date}
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
 
-      <div className="flex justify-center">
-        <button
-          className="btn btn-link"
-          style={{
-            fontFamily: 'neodgm',
-          }}
-          disabled={prevUrlLink === null}
-          onClick={prevPageHandler}
-        >
-          Prev
-        </button>
-        <button
-          className="btn btn-link"
-          style={{
-            fontFamily: 'neodgm',
-          }}
-          disabled={nextUrlLink === null}
-          onClick={nextPageHandler}
-        >
-          Next
-        </button>
-      </div>
-      <div className="col-span-2 p-3 flex justify-center">
-        <button
-          type="button"
-          className="bg-purple-700 hover:bg-purple-800 text-xl text-white font-semibold rounded-lg"
-          style={{
-            fontFamily: 'neodgm',
-            width: '322px',
-            height: '35px',
-          }}
-          onClick={checkinHandler}
-        >
-          Check in
-        </button>
+        <div className="flex justify-center">
+          <button
+            className="btn btn-link"
+            style={{
+              fontFamily: 'neodgm',
+            }}
+            disabled={prevUrlLink === null}
+            onClick={prevPageHandler}
+          >
+            Prev
+          </button>
+          <button
+            className="btn btn-link"
+            style={{
+              fontFamily: 'neodgm',
+            }}
+            disabled={nextUrlLink === null}
+            onClick={nextPageHandler}
+          >
+            Next
+          </button>
+        </div>
+        <div className="col-span-2 p-3 flex justify-center">
+          <button
+            type="button"
+            className="bg-purple-700 hover:bg-purple-800 text-xl text-white font-semibold rounded-lg"
+            style={{
+              fontFamily: 'neodgm',
+              width: '322px',
+              height: '35px',
+            }}
+            onClick={checkinHandler}
+          >
+            Check in
+          </button>
+        </div>
       </div>
       <Toolbar />
     </>

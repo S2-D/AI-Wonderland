@@ -4,7 +4,6 @@ import Toolbar from '../Toolbar/Toolbar';
 import { Link } from 'react-router-dom';
 import Logout from '../LoginPage/Logout';
 import Info from './Info';
-import { waitForNone } from 'recoil';
 import MyPageStyle from './MyPageStyle.css';
 
 function MyPage() {
