@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
+import Avatar from 'boring-avatars'; // 아바타 자동 생성 라이브러리
+import avatarName from '../Product/ProductDetailAvatarName';
 
 export default function Info() {
   const [Nickname, setNickName] = useState('');
@@ -66,12 +68,22 @@ export default function Info() {
     >
       <div className="userInfo">
         <div className="col-span-1 w-40 h-40 p-4 mx-20">
-          <img
+          {/* <img
             src="./images/icon_img/anonymous.png"
             style={{
               borderRadius: '50%',
               backgroundColor: '#13F2C9',
             }}
+          /> */}
+          <Avatar
+            size={110}
+            name={
+              avatarName.avatarName[
+                Math.floor(Math.random() * avatarName.avatarName.length)
+              ]
+            }
+            variant="beam"
+            colors={['#187FD9', '#14A1D9', '#14C5D9', '#16F2DC', '#13F2C9']}
           />
         </div>
         <div

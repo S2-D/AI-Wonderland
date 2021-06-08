@@ -20,14 +20,16 @@ export default function MainPage() {
     { id: 4, name: 'Others', Code: 4 },
   ];
 
-  const productsUrl = `${baseUrl}/products/productlist/?pcategory_code=${categoryCode}`;
+  const [itemValue, setItemValue] = useState('');
 
-  const response = axios.get(productsUrl);
+  const BestItemsUrl = `${baseUrl}/products//products/top4list/?pcategory_code=${categoryCode}`;
+
+  const response = axios.get(BestItemsUrl);
 
   useEffect(() => {
     async function getProductData() {
       try {
-        const response = await axios.get(productsUrl);
+        const response = await axios.get(BestItemsUrl);
         console.log(response.status);
         console.log(response.data.results);
         if (response.status === 200) {
@@ -38,16 +40,21 @@ export default function MainPage() {
         }
       } catch (error) {
         console.log(error);
-        const response = await axios.get(productsUrl);
+        const response = await axios.get(BestItemsUrl);
         console.log(response.status);
       }
     }
     getProductData();
-  }, [productsUrl]);
+  }, [BestItemsUrl]);
 
   return (
     <>
-      <div className="w-full">
+      <div
+        className="w-full"
+        style={{
+          paddingBottom: '65px',
+        }}
+      >
         <GNB />
         <MainSlider />
         <div className="container">

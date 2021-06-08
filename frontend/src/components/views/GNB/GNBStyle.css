@@ -20,11 +20,9 @@
 
 .right_container {
   width: 30%;
-  height: 100%;
   float: right;
-  border: 3px solid #187fd9;
-  border-radius: 10px;
-  background-image: url('../../../utils/images/icon_img/coin_move.gif');
+  background-color: pink;
+  background-image: url('../../../utils/images/icon_img/coin_fixed.png');
   background-repeat: no-repeat;
   background-position-x: 5%;
   background-position-y: 50%;
@@ -53,11 +51,13 @@
   object-fit: cover;
   text-decoration: none;
   font-family: '1982';
+  font-size: 75%;
 }
 
 .wallet {
-  float: right;
   padding: 20px 5px 5px 5px;
-  font-size: 17px;
+  font-size: 20%;
   font-family: 'light_p';
+  float: right;
+  text-align: center;
 }
