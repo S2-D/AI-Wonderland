@@ -3,9 +3,15 @@
   src: url('../../../fonts/neodgm_code.ttf');
 }
 
-img {
-  max-width: auto;
-  max-height: 100px;
-}  
-/* @import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css' */
+@font-face {
+  font-family: 'light_p';
+  src: url('../../../fonts/light_pixel-7.ttf');
+}
+
+@font-face {
+  font-family: 'sb_pixel';
+  src: url('../../../fonts/small_bold_pixel-7.ttf');
+}
+.checkin{
+  box-shadow: 0 8px 16px 0 rgb(0 0 0 / 12%)
+}

@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import Wallet from '../GNB/Wallet';
 import './Attendance.css';
 import baseUrl from '../../../url/http';
+import Avatar from 'boring-avatars';
+import avatarName from './AvatarName';
 
 export default function Attendance() {
   const [attendanceInfo, setAttendanceInfo] = useState([]);
@@ -15,6 +17,9 @@ export default function Attendance() {
   const [prevUrlLink, setPrevUrlLink] = useState([]);
   const [nextUrlLink, setNextUrlLink] = useState([]);
   const access_token = localStorage.getItem('access_token');
+
+  const random = Math.floor(Math.random() * avatarName.avatarName.length);
+  const [randomAvatarName, setrandomAvatarName] = useState('');
 
   async function getAttendanceInfo() {
     try {
@@ -68,31 +73,42 @@ export default function Attendance() {
 
   return (
     <>
-      <GNB />
-      <div className="">
+      <div className="h-100">
+        <GNB />
         <br></br>
         <h4
           className="mb-3 fw-normal text-center"
           style={{
-            fontFamily: 'neodgm',
+            fontFamily: 'light_p',
           }}
         >
           Attendance Check
         </h4>
         {attendanceInfo.map((record, idx) => (
-          <div key={idx} className="card shadow-sm mx-auto w-80 mb-1">
+          <div key={idx} className="checkin card mx-auto w-80 mb-1">
             <div className="row no-gutters align-items-center">
               <div className="col-2">
-                <img
-                  className="m-2"
-                  src="https://images-na.ssl-images-amazon.com/images/I/41Rtah4DGHL.jpg"
-                ></img>
+                {() =>
+                  setrandomAvatarName(random, avatarName.avatarName[random])
+                }
+                <Avatar
+                  size={40}
+                  name={randomAvatarName}
+                  variant="beam"
+                  colors={[
+                    '#187FD9',
+                    '#14A1D9',
+                    '#14C5D9',
+                    '#16F2DC',
+                    '#13F2C9',
+                  ]}
+                />
               </div>
               <div className="col-10 text-right">
                 <p
                   className="m-2"
                   style={{
-                    fontFamily: 'neodgm',
+                    fontFamily: 'sb_pixel',
                   }}
                 >
                   {record.attendance_date}
@@ -106,7 +122,7 @@ export default function Attendance() {
           <button
             className="btn btn-link"
             style={{
-              fontFamily: 'neodgm',
+              fontFamily: 'sb_pixel',
             }}
             disabled={prevUrlLink === null}
             onClick={prevPageHandler}
@@ -116,7 +132,7 @@ export default function Attendance() {
           <button
             className="btn btn-link"
             style={{
-              fontFamily: 'neodgm',
+              fontFamily: 'sb_pixel',
             }}
             disabled={nextUrlLink === null}
             onClick={nextPageHandler}
@@ -129,7 +145,7 @@ export default function Attendance() {
             type="button"
             className="bg-purple-700 hover:bg-purple-800 text-xl text-white font-semibold rounded-lg"
             style={{
-              fontFamily: 'neodgm',
+              fontFamily: 'sb_pixel',
               width: '322px',
               height: '35px',
             }}
@@ -138,8 +154,8 @@ export default function Attendance() {
             Check in
           </button>
         </div>
+        <Toolbar />
       </div>
-      <Toolbar />
     </>
   );
 }
