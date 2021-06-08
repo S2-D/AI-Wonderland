@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'neodgm';
+  src: url('../../../fonts/neodgm_code.ttf');
+}
+
+img {
+  max-width: auto;
+  max-height: 100px;
+}  
+/* @import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css' */

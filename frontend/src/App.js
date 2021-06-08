@@ -4,11 +4,13 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import MainPage from './components/views/MainPage/MainPage';
+import TimegramPage from './components/views/TimegramPage/TimegramPage';
 import SearchPage from './components/views/SearchPage/search';
 import ProductList from './components/views/Product/ProductList';
 import ProductDetail from './components/views/Product/ProductDetail';
 import Intro from './components/views/Intro/Intro';
 import MyPage from './components/views/MyPage/MyPage';
+import Attendance from './components/views/Attendance/Attendance';
 
 import 'bootstrap/dist/css/bootstrap.css';
 // 최상위 컴포넌트에 적용해주면 일괄 적용 가능함
@@ -38,6 +40,8 @@ function App() {
           <PublicRoute component={MainPage} path="/main" exact />
           {/* 상품 리스트 페이지 연결  */}
           <PublicRoute component={ProductList} path="/productList" exact />
+          {/* 타임그램 페이지 연결 */}
+          <Route component={TimegramPage} path="/timegram" exact />
           {/* 검색 페이지 연결 */}
           <Route component={SearchPage} path="/search" exact />
           {/* 상품 상세 페이지 연결 */}
