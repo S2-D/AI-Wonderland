@@ -13,16 +13,11 @@
 }
 
 .compass a:hover {
-  color: #13f2c9;
+  color: #90eeff;
   font-size: 110%;
 }
 
-.button.logOut {
-  float: left;
-  color: white;
-}
-
-.button.logOut:hover {
-  float: left;
-  color: white;
+.compass a:hover::after {
+  color: #ffffff;
+  font-size: 110%;
 }

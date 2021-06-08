@@ -1,11 +1,14 @@
-import React from 'react';
-import { useHistory } from 'react-router';
+import { React } from 'react';
+import { useHistory, Link } from 'react-router-dom';
 import isLogin from '../../../url/lib/isLogin';
+import baseUrl from '../../../url/http';
 
 //to do: 로그인. 로그아웃 컨펌창 띄워서 받고 하기!(https://studyingych.tistory.com/62)
 export default function LogoutButton() {
   const history = useHistory();
   //로그아웃 관리(로컬스토리지에서 토큰 삭제)
+
+  const LoginUrl = `${baseUrl} + /login`;
   const LogoutHandler = () => {
     if (isLogin() === true) {
       localStorage.removeItem('access_token');
@@ -19,7 +22,6 @@ export default function LogoutButton() {
 
   const LoginHandler = () => {
     alert('로그인 페이지로 이동합니다.');
-    history.push('/login');
   };
 
   //isLogin 함수가 true 상태면 로그인이 되었으니 로그아웃 버튼 보여주고, 아니면 로그인 버튼 보여주는 코드.
@@ -44,11 +46,11 @@ export default function LogoutButton() {
         onClick={LoginHandler}
         className="logIn"
         style={{
-          backgroundColor: '#16F2DC',
+          backgroundColor: '#187fd9',
           float: 'right',
         }}
       >
-        LOGIN
+        <Link to="/login">LOGIN</Link>
       </button>
     </>
   );

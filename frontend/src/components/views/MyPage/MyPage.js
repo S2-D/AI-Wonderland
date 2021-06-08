@@ -14,86 +14,79 @@ function MyPage() {
         <GNB />
         <Info />
         <div
-          className="grid grid-col-4 justify-left"
+          className="grid grid-row-4 inline-block align-text-middle"
           style={{
             textDecoration: 'none',
           }}
         >
           <div
-            className="col-span-2 justify-center p-4"
+            className="row-span-1 align-middle p-4 transform"
             style={{
-              textAlign: 'center',
               textDecoration: 'none',
               fontFamily: 'light_p',
-              backgroundColor: '#13F2C9',
+              backgroundColor: '#87F2CC',
             }}
           >
-            <img
-              src="./images/icon_img/scrapbook_touch.png"
-              style={{
-                width: '26px',
-              }}
-              className="float-left"
-            />
             <Link
               to="/scrapbook"
-              style={{ textDecoration: 'none', color: 'black' }}
+              style={{ textDecoration: 'none', color: 'hotpink' }}
             >
-              My Scrapbook
+              My Scrapbook &gt;
+              <img
+                src="./images/icon_img/scrapbook_menu.png"
+                style={{
+                  width: '40px',
+                }}
+              />
             </Link>
           </div>
           <div
-            className="col-span-2 justify-center p-4"
+            className="row-span-1 p-4"
             style={{
-              textAlign: 'center',
               textDecoration: 'none',
               fontFamily: 'light_p',
-              backgroundColor: '#13F2C9',
+              backgroundColor: '#87F2CC',
             }}
           >
-            <img
-              src="./images/icon_img/timegram_touch.png"
-              className="float-left"
-              style={{
-                width: '26px',
-              }}
-            />
-            <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
-              My Lookbook
+            <Link to="/" style={{ textDecoration: 'none', color: 'hotpink' }}>
+              My Lookbook &gt;
+              <img
+                src="./images/icon_img/timegram_menu.png"
+                style={{
+                  width: '40px',
+                }}
+              />
             </Link>
           </div>
           <div
-            className="col-span-2 justify-center p-4"
+            className="row-span-1 align-text-middle p-4"
             style={{
-              textAlign: 'center',
               fontFamily: 'light_p',
-              backgroundColor: '#13F2C9',
+              backgroundColor: '#87F2CC',
             }}
           >
-            <img
-              src="./images/icon_img/stamp_moving.gif"
-              className="float-left"
-              style={{
-                width: '30px',
-              }}
-            />
             <Link
               to="/attendance"
               style={{
                 textDecoration: 'none',
-                color: 'black',
-                marginTop: '5px',
+                color: 'hotpink',
               }}
             >
-              Check-in
+              Check-in &gt;
+              <img
+                src="./images/icon_img/stamp_moving.gif"
+                style={{
+                  width: '36px',
+                }}
+              />
             </Link>
           </div>
           <div
-            className="col-span-2 justify-center p-4"
+            className="row-span-1 p-4"
             style={{
               textAlign: 'center',
-              backgroundColor: '#187FD9',
               fontFamily: 'light_p',
+              backgroundColor: 'hotpink',
             }}
           >
             <Logout />
