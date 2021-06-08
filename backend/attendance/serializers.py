@@ -8,13 +8,14 @@ class AttendanceSerializer(serializers.ModelSerializer):
         attendance_log = Attendance.objects.create (
             mem_id = validated_data['mem_id'],
             attendance_date = date.today(),
+            avatar_num = validated_data['avatar_num']
         )
         
         return attendance_log
     
     class Meta:
         model = Attendance
-        fields = ('mem_id', 'attendance_date')
+        fields = ('mem_id', 'attendance_date', 'avatar_num')
 
 class AttendanceInfoSerializer(serializers.ModelSerializer):
     class Meta:

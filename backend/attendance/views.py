@@ -9,7 +9,7 @@ from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from datetime import date, datetime
 from rest_framework.pagination import PageNumberPagination
-
+import random
 
 # param_year_month = openapi.Parameter(
 #     'year_month',
@@ -53,6 +53,7 @@ def attendance_info(request):
         if len(attendanceInfo)==0:
             data={}
             data['mem_id'] = request.user.id
+            data['avatar_num'] = random.randint(0,99)
             serializer = AttendanceSerializer(data = data)
     #serializer로 validation, 성공시 출첵
             if serializer.is_valid(raise_exception=True):
