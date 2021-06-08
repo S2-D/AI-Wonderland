@@ -35,3 +35,7 @@
   background-color:#14C5D9;
   color: white;
 }
+
+.date-container {
+  min-height: 380px;
+}

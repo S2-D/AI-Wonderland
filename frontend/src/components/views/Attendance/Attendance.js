@@ -1,20 +1,20 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
-import { Link } from 'react-router-dom';
 import Wallet from '../GNB/Wallet';
 import './Attendance.css';
 import baseUrl from '../../../url/http';
 import Avatar from 'boring-avatars';
 import avatarName from './AvatarName';
-import AvatarName from './AvatarName';
 
 export default function Attendance() {
   const [attendanceInfo, setAttendanceInfo] = useState([]);
   const [infoUrl, setInfoUrl] = useState([
     `http://127.0.0.1:8000/api/attendance/`,
   ]);
+  // db live 후 활용해야할 api url
+  // const [infoUrl, setInfoUrl] = useState([baseUrl + '/attendance/']);
   const [prevUrlLink, setPrevUrlLink] = useState([]);
   const [nextUrlLink, setNextUrlLink] = useState([]);
   const access_token = localStorage.getItem('access_token');
@@ -27,6 +27,10 @@ export default function Attendance() {
             'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFiY0BleGFtcGxlLmNvbSIsImV4cCI6MTYyMzY5NjI5MSwiZW1haWwiOiJhYmNAZXhhbXBsZS5jb20iLCJvcmlnX2lhdCI6MTYyMzA5MTQ5MX0.iK-MTpxX1mqkk1gKBdaWr2Ns8UsPUueqn2H9GYqCuJE',
         },
       });
+      // db live 후 활용해야할 JWT header 코드
+      // const response = await axios.get(infoUrl, {
+      //   headers: { Authorization: `jwt ${access_token}`},
+      // });
       console.log(response.data.results);
       if (response.status === 200) {
         setAttendanceInfo(response.data.results);
@@ -60,9 +64,15 @@ export default function Attendance() {
             'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFiY0BleGFtcGxlLmNvbSIsImV4cCI6MTYyMzY5NjI5MSwiZW1haWwiOiJhYmNAZXhhbXBsZS5jb20iLCJvcmlnX2lhdCI6MTYyMzA5MTQ5MX0.iK-MTpxX1mqkk1gKBdaWr2Ns8UsPUueqn2H9GYqCuJE',
         },
       })
+      // db live 후 활용해야할 JWT header 코드
+      // .post(`http://127.0.0.1:8000/api/attendance/`, null, {
+      //   headers: { Authorization: `jwt ${access_token}` },
+      // })
       .then((response) => {
         if (response.status === 201) {
           setInfoUrl(`http://127.0.0.1:8000/api/attendance/`);
+          // db live 후 활용해야할 url 코드
+          // setInfoUrl(baseUrl + '/attendance/');
           alert('You have been rewarded $300 in return!');
         }
       })
@@ -75,7 +85,7 @@ export default function Attendance() {
         <GNB />
         <br></br>
         <div className="container">
-          <div className="body-container" style={{ paddingBottom: '65px' }}>
+          <div className="body-container " style={{ paddingBottom: '65px' }}>
             <div className="title-container">
               <h4
                 className="title mb-3 mt-3 text-center"
@@ -89,7 +99,7 @@ export default function Attendance() {
             <div className="date-container">
               {attendanceInfo.map((record, idx) => (
                 <div key={idx} className="card mx-auto w-80 mb-2">
-                  <div className="row no-gutters align-items-center">
+                  <div className="row align-items-center">
                     <div className="col-2">
                       <div className="m-2">
                         <Avatar
