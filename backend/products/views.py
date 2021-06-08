@@ -50,7 +50,7 @@ class ProductList(viewsets.ViewSet):
         ProductsList API : 전체 상품 리스트
         ---
         pcategory_code : 카테고리 코드를 입력하세요. 1: 상의, 2: 하의, 3: 신발, 4: 기타
-        ordering : 정렬할 필드를 선택하세요. -p_readcount : 조회 순, -p_price : 가격 순, -p_rank : 랭킹 순, -p_date : 등록일 순
+        ordering : 정렬할 필드를 선택하세요. -p_readcount : 조회 순(기본, 입력안하면 조회순으로 정렬), -p_price : 가격 높은 순, p_price : 가격 낮은 순, -p_rank : 랭킹 순, -p_date : 등록일 순
         """
         
         ordering = self.request.query_params.get('ordering', None)
@@ -190,3 +190,56 @@ class AlsoBoughtList(viewsets.ViewSet):
                     }, status = status.HTTP_200_OK
                 )
 
+class SearchList(viewsets.ViewSet):
+    queryset = Product.objects.all()
+    permission_classes = [permissions.AllowAny,]
+
+    param_p_name = openapi.Parameter(
+        'p_name',
+        openapi.IN_QUERY,
+        description='검색어(제목)', 
+        type=openapi.TYPE_STRING,
+        required=True
+    )
+
+    param_ordering = openapi.Parameter(
+        'ordering',
+        openapi.IN_QUERY, 
+        description='정렬 필드', 
+        type=openapi.TYPE_STRING,
+        required=False
+    )
+
+    @swagger_auto_schema(
+        manual_parameters = [param_p_name, param_ordering],
+    )
+    def list(self, request):
+        """
+        SearchList API : 검색 결과 리스트
+        ---
+        p_name : 검색할 단어를 입력하세요 (title)
+        ordering : 정렬할 필드를 선택하세요. -p_readcount : 조회 순(기본, 입력안하면 조회순으로 정렬), -p_price : 가격 높은 순, p_price : 가격 낮은 순, -p_rank : 랭킹 순, -p_date : 등록일 순
+        """
+        
+        search_word = self.request.query_params.get('p_name', None)
+        
+        if len(search_word) < 2:
+            return Response({
+                "status_code": status.HTTP_400_BAD_REQUEST,
+                'status': 'error',
+                'message': '검색어는 2글자 이상 입력해주세요.'
+                }, status = status.HTTP_400_BAD_REQUEST)
+        
+        ordering = self.request.query_params.get('ordering', None)
+        list_queryset = self.queryset.filter(p_name__icontains = search_word)
+
+        if ordering is None:
+            list_queryset = list_queryset.order_by('-p_readcount')
+        else:
+            list_queryset = list_queryset.order_by(ordering)
+
+        paginator = PageNumberPagination()
+        page = paginator.paginate_queryset(list_queryset, request)
+        serializer = ProductSerializer(page, many=True)
+
+        return paginator.get_paginated_response(serializer.data)
