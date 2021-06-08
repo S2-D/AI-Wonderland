@@ -44,6 +44,7 @@ export default function ProductDetailReview() {
         <Avatar
           size={150}
           name="Mary Baker"
+          // To-do 이거 고치기. 변수값 넣어주면 그럼 랜덤으로 될 듯
           variant="beam"
           colors={['#FDBFFC', '#C32BA5', '#701D8C', '#FC3DFF', '#9004B7']}
         />
