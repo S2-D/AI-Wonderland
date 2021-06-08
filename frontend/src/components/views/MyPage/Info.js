@@ -83,7 +83,14 @@ export default function Info() {
               ]
             }
             variant="beam"
-            colors={['#187FD9', '#14A1D9', '#14C5D9', '#16F2DC', '#13F2C9']}
+            colors={[
+              '#187FD9',
+              '#14A1D9',
+              '#14C5D9',
+              '#16F2DC',
+              '#13F2C9',
+              'hotpink',
+            ]}
           />
         </div>
         <div

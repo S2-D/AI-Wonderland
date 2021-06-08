@@ -1,8 +1,3 @@
-@font-face {
-  font-family: '1982';
-  src: url('../../../fonts/BACKTO1982.TTF');
-}
-
 .gnb_container {
   background-color: #ffffff;
   height: 75px;
@@ -50,8 +45,8 @@
   display: inline-block;
   object-fit: cover;
   text-decoration: none;
-  font-family: '1982';
-  font-size: 75%;
+  font-family: 'light_p';
+  font-size: 90%;
 }
 
 .wallet {

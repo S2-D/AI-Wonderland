@@ -79,7 +79,7 @@ li.item {
 
 .curation_item .category_img .img_prdName {
   font-size: 18px;
-  font-family: 'neodgm';
+  font-family: 'sb_pixel';
   color: black;
   background-color: #ffffff;
   padding-left: 10px;
@@ -87,7 +87,7 @@ li.item {
 
 .curation_item .category_img .img_price {
   font-size: 18px;
-  font-family: 'neodgm';
+  font-family: 'sb_pixel';
   color: black;
   padding-left: 10px;
 }
