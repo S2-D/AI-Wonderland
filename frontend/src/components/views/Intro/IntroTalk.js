@@ -6,20 +6,22 @@ function IntroTalk() {
   const rabbitSaying = [
     {
       id: 1,
-      text: "Let me see... * Well, there is another thing you've lost.",
+      text: 'Direction isn’t the only thing you have lost.',
     },
     {
       id: 2,
-      text: "You've lost yourself too. * The tea party in 2003, remember?",
+      text:
+        'You have lost your fashion sense. Remember how you dressed in the 2000s? So hip!',
     },
     {
       id: 3,
       text:
-        "I'll take you to the vintage shop of the past. * Go and find yourself.",
+        'Let me take you to our vintage shop located in the 2000s. You can definitely rebuild your fashion sense!',
     },
     {
       id: 4,
-      text: 'But you know, you can only stay for a half hour in that era.',
+      text:
+        'But please be aware, this time portal to the past will only stay open for 30 minutes. You will forced to return back to reality whether you like it or not.',
     },
   ];
 
@@ -33,8 +35,8 @@ function IntroTalk() {
   }
 
   // function toMainHandler() {
-  //   window.alert("Welocme to 2000's");
-  //   window.alert("Welocme to 2000's");
+  //   window.alert(" ! Opening Time Portal...");
+  //   window.alert(" ! Traveling to AI Wonderland – the Vintage Shop for the 2000s Look.");
   //   window.alert("Welocme to 2000's");
   //   window.alert("Welocme to 2000's");
   //   window.location.href = 'Main/';
@@ -44,12 +46,10 @@ function IntroTalk() {
     return (
       <>
         <button onClick={() => toLoginHandler()}>
-          Yes, I'm here to find the past again.
+          Not even! I am on a journey to the past.
         </button>
 
-        <button onClick={() => setIndex(3)}>
-          What do you mean? I got lost again?
-        </button>
+        <button onClick={() => setIndex(3)}>I am?</button>
       </>
     );
   }

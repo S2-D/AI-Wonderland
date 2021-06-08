@@ -1,16 +1,33 @@
 @font-face {
-  font-family: 'light_p_7';
-  src: url('../../../fonts/light_pixel-7.ttf');
+  font-family: light_p_7;
+  src: url(../../../fonts/light_pixel-7.ttf);
 }
 
 @font-face {
-  font-family: 'sb_pixel_7';
-  src: url('../../../fonts/small_bold_pixel-7.ttf');
+  font-family: sb_pixel_7;
+  src: url(../../../fonts/small_bold_pixel-7.ttf);
 }
 
 @font-face {
-  font-family: 'backto_1982';
-  src: url('../../../fonts/BACKTO1982.TTF');
+  font-family: backto_1982;
+  src: url(../../../fonts/BACKTO1982.TTF);
+}
+
+@font-face {
+  font-family: mini_pixel_7;
+  src: url(../../../fonts/mini_pixel-7.ttf);
+}
+
+#intro-container-grid {
+  position: relative;
+  max-width: 375px;
+  height: 670px;
+  /* background-image: URL(images/intro/background_sky.png); */
+  background-size: 375px auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-color: #187fd9;
+  grid-template-rows: 1fr 2fr 5fr 2fr;
 }
 
 .noselect {
@@ -28,7 +45,7 @@
   width: 150px;
   height: 50px;
   cursor: pointer;
-  font-family: 'backto_1982';
+  font-family: backto_1982;
   font-size: 15px;
   font-weight: bold;
   color: #14a1d9;

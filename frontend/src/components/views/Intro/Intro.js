@@ -1,25 +1,55 @@
-// 1) 진입 시 로그인, 비로그인 구별 - memberauth로 하면 될 듯
-// 2) 토끼 랜덤 넣어서 대화창 보여주기
-// 3) Let's play some music
-
+// 1. 진입 시 로그인, 비로그인 구별 - member auth로 하면 될 듯
+// 2. 토끼 랜덤 넣어서 대화창 보여주기 - 일단 레이아웃부터 잡자
+// - 토끼 이미지 보여줄 때, 배열 중에 아무거나 선택해서 보여주도록 해야 함
+// 3. Let's play some music
+import { useState } from 'react';
 import IntroTalk from './IntroTalk';
 import styledIntro from './styledIntro.css';
 
+const rabbitSaying = [
+  {
+    id: 1,
+    text: 'Direction isn’t the only thing you have lost.',
+  },
+  {
+    id: 2,
+    text:
+      'You have lost your fashion sense. Remember how you dressed in the 2000s? So hip!',
+  },
+  {
+    id: 3,
+    text: 'Let me take you to our vintage shop located in the 2000s.',
+  },
+  {
+    id: 4,
+    text:
+      'Let me take you to our vintage shop located in the 2000s. You can definitely rebuild your fashion sense!',
+  },
+  {
+    id: 5,
+    text:
+      'But please be aware, this time portal to the past will only stay open for 30 minutes.',
+  },
+  {
+    id: 6,
+    text:
+      'You will forced to return back to reality whether you like it or not.',
+  },
+];
+
 function Intro() {
+  const [enterOnToggle, setEnterOnToggle] = useState(false);
+  const [nextOnToggle, setNextOnToggle] = useState(false);
+  const [chatNo, setChatNo] = useState(1);
+
   return (
     <div className="flex m-2 justify-center">
       {/* 배경 및 전체 그리드 */}
       <div
         className="grid grid-cols-12 gap-1 rounded-md"
+        id="intro-container-grid"
         style={{
-          maxWidth: '375px',
-          height: '670px',
           backgroundImage: 'URL("images/intro/background_sky.png")',
-          backgroundSize: '375px auto',
-          backgroundPosition: 'center top',
-          backgroundRepeat: 'no-repeat',
-          backgroundColor: '#187FD9',
-          gridTemplateRows: '1fr 2fr 5fr 2fr 1fr',
         }}
       >
         {/* 배경 음악 플레이 */}
@@ -49,7 +79,6 @@ function Intro() {
               alignItems: 'center',
               fontSize: '25px',
               fontFamily: 'light_p_7',
-              // fontFamily: 'BACKTO1982',
             }}
           >
             AI WONDERLAND
@@ -72,30 +101,95 @@ function Intro() {
             ~ Welcome to the shop of SoondoongSix ~
           </p>
         </div>
+
         {/* 입장하기 버튼 */}
-        <div className="col-span-12 flex justify-center items-start">
-          <button className="button-enter">Enter</button>
-        </div>
-        {/* 이미지 저작권 표시 */}
-        <div className="col-span-12 flex flex-wrap justify-center items-end">
-          <p
-            style={{
-              fontFamily: 'sb_pixel_7',
-              color: 'white',
-              fontSize: '13px',
-              marginBottom: '20px',
-            }}
-          >
-            store image copyright.
-            <a
-              href="https://pixelins.tumblr.com/"
-              style={{ textDecoration: 'none', color: 'white' }}
-            >
-              @pixelins.
-            </a>
-            All reserved
-          </p>
-        </div>
+        {enterOnToggle === false ? (
+          <div className="col-span-12 flex flex-col gap-20">
+            <div className="col-span-12 flex justify-center">
+              <button
+                className="button-enter"
+                onClick={() => {
+                  setEnterOnToggle(true);
+                }}
+              >
+                Enter
+              </button>
+            </div>
+            {/* 상점 이미지 저작권 표시 */}
+            <div className="col-span-12 flex flex-wrap justify-center">
+              <p
+                style={{
+                  fontFamily: 'sb_pixel_7',
+                  color: 'white',
+                  fontSize: '13px',
+                  marginBottom: '20px',
+                }}
+              >
+                store image copyright.
+                <a
+                  href="https://pixelins.tumblr.com/"
+                  style={{ textDecoration: 'none', color: 'white' }}
+                >
+                  @pixelins.
+                </a>
+                All reserved
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="col-span-12 row-span-3 row-start-4 row-end-6 flex flex-row justify-start">
+            <img
+              src="/images/intro/rabbit01_clerk.png"
+              style={{
+                position: 'relative',
+                zIndex: 2,
+                width: 'auto',
+                height: '200px',
+                left: '-5%',
+                bottom: '80%',
+              }}
+            ></img>
+            <div className="col-span-12 row-span-3 row-start-4 row-end-7 flex justify-start">
+              <div
+                style={{
+                  position: 'absolute',
+                  zIndex: 1,
+                  left: '5%',
+                  right: '5%',
+                  width: '90%',
+                  height: '100px',
+                  backgroundColor: 'white',
+                  border: '3px solid',
+                  // borderRadius: '5px',
+                }}
+              >
+                <p
+                  className="whitespace-normal"
+                  style={{
+                    position: 'absolute',
+                    top: '10%',
+                    left: '35%',
+                    width: '60%',
+                    lineHeight: '20px',
+                    fontFamily: 'neodgm',
+                    fontSize: '18px',
+                    color: '#14A1D9',
+                  }}
+                >
+                  Darling, it seems like you are quite lost right now.
+                  <button
+                    onClick={() => {
+                      setNextOnToggle(true);
+                    }}
+                    style={{ marginLeft: '90%' }}
+                  >
+                    <i className="fas fa-forward"></i>
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
