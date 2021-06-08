@@ -10,7 +10,8 @@ function GNB() {
       <div className="gnb_container">
         <div className="left_container">
           <Link to="/main" className="gnb_logo">
-            <img src="/images/logo.png" className="logo" />
+            <img src="/images/new_logo.png" className="logo" />
+            <span className="logo_text">AI Wonderland</span>
           </Link>
         </div>
         <div className="right_container">

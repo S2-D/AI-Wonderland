@@ -5,9 +5,6 @@
 
 import IntroTalk from './IntroTalk';
 
-// nes.css 스타일
-import 'nes.css/css/nes.min.css';
-
 function Intro() {
   return (
     <div className="flex my-3 justify-center">
