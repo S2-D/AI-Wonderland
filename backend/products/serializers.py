@@ -7,6 +7,10 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
+
+    def is_valid_data(self, validated_data):
+        return validated_data['p_no']
+
     class Meta:
         model = Product
         fields = '__all__'
