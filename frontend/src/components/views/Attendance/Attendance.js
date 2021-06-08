@@ -71,89 +71,94 @@ export default function Attendance() {
 
   return (
     <>
-      <div className="h-100">
+      <div>
         <GNB />
         <br></br>
-        <h4
-          className="title mb-3 mt-3 fw-normal text-center"
-          style={{
-            fontFamily: 'light_p',
-          }}
-        >
-          Attendance Check
-        </h4>
-        {attendanceInfo.map((record, idx) => (
-          <div key={idx} className="card mx-auto w-80 mb-2">
-            <div className="row no-gutters align-items-center">
-              <div className="col-2">
-                <div className="m-2">
-                  <Avatar
-                    size={50}
-                    name={
-                      avatarName.avatarName[
-                        Math.floor(Math.random() * avatarName.avatarName.length)
-                      ]
-                    }
-                    variant="beam"
-                    colors={[
-                      '#187FD9',
-                      '#14A1D9',
-                      '#14C5D9',
-                      '#16F2DC',
-                      '#13F2C9',
-                    ]}
-                  />
+        <div className="container">
+          <div className="body-container" style={{ paddingBottom: '65px' }}>
+            <div className="title-container">
+              <h4
+                className="title mb-3 mt-3 text-center"
+                style={{
+                  fontFamily: 'light_p',
+                }}
+              >
+                Attendance Check
+              </h4>
+            </div>
+            <div className="date-container">
+              {attendanceInfo.map((record, idx) => (
+                <div key={idx} className="card mx-auto w-80 mb-2">
+                  <div className="row no-gutters align-items-center">
+                    <div className="col-2">
+                      <div className="m-2">
+                        <Avatar
+                          size={50}
+                          name={avatarName.avatarName[record.avatar_num]}
+                          variant="beam"
+                          colors={[
+                            '#187FD9',
+                            '#14A1D9',
+                            '#14C5D9',
+                            '#16F2DC',
+                            '#13F2C9',
+                          ]}
+                        />
+                      </div>
+                    </div>
+                    <div className="col-10 text-right">
+                      <p
+                        className="dates m-2"
+                        style={{
+                          fontFamily: 'sb_pixel',
+                        }}
+                      >
+                        {record.attendance_date}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="col-10 text-right">
-                <p
-                  className="dates m-2"
+              ))}
+            </div>
+            <div className="button-container">
+              <div className="flex justify-center">
+                <button
+                  className="btn-lg btn-link"
                   style={{
                     fontFamily: 'sb_pixel',
                   }}
+                  disabled={prevUrlLink === null}
+                  onClick={prevPageHandler}
                 >
-                  {record.attendance_date}
-                </p>
+                  Prev
+                </button>
+                <button
+                  className="btn-lg btn-link"
+                  style={{
+                    fontFamily: 'sb_pixel',
+                  }}
+                  disabled={nextUrlLink === null}
+                  onClick={nextPageHandler}
+                >
+                  Next
+                </button>
+              </div>
+              <div className="p-3 flex justify-center">
+                <button
+                  type="button"
+                  className="checkin"
+                  style={{
+                    fontFamily: 'sb_pixel',
+                    width: '322px',
+                    height: '35px',
+                  }}
+                  onClick={checkinHandler}
+                >
+                  Check in
+                </button>
               </div>
             </div>
           </div>
-        ))}
-
-        <div className="flex justify-center">
-          <button
-            className="btn-lg btn-link"
-            style={{
-              fontFamily: 'sb_pixel',
-            }}
-            disabled={prevUrlLink === null}
-            onClick={prevPageHandler}
-          >
-            Prev
-          </button>
-          <button
-            className="btn-lg btn-link"
-            style={{
-              fontFamily: 'sb_pixel',
-            }}
-            disabled={nextUrlLink === null}
-            onClick={nextPageHandler}
-          >
-            Next
-          </button>
-        </div>
-        <div className="col-span-2 p-3 flex justify-center">
-          <button
-            type="button"
-            className="checkin"
-            style={{
-              fontFamily: 'sb_pixel',
-              width: '322px',
-              height: '35px',
-            }}
-            onClick={checkinHandler}
-          >
-            Check in
-          </button>
         </div>
         <Toolbar />
       </div>
