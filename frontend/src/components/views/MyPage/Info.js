@@ -9,7 +9,8 @@ export default function Info() {
   const [userId, setId] = useState('');
   const [Email, setEmail] = useState('');
 
-  const MyPageInfoUrl = `localhost:3000/mypage`;
+  const Url = location.href;
+  const MyPageInfoUrl = Url;
 
   useEffect(() => {
     async function getUserAuth() {
@@ -57,30 +58,27 @@ export default function Info() {
 
   return (
     <div
-      className="grid grid-rows-1 grid-flow-col p-4 w-full justify-center font-mono"
+      className="grid grid-rows-1 grid-flow-col p-4 w-full justify-center text-3xl"
       style={{
-        backgroundColor: '#fdcb6e',
+        backgroundColor: '#083242',
+        fontFamily: 'sb_pixel',
       }}
     >
-      <div
-        className="userInfo"
-        style={{
-          marginTop: '0px',
-        }}
-      >
+      <div className="userInfo">
         <div className="col-span-1 w-40 h-40 p-4 mx-20">
           <img
             src="./images/icon_img/anonymous.png"
             style={{
               borderRadius: '50%',
-              backgroundColor: 'pink',
+              backgroundColor: '#13F2C9',
             }}
           />
         </div>
         <div
-          className="col-span-1 font"
+          className="col-span-1"
           style={{
             textAlign: 'center',
+            color: '#13F2C9',
           }}
         >
           <span>{Nickname}</span>
@@ -89,6 +87,7 @@ export default function Info() {
           className="col-span-1"
           style={{
             textAlign: 'center',
+            color: '#13F2C9',
           }}
         >
           <span>{Email}</span>
@@ -97,9 +96,10 @@ export default function Info() {
           className="col-span-1"
           style={{
             textAlign: 'center',
+            color: '#13F2C9',
           }}
         >
-          <span>{Money}</span>
+          <span>${Money}</span>
         </div>
       </div>
     </div>

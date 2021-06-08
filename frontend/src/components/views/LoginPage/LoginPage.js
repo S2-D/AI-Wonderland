@@ -3,7 +3,6 @@ import react from 'react';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
-import { Button, Form, InputGroup } from 'react-bootstrap';
 import baseUrl from '../../../url/http';
 
 import LoginPageStyle from './LoginPageStyle.css';
@@ -41,9 +40,9 @@ function LoginPage({ setLoginUserId }) {
   };
 
   return (
-    <Form className="loginForm" onSubmit={handleSubmit(onSubmit)}>
+    <form className="loginForm" onSubmit={handleSubmit(onSubmit)}>
       {/* Email */}
-      <Form.Label>Email</Form.Label>
+      <label>Email</label>
       <input
         type="email"
         id="email"
@@ -55,7 +54,7 @@ function LoginPage({ setLoginUserId }) {
       {errors.email && <p>Please enter your email.</p>}
 
       {/* 비밀번호 */}
-      <Form.Label>비밀번호</Form.Label>
+      <label>비밀번호</label>
       <input
         type="password"
         id="password"
@@ -74,7 +73,7 @@ function LoginPage({ setLoginUserId }) {
         value="Sign Up"
         onClick={onClickSignup}
       />
-    </Form>
+    </form>
   );
 }
 

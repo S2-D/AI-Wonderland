@@ -1,8 +1,3 @@
-@font-face {
-  font-family: 'neodgm';
-  src: url('../../../fonts/neodgm_code.ttf');
-}
-
 .footer {
   padding-top: 25px;
   background-color: #ffffff;
@@ -15,9 +10,9 @@
   position: relative;
   overflow: hidden;
   display: block;
-  font-size: 18px;
+  font-size: 30px;
   color: #5b5752;
-  font-family: 'neodgm';
+  font-family: 'sb_pixel';
   padding: 13px 18px;
   line-height: 1.43;
   background-repeat: no-repeat;
@@ -29,9 +24,9 @@
   color: #bbb8b5;
   margin-right: 7px;
   line-height: 1.67;
-  font-size: 16px;
+  font-size: 20px;
   vertical-align: top;
-  font-family: 'neodgm';
+  font-family: 'sb_pixel';
 }
 
 .footer .item_content ul {
@@ -67,7 +62,7 @@
   display: block;
   font-size: 14px;
   color: #5b5752;
-  font-family: 'neodgm';
+  font-family: 'sb_pixel';
   line-height: 1.43;
   padding: 13px 18px;
 }

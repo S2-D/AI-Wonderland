@@ -1,8 +1,0 @@
-@font-face {
-  font-family: 'neodgm';
-  src: url('../../../fonts/neodgm_code.ttf');
-}
-
-div.col-span-1 {
-  font-family: 'neodgm';
-}
