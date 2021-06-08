@@ -49,7 +49,11 @@ function App() {
           {/* 마이페이지 */}
           <PrivateRoute component={MyPage} path="/mypage" exact />
           {/* Attendance */}
-          <PrivateRoute component={Attendance} path="/attendance" exact />
+          <PrivateRoute
+            component={Attendance}
+            path="/mypage/attendance"
+            exact
+          />
         </Switch>
       </div>
     </Router>

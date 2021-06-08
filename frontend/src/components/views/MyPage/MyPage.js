@@ -65,7 +65,7 @@ function MyPage() {
             }}
           >
             <Link
-              to="/attendance"
+              to="/mypage/attendance"
               style={{
                 textDecoration: 'none',
                 color: 'hotpink',

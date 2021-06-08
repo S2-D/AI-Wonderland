@@ -8,6 +8,7 @@ import './Attendance.css';
 import baseUrl from '../../../url/http';
 import Avatar from 'boring-avatars';
 import avatarName from './AvatarName';
+import AvatarName from './AvatarName';
 
 export default function Attendance() {
   const [attendanceInfo, setAttendanceInfo] = useState([]);
@@ -17,9 +18,6 @@ export default function Attendance() {
   const [prevUrlLink, setPrevUrlLink] = useState([]);
   const [nextUrlLink, setNextUrlLink] = useState([]);
   const access_token = localStorage.getItem('access_token');
-
-  const random = Math.floor(Math.random() * avatarName.avatarName.length);
-  const [randomAvatarName, setrandomAvatarName] = useState('');
 
   async function getAttendanceInfo() {
     try {
@@ -77,7 +75,7 @@ export default function Attendance() {
         <GNB />
         <br></br>
         <h4
-          className="mb-3 fw-normal text-center"
+          className="title mb-3 mt-3 fw-normal text-center"
           style={{
             fontFamily: 'light_p',
           }}
@@ -85,28 +83,31 @@ export default function Attendance() {
           Attendance Check
         </h4>
         {attendanceInfo.map((record, idx) => (
-          <div key={idx} className="checkin card mx-auto w-80 mb-1">
+          <div key={idx} className="card mx-auto w-80 mb-2">
             <div className="row no-gutters align-items-center">
               <div className="col-2">
-                {() =>
-                  setrandomAvatarName(random, avatarName.avatarName[random])
-                }
-                <Avatar
-                  size={40}
-                  name={randomAvatarName}
-                  variant="beam"
-                  colors={[
-                    '#187FD9',
-                    '#14A1D9',
-                    '#14C5D9',
-                    '#16F2DC',
-                    '#13F2C9',
-                  ]}
-                />
+                <div className="m-2">
+                  <Avatar
+                    size={50}
+                    name={
+                      avatarName.avatarName[
+                        Math.floor(Math.random() * avatarName.avatarName.length)
+                      ]
+                    }
+                    variant="beam"
+                    colors={[
+                      '#187FD9',
+                      '#14A1D9',
+                      '#14C5D9',
+                      '#16F2DC',
+                      '#13F2C9',
+                    ]}
+                  />
+                </div>
               </div>
               <div className="col-10 text-right">
                 <p
-                  className="m-2"
+                  className="dates m-2"
                   style={{
                     fontFamily: 'sb_pixel',
                   }}
@@ -120,7 +121,7 @@ export default function Attendance() {
 
         <div className="flex justify-center">
           <button
-            className="btn btn-link"
+            className="btn-lg btn-link"
             style={{
               fontFamily: 'sb_pixel',
             }}
@@ -130,7 +131,7 @@ export default function Attendance() {
             Prev
           </button>
           <button
-            className="btn btn-link"
+            className="btn-lg btn-link"
             style={{
               fontFamily: 'sb_pixel',
             }}
@@ -143,7 +144,7 @@ export default function Attendance() {
         <div className="col-span-2 p-3 flex justify-center">
           <button
             type="button"
-            className="bg-purple-700 hover:bg-purple-800 text-xl text-white font-semibold rounded-lg"
+            className="checkin"
             style={{
               fontFamily: 'sb_pixel',
               width: '322px',
