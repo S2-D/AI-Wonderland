@@ -18,7 +18,6 @@
    - 비밀번호: 1234
 
 2. 기술 스택 및 라이브러리
-
    - 웹 서비스 제작을 위해 필요한 tool을 정리합니다.
 
    | 분류           | Tools                    | 목적                                                                                     |
@@ -26,7 +25,19 @@
    | Front-server   | React, recoil            | 웹 프론트 서버 구동, 리덕스보다 쉬운 상태관리(페이스북에서 직접 소개한 상태 관리 솔루션) |
    | Backend-env    | Docker                   | 배포 환경 세팅                                                                           |
    | Backend-server | Django, MariaDB, MongoDB | 웹 백엔드 서버 구동, 상품 및 회원 정보                                                   |
-   | AI             | Tensorflow               | 데이터셋 분석 및 추천 로직 구현                                                          |
+   | AI             | Tensorflow               | 데이터셋 분석 및 추천 로직 구현  
+
+2-1. MariaDB Connection 설정 
+    - 1) `backend`폴더 안에 `mysql.cnf` 파일을 생성합니다. 
+    - 2) `mysql.cnf`파일에 아래 형식에 맞춰 `DB 정보(database, host, user, password)` 를 입력하고 저장해주세요. 
+    ```
+    [client]
+    database = ai_wonderland
+    host = localhost
+    user = root
+    password = mysqlpwd
+    default-character-set = utf8
+    ```
 
 ## 4. 구현 기능
 
