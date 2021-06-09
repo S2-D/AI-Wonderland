@@ -38,7 +38,6 @@ function IntroTalk() {
   //   window.alert(" ! Opening Time Portal...");
   //   window.alert(" ! Traveling to AI Wonderland – the Vintage Shop for the 2000s Look.");
   //   window.alert("Welocme to 2000's");
-  //   window.alert("Welocme to 2000's");
   //   window.location.href = 'Main/';
   // }
 

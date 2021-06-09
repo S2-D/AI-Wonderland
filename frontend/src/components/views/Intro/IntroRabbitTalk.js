@@ -3,30 +3,37 @@ import { useState } from 'react';
 
 import styledIntro from './styledIntro.css';
 
-const rabbitSaying = [
+const rabbitWords = [
   {
     id: 1,
     text: 'Direction isn’t the only thing you have lost.',
   },
   {
     id: 2,
-    text:
-      'You have lost your fashion sense. Remember how you dressed in the 2000s? So hip!',
+    text: 'You have lost your fashion sense.',
   },
   {
     id: 3,
-    text: 'Let me take you to our vintage shop located in the 2000s.',
+    text: 'Remember how you dressed in the 2000s? So hip!',
   },
   {
     id: 4,
+    text: 'Let me take you to our vintage shop located in the 2000s.',
+  },
+  {
+    id: 5,
+    text: 'You can definitely rebuild your fashion sense!',
+  },
+  {
+    id: 6,
     text:
-      'Let me take you to our vintage shop located in the 2000s. You can definitely rebuild your fashion sense!',
+      'And don’t you forget, you MUST login to fully use all the features at our shop!',
   },
 ];
 
-export default function IntroRabbitTalk() {
+export default function IntroRabbitTalk(props) {
   // 유저의 선택지 (바로 로그인 or 토끼의 설명 듣기) 상태 업데이트
-  const [onIntroduction, setOnIntroduction] = useState(false);
+  const [rabbitWordsId, setRabbitWordsId] = useState(1);
 
   return (
     <div className="flex m-2 justify-center">
@@ -86,9 +93,8 @@ export default function IntroRabbitTalk() {
           >
             ~ Welcome to the shop of SoondoongSix ~
           </p>
+          {/* User 선택지 불러오기  */}
         </div>
-
-        {/* 입장하기 버튼 */}
 
         <div className="col-span-12 row-span-3 row-start-4 row-end-6 flex flex-row justify-start">
           <img
@@ -97,17 +103,38 @@ export default function IntroRabbitTalk() {
           ></img>
           <div className="col-span-12 row-span-3 row-start-4 row-end-7 flex justify-start">
             <div className="intro-rabbit-chatbox">
-              <p className="whitespace-normal" id="intro-rabbit-chatbox-text">
-                Darling, it seems like you are quite lost right now.
+              {props.onIntroduction === false ? (
                 <button
                   onClick={() => {
-                    setNextOnToggle(true);
+                    props.handleInteraction('userTalkOn');
                   }}
                   style={{ marginLeft: '90%' }}
                 >
-                  <i className="fas fa-forward"></i>
+                  <p id="intro-rabbit-chatbox-text">
+                    Darling, it seems like you are quite lost right now.
+                    <i
+                      className="fas fa-forward"
+                      style={{ padding: '5px' }}
+                    ></i>
+                  </p>
                 </button>
-              </p>
+              ) : (
+                <button
+                  onClick={() => {
+                    props.handleInteraction('userTalkOn');
+                    setRabbitWordsIdx(rabbitWordsId + 1);
+                  }}
+                  style={{ marginLeft: '90%' }}
+                >
+                  <p id="intro-rabbit-chatbox-text">
+                    {rabbitWords.text}
+                    <i
+                      className="fas fa-forward"
+                      style={{ padding: '5px' }}
+                    ></i>
+                  </p>
+                </button>
+              )}
             </div>
           </div>
         </div>

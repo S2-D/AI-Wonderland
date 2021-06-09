@@ -59,6 +59,32 @@
   font-family: neodgm;
   font-size: 18px;
   color: #14a1d9;
+  white-space: normal;
+}
+
+.intro-user-chatbox {
+  position: absolute;
+  z-index: 1;
+  top: 60%;
+  left: 5%;
+  right: 5%;
+  width: 90%;
+  height: 80px;
+  background-color: white;
+  border: 3px solid;
+  /* borderRadius: '5px', */
+}
+
+#intro-user-chatbox-text {
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  width: 80%;
+  line-height: 20px;
+  font-family: neodgm;
+  font-size: 18px;
+  color: #14a1d9;
+  white-space: normal;
 }
 
 .noselect {
