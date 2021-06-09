@@ -6,10 +6,10 @@ import { useState } from 'react';
 import IntroBasic from './IntroBasic';
 import IntroRabbitTalk from './IntroRabbitTalk';
 import IntroUserTalk from './IntroUserTalk';
+import IntroTimeTalk from './IntroTimeTalk';
 
 export default function Intro() {
   const [interactionCase, setInteractionCase] = useState('basic');
-  const [onIntroduction, setOnIntroduction] = useState(false);
 
   if (interactionCase === 'basic') {
     return (
@@ -25,7 +25,6 @@ export default function Intro() {
         handleInteraction={(interaction) => {
           setInteractionCase(interaction);
         }}
-        onIntroduction={onIntroduction}
       />
     );
   } else if (interactionCase === 'userTalkOn') {
@@ -34,10 +33,9 @@ export default function Intro() {
         handleInteraction={(interaction) => {
           setInteractionCase(interaction);
         }}
-        handleIntroduction={(userChoice) => {
-          setOnIntroduction(userChoice);
-        }}
       />
     );
+  } else if (interactionCase === 'timeTalkOn') {
+    return <IntroTimeTalk />;
   }
 }

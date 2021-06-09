@@ -78,12 +78,11 @@ export default function IntroUserTalk(props) {
               </p>
             </button>
           </div>
-          {/* 유저 선택지 2 > 토끼 대사로 다시 이동 */}
+          {/* 유저 선택지 2 > 토끼의 시간여행 대사로 이동 */}
           <div className="intro-user-chatbox" style={{ top: '82%' }}>
             <button
               onClick={() => {
-                props.handleInteraction('rabbitTalkOn');
-                props.handleIntroduction(true);
+                props.handleInteraction('timeTalkOn');
               }}
               style={{ marginLeft: '90%' }}
             >

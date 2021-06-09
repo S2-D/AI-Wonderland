@@ -3,7 +3,18 @@ import { useState } from 'react';
 
 import styledIntro from './styledIntro.css';
 
-export default function IntroRabbitTalk(props) {
+const rabbitWords = {
+  1: 'Direction isn’t the only thing you have lost.',
+  2: 'You have lost your fashion sense.',
+  3: 'Remember how you dressed in the 2000s? So hip!',
+  4: 'Let me take you to our vintage shop located in the 2000s.',
+  5: 'You can definitely rebuild your fashion sense!',
+  6: 'And don’t you forget, you MUST login to fully use all the features at our shop!',
+};
+
+export default function IntroTimeTalk(props) {
+  // 유저의 선택지 (바로 로그인 or 토끼의 설명 듣기) 상태 업데이트
+  const [rabbitWordsId, setRabbitWordsId] = useState(1);
   return (
     <div className="flex m-2 justify-center">
       {/* 배경 및 전체 그리드 */}
@@ -73,17 +84,32 @@ export default function IntroRabbitTalk(props) {
 
           <div className="col-span-12 row-span-3 row-start-4 row-end-7 flex justify-start">
             <div className="intro-rabbit-chatbox">
-              <button
-                onClick={() => {
-                  props.handleInteraction('userTalkOn');
-                }}
-                style={{ marginLeft: '90%' }}
-              >
-                <p id="intro-rabbit-chatbox-text">
-                  Darling, it seems like you are quite lost right now.
-                  <i className="fas fa-forward" style={{ padding: '5px' }}></i>
-                </p>
-              </button>
+              {rabbitWordsId < 7 ? (
+                <button
+                  onClick={() => {
+                    setRabbitWordsId(rabbitWordsId + 1);
+                  }}
+                  style={{ marginLeft: '90%' }}
+                >
+                  <p id="intro-rabbit-chatbox-text">
+                    {rabbitWords[rabbitWordsId]}
+                    <i
+                      className="fas fa-forward"
+                      style={{ padding: '5px' }}
+                    ></i>
+                  </p>
+                </button>
+              ) : (
+                <div>
+                  <p id="intro-rabbit-chatbox-text">Good Luck</p>
+                  {window.alert(' ! Opening Time Portal...')}
+                  {window.alert(
+                    ' ! Traveling to AI Wonderland – the Vintage Shop for the 2000s Look.'
+                  )}
+                  {window.alert("Welocme to 2000's")}
+                  {(window.location.href = 'Main')}
+                </div>
+              )}
             </div>
           </div>
         </div>
