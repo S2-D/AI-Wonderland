@@ -3,13 +3,28 @@ import { useState } from 'react';
 
 import styledIntro from './styledIntro.css';
 
+const rabbitImage = [
+  // 'rabbit01_clerk_smile.png',
+  // 'rabbit01_clerk.png',
+  'rabbit01_clerk.gif',
+  // 'rabbit02_nerd.smile.png',
+  // 'rabbit02_nerd.png',
+  'rabbit02_nerd.gif',
+  // 'rabbit03_hotel_smile.png',
+  // 'rabbit03_hotel.png',
+  'rabbit03_hotel.gif',
+  // 'rabbit04_Hawaiian_smile.png',
+  // 'rabbit04_Hawaiian.png',
+  'rabbit04_Hawaiian.gif',
+];
 const rabbitWords = {
   1: 'Direction isn’t the only thing you have lost.',
   2: 'You have lost your fashion sense.',
   3: 'Remember how you dressed in the 2000s? So hip!',
   4: 'Let me take you to our vintage shop located in the 2000s.',
   5: 'You can definitely rebuild your fashion sense!',
-  6: 'And don’t you forget, you MUST login to fully use all the features at our shop!',
+  6: 'And don’t you forget. You MUST...',
+  7: 'login to fully use all the features at our shop!',
 };
 
 export default function IntroTimeTalk(props) {
@@ -78,13 +93,16 @@ export default function IntroTimeTalk(props) {
 
         <div className="col-span-12 row-span-3 row-start-4 row-end-6 flex flex-row justify-start">
           <img
-            src="/images/intro/rabbit01_clerk.png"
+            src={
+              '/images/intro/' +
+              rabbitImage[Math.floor(Math.random() * rabbitImage.length)]
+            }
             id="intro-rabbit-img"
           ></img>
 
           <div className="col-span-12 row-span-3 row-start-4 row-end-7 flex justify-start">
             <div className="intro-rabbit-chatbox">
-              {rabbitWordsId < 7 ? (
+              {rabbitWordsId < 8 ? (
                 <button
                   onClick={() => {
                     setRabbitWordsId(rabbitWordsId + 1);
@@ -93,21 +111,18 @@ export default function IntroTimeTalk(props) {
                 >
                   <p id="intro-rabbit-chatbox-text">
                     {rabbitWords[rabbitWordsId]}
-                    <i
-                      className="fas fa-forward"
-                      style={{ padding: '5px' }}
-                    ></i>
+                    <i className="fas fa-forward" id="intro-talk-button"></i>
                   </p>
                 </button>
               ) : (
                 <div>
-                  <p id="intro-rabbit-chatbox-text">Good Luck</p>
+                  <p id="intro-rabbit-chatbox-text">Good Luck.</p>
                   {window.alert(' ! Opening Time Portal...')}
                   {window.alert(
                     ' ! Traveling to AI Wonderland – the Vintage Shop for the 2000s Look.'
                   )}
                   {window.alert("Welocme to 2000's")}
-                  {(window.location.href = 'Main')}
+                  {window.location.replace('Main')}
                 </div>
               )}
             </div>

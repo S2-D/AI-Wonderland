@@ -87,6 +87,12 @@
   white-space: normal;
 }
 
+#intro-talk-button {
+  position: absolute;
+  top: 57px;
+  right: 5px;
+}
+
 /* 인트로 버튼 스타일
 출처 - https://codepen.io/chancesq/pen/xxVGbrw */
 

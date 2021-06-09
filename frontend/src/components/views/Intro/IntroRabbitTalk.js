@@ -81,7 +81,7 @@ export default function IntroRabbitTalk(props) {
               >
                 <p id="intro-rabbit-chatbox-text">
                   Darling, it seems like you are quite lost right now.
-                  <i className="fas fa-forward" style={{ padding: '5px' }}></i>
+                  <i className="fas fa-forward" id="intro-talk-button"></i>
                 </p>
               </button>
             </div>
