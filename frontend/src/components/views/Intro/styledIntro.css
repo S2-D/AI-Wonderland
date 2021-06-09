@@ -29,6 +29,37 @@
   background-color: #187fd9;
   grid-template-rows: 1fr 2fr 5fr 2fr;
 }
+#intro-rabbit-img {
+  position: relative;
+  z-index: 2;
+  width: auto;
+  height: 200px;
+  left: -5%;
+  bottom: 80%;
+}
+
+.intro-rabbit-chatbox {
+  position: absolute;
+  z-index: 1;
+  left: 5%;
+  right: 5%;
+  width: 90%;
+  height: 100px;
+  background-color: white;
+  border: 3px solid;
+  /* borderRadius: '5px', */
+}
+
+#intro-rabbit-chatbox-text {
+  position: absolute;
+  top: 10%;
+  left: 35%;
+  width: 60%;
+  line-height: 20px;
+  font-family: neodgm;
+  font-size: 18px;
+  color: #14a1d9;
+}
 
 .noselect {
   -webkit-touch-callout: none;

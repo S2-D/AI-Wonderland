@@ -25,19 +25,20 @@ const rabbitSaying = [
     text:
       'Let me take you to our vintage shop located in the 2000s. You can definitely rebuild your fashion sense!',
   },
-  {
-    id: 5,
-    text:
-      'But please be aware, this time portal to the past will only stay open for 30 minutes.',
-  },
-  {
-    id: 6,
-    text:
-      'You will forced to return back to reality whether you like it or not.',
-  },
+  // {
+  //   id: 5,
+  //   text:
+  //     'But please be aware, this time portal to the past will only stay open for 30 minutes.',
+  // },
+  // {
+  //   id: 6,
+  //   text:
+  //     'You will forced to return back to reality whether you like it or not.',
+  // },
 ];
 
 function Intro() {
+  const [interactionCase, setInteractionCase] = useState(1);
   const [enterOnToggle, setEnterOnToggle] = useState(false);
   const [nextOnToggle, setNextOnToggle] = useState(false);
   const [chatNo, setChatNo] = useState(1);
@@ -140,42 +141,11 @@ function Intro() {
           <div className="col-span-12 row-span-3 row-start-4 row-end-6 flex flex-row justify-start">
             <img
               src="/images/intro/rabbit01_clerk.png"
-              style={{
-                position: 'relative',
-                zIndex: 2,
-                width: 'auto',
-                height: '200px',
-                left: '-5%',
-                bottom: '80%',
-              }}
+              id="intro-rabbit-img"
             ></img>
             <div className="col-span-12 row-span-3 row-start-4 row-end-7 flex justify-start">
-              <div
-                style={{
-                  position: 'absolute',
-                  zIndex: 1,
-                  left: '5%',
-                  right: '5%',
-                  width: '90%',
-                  height: '100px',
-                  backgroundColor: 'white',
-                  border: '3px solid',
-                  // borderRadius: '5px',
-                }}
-              >
-                <p
-                  className="whitespace-normal"
-                  style={{
-                    position: 'absolute',
-                    top: '10%',
-                    left: '35%',
-                    width: '60%',
-                    lineHeight: '20px',
-                    fontFamily: 'neodgm',
-                    fontSize: '18px',
-                    color: '#14A1D9',
-                  }}
-                >
+              <div className="intro-rabbit-chatbox">
+                <p className="whitespace-normal" id="intro-rabbit-chatbox-text">
                   Darling, it seems like you are quite lost right now.
                   <button
                     onClick={() => {
