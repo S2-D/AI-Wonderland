@@ -15,18 +15,18 @@
 
 .right_container {
   width: 30%;
+  background-color: #16f2dc;
+  border-radius: 5px;
+  margin-top: 15px;
+  margin-left: 25px;
   float: right;
-  background-color: pink;
-  background-image: url('../../../utils/images/icon_img/coin_fixed.png');
-  background-repeat: no-repeat;
-  background-position-x: 5%;
-  background-position-y: 50%;
-  background-size: 15%;
 }
 
-.coin_img {
+.right_container .coin_img {
+  width: 30px;
   padding: 5px;
-  margin-top: 15px;
+  display: inline-block;
+  margin-top: 6px;
 }
 
 .left_container {
@@ -47,11 +47,12 @@
   text-decoration: none;
   font-family: 'light_p';
   font-size: 90%;
+  padding-left: 4px;
 }
 
 .wallet {
-  padding: 20px 5px 5px 5px;
-  font-size: 20%;
+  padding: 15px 5px 5px 0px;
+  font-size: 13px;
   font-family: 'light_p';
   float: right;
   text-align: center;

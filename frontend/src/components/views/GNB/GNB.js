@@ -15,7 +15,7 @@ function GNB() {
           </Link>
         </div>
         <div className="right_container">
-          <img src="./icon_img/coin_fixed.png" />
+          <img src="/images/icon_img/coin_fixed.png" className="coin_img" />
           <div className="wallet">
             <Wallet />
           </div>

@@ -30,7 +30,7 @@ function Footer() {
                 <br />
                 Sodam Shin: damsoshin@gmail.com
                 <br />
-                Seulgi Lee: ms.sseul@gmail.com
+                Seulkee Lee: ms.sseul@gmail.com
               </span>
             </li>
           </ul>

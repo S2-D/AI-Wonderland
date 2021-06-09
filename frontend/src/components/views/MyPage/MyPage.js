@@ -3,7 +3,6 @@ import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
 import { Link } from 'react-router-dom';
 import Info from './Info';
-import MyPageStyle from './MyPageStyle.css';
 import isLogin from '../../../url/lib/isLogin';
 import baseUrl from '../../../url/http';
 
