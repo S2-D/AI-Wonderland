@@ -50,27 +50,10 @@ export default function IntroTimeTalk(props) {
         </div>
         {/* 타이틀 이미지 & 텍스트 */}
         <div className="col-span-3 flex justify-end items-end">
-          <img
-            src="/images/intro/rabbit_logo.png"
-            style={{
-              width: 'auto',
-              height: '40px',
-              marginTop: '100px',
-              marginBottom: '5px',
-            }}
-          ></img>
+          <img src="/images/intro/rabbit_logo.png" id="intro-title-logo"></img>
         </div>
-        <div className="col-span-9 flex justify-start items-end text-white">
-          <p
-            style={{
-              marginBottom: '0px',
-              alignItems: 'center',
-              fontSize: '25px',
-              fontFamily: 'light_p_7',
-            }}
-          >
-            AI WONDERLAND
-          </p>
+        <div className="col-span-9 flex justify-start items-end">
+          <p id="intro-title-text">AI WONDERLAND</p>
         </div>
         {/* 빈티지 상점 이미지 */}
         <div className="col-span-12 flex flex-col justify-center items-center">

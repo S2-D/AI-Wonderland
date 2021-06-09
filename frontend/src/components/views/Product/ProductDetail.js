@@ -127,7 +127,10 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="flex my-4 justify-center font-mono">
+    <div
+      className="flex my-4 justify-center font-mono"
+      // style={{ fontFamily: 'light_p_7' }}
+    >
       <div className="flex flex-col gap-3 justify-center">
         {/* 상품 정보 (1) - 이미지, 브랜드, 리뷰 수, 상품명, 가격, 스크랩북에 추가 */}
         <div
