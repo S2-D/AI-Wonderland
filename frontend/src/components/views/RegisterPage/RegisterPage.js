@@ -69,8 +69,9 @@ function RegisterPage() {
   const errorStyle = {
     fontFamily: 'sb_pixel',
     fontSize: '22px',
-    color: '#eb2f06',
+    color: 'white',
     textAlign: 'center',
+    textShadow: '2px 2px 2px #eb2f06',
   };
 
   const infoInputStyle = {
@@ -95,6 +96,7 @@ function RegisterPage() {
     border: 'white solid 2px',
     color: 'white',
     marginTop: '15px',
+    marginBottom: '10px',
   };
 
   const LoginAd = {
@@ -149,7 +151,7 @@ function RegisterPage() {
                 style={{
                   fontFamily: 'light_p',
                   color: 'white',
-                  fontSize: '25px',
+                  fontSize: '20px',
                   overflow: 'auto',
                 }}
               >
@@ -171,7 +173,7 @@ function RegisterPage() {
                       textShadow: '3px 2px 2px #74b9ff',
                     }}
                   >
-                    AI WONDERLAND
+                    Pass for Time Travel
                   </p>
                 </div>
               </div>
@@ -258,7 +260,7 @@ function RegisterPage() {
                     type="submit"
                     style={RegisterButtonStyle}
                   >
-                    Register
+                    Sign Up
                   </button>
                 </div>
 
