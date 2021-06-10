@@ -11,17 +11,13 @@ import axios from 'axios';
 import baseUrl from '../../../url/http';
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
+import ProductListDropDown from './ProductListDropDown';
 import ProductCard from './ProductCard.js';
+import ProductListCard from './ProductListCard';
 
 export default function ProductList() {
   // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타
   const [categoryValue, setCategoryValue] = useState(1);
-  const categories = [
-    { id: 1, name: 'Tops', value: 1 },
-    { id: 2, name: 'Bottoms', value: 2 },
-    { id: 3, name: 'Shoes', value: 3 },
-    { id: 4, name: 'Others', value: 4 },
-  ];
 
   // ordering -p_readcount : 조회 순, -p_price : 가격 순, -p_rank : 랭킹 순, -p_date : 등록일 순
   const [orderingValue, setOrderingValue] = useState('-p_readcount');
@@ -41,15 +37,12 @@ export default function ProductList() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // 상품 전체 데이터 받아오기(디폴트 정렬)
     async function getProductList() {
       try {
         setLoading(true);
         // 데이터 받아오기 전 로딩
         const response = await axios.get(productsUrl);
-        console.log(response);
-        console.log(response.status);
-        console.log(response.data.results);
+        console.log('상품 데이터 ', response.data.results);
         if (response.status === 200) {
           setProducts(response.data.results);
         } else if (response.status === 404) {
@@ -65,82 +58,76 @@ export default function ProductList() {
   }, [productsUrl]);
 
   return (
-    <div>
-      {categories.map((category, id) => (
-        <li
-          key={id}
-          name={category.name}
-          value={category.value}
-          onClick={(e) => {
-            setCategoryValue(e.target.value);
-            console.log(e.target.value);
-          }}
-          style={{
-            display: 'inline-flex',
-            float: 'center',
-            // justifyContent: 'space-around',
-            padding: '5px',
-            listStyle: 'none',
-            height: '26px',
-            fontSize: '13px',
-            fontWeight: '700',
-            color: '#999',
-          }}
-        >
-          {category.name}
-        </li>
-      ))}
-      <li
-        style={{
-          display: 'inline-flex',
-          float: 'center',
-          // justifyContent: 'space-around',
-          padding: '5px',
-          listStyle: 'none',
-          height: '26px',
-          fontSize: '13px',
-          fontWeight: '700',
-          color: '#999',
-        }}
-      >
-        Timegrame
-      </li>
-      <DropdownButton
-        title="Sort by"
-        style={{
-          float: 'right',
-          padding: '10px',
-        }}
-        variant="Secondary"
-        size="sm"
-      >
-        {orders.map((order, id) => (
-          <Dropdown.Item
-            key={id}
-            name={order.name}
-            value={order.value}
-            onClick={(e) => {
-              setOrderingValue(order.value);
-              // console.log(orderingValue);
-              // console.log(order.value);
-              // console.log(e.target.value);
-              // To-do: 왜 e.target.value로 불러오면 안 되는지, 혹은 뭐가 더 좋은 방법인지 물어보기
+    <div className="flex m-2 justify-center">
+      <div className="grid grid-cols-4 gap-1">
+        <div className="col-span-4 flex justify-center m-3 gap-2">
+          <button
+            onClick={() => {
+              setCategoryValue(1);
             }}
           >
-            {order.name}
-          </Dropdown.Item>
-        ))}
-      </DropdownButton>
-
-      {products.map((product, idx) => (
-        <ProductCard
-          key={idx}
-          p_imgUrl={product.p_image}
-          p_name={product.p_name}
-          p_price={product.p_price}
-          p_toDetail={product.p_no}
-        />
-      ))}
+            Tops
+          </button>
+          <button
+            onClick={() => {
+              setCategoryValue(2);
+            }}
+          >
+            Bottoms
+          </button>
+          <button
+            onClick={() => {
+              setCategoryValue(3);
+            }}
+          >
+            Shoes
+          </button>
+          <button
+            onClick={() => {
+              setCategoryValue(4);
+            }}
+          >
+            Others
+          </button>
+          <button>Timegram</button>
+        </div>
+        <div className="col-span-4 flex justify-end m-3 gap-2">
+          {/* <DropdownButton
+            title="Sort by"
+            style={{
+              float: 'right',
+              padding: '10px',
+            }}
+            variant="Secondary"
+            size="sm"
+          >
+            {orders.map((order, id) => (
+              <Dropdown.Item
+                key={id}
+                name={order.name}
+                value={order.value}
+                onClick={(e) => {
+                  setOrderingValue(order.value);
+                }}
+              >
+                {order.name}
+              </Dropdown.Item>
+            ))}
+          </DropdownButton>
+        </div>
+        <div className="col-span-4 flex flex-wrap justify-center m-3 gap-2">
+          {products.map((product, idx) => (
+            <ProductCard
+              key={idx}
+              p_imgUrl={product.p_image}
+              p_name={product.p_name}
+              p_price={product.p_price}
+              p_toDetail={product.p_no}
+            />
+          ))} */}
+          <ProductListCard />
+        </div>
+      </div>
     </div>
   );
 }
