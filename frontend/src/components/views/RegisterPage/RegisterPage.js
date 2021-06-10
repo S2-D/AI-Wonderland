@@ -8,6 +8,8 @@ import * as yup from 'yup';
 import axios from 'axios';
 
 import baseUrl from '../../../url/http';
+import RegisterStyle from './RegisterStyle.css';
+import { Autoplay } from 'swiper';
 
 const schema = yup.object().shape({
   email: yup
@@ -52,6 +54,69 @@ function RegisterPage() {
     });
   };
 
+  const onClickLogin = () => {
+    history.push('/login');
+  };
+
+  const inputStyle = {
+    color: 'white',
+    textShadow: '2px 2px 2px gray',
+    fontFamily: 'sb_pixel',
+    fontSize: '27px',
+    textAlign: 'center',
+  };
+
+  const errorStyle = {
+    fontFamily: 'sb_pixel',
+    fontSize: '22px',
+    color: '#eb2f06',
+    textAlign: 'center',
+  };
+
+  const infoInputStyle = {
+    fontFamily: 'sb_pixel',
+    fontSize: '27px',
+    borderRadius: '5px',
+    boxShadow: '0 8px 16px 0 rgb(0 0 0 / 30%)',
+    textAlign: 'center',
+    color: '#187FD9',
+    display: 'block',
+    margin: 'auto',
+  };
+
+  const RegisterButtonStyle = {
+    backgroundColor: '#74b9ff',
+    paddingLeft: '30px',
+    paddingRight: '30px',
+    borderRadius: '10px',
+    fontFamily: 'sb_pixel',
+    fontSize: '30px',
+    boxShadow: '0 8px 8px 0 rgb(0 0 0 / 30%)',
+    border: 'white solid 2px',
+    color: 'white',
+    marginTop: '15px',
+  };
+
+  const LoginAd = {
+    color: 'white',
+    textShadow: '2px 2px 2px gray',
+    fontFamily: 'sb_pixel',
+    fontSize: '20px',
+    textAlign: 'center',
+    marginBottom: '0px',
+  };
+
+  const LoginButtonStyle = {
+    backgroundColor: 'transparent',
+    paddingLeft: '30px',
+    paddingRight: '30px',
+    borderRadius: '10px',
+    fontFamily: 'sb_pixel',
+    fontSize: '26px',
+    color: 'white',
+    textShadow: '2px 2px 2px #3B3B98',
+  };
+
   return (
     <Formik
       validationSchema={schema}
@@ -67,59 +132,153 @@ function RegisterPage() {
       }}
     >
       {({ handleSubmit, handleChange, values }) => (
-        <Form noValidate onSubmit={handleSubmit}>
-          <Form.Group controlId="validationFormik01">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Enter your email."
-              name="email"
-              value={values.email || ''}
-              onChange={handleChange}
-            />
-            <ErrorMessage name="email" component="p" />
-          </Form.Group>
+        <div className="registerContainer">
+          <div className="registerInfoBox">
+            <div
+              className="grid grid-row-7"
+              style={{
+                paddingLeft: '10px',
+                paddingRight: '10px',
+                borderRadius: '10px',
+                backgroundColor: 'rgb(0 0 0 / 30%)',
+                width: '100vh',
+              }}
+            >
+              <div
+                className="row-span-1 p-2"
+                style={{
+                  fontFamily: 'light_p',
+                  color: 'white',
+                  fontSize: '25px',
+                  overflow: 'auto',
+                }}
+              >
+                <div className="logoBox">
+                  <img
+                    src="./images/logo_white.png"
+                    className="loginLogo"
+                    style={{
+                      width: '100px',
+                      height: '100px',
+                      margin: 'auto',
+                    }}
+                  />
+                  <p
+                    className="prjNameBox"
+                    style={{
+                      marginBottom: '0px',
+                      textAlign: 'center',
+                      textShadow: '3px 2px 2px #74b9ff',
+                    }}
+                  >
+                    AI WONDERLAND
+                  </p>
+                </div>
+              </div>
+              <form noValidate onSubmit={handleSubmit}>
+                <div className="row-span-2" style={inputStyle}>
+                  <form controlId="validationFormik01">
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      placeholder="Enter your email."
+                      name="email"
+                      value={values.email || ''}
+                      onChange={handleChange}
+                      style={infoInputStyle}
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="p"
+                      style={errorStyle}
+                    />
+                  </form>
+                </div>
 
-          <Form.Group controlId="validationFormik02">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Enter your password."
-              name="password"
-              value={values.password || ''}
-              onChange={handleChange}
-            />
-            <ErrorMessage name="password" component="p" />
-          </Form.Group>
+                <div className="row-span-3" style={inputStyle}>
+                  <form controlId="validationFormik02">
+                    <label>Password</label>
+                    <input
+                      type="password"
+                      placeholder="Enter your password."
+                      name="password"
+                      value={values.password || ''}
+                      onChange={handleChange}
+                      style={infoInputStyle}
+                    />
+                    <ErrorMessage
+                      name="password"
+                      component="p"
+                      style={errorStyle}
+                    />
+                  </form>
+                </div>
 
-          <Form.Group controlId="validationFormik03">
-            <Form.Label>Confirm Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Password check"
-              name="confirm"
-              // value={values.confirm || ''}
-              onChange={handleChange}
-            />
-            <ErrorMessage name="confirm" component="p" />
-          </Form.Group>
+                <div className="row-span-4" style={inputStyle}>
+                  <form controlId="validationFormik03">
+                    <label>Confirm Password</label>
+                    <input
+                      type="password"
+                      placeholder="Password check"
+                      name="confirm"
+                      // value={values.confirm || ''}
+                      onChange={handleChange}
+                      style={infoInputStyle}
+                    />
+                    <ErrorMessage
+                      name="confirm"
+                      component="p"
+                      style={errorStyle}
+                    />
+                  </form>
+                </div>
 
-          <Form.Group controlId="validationFormik04">
-            <Form.Label>Nickname</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter your nickname."
-              name="nickname"
-              value={values.nickname || ''}
-              onChange={handleChange}
-            />
-            <ErrorMessage name="nickname" component="p" />
-          </Form.Group>
+                <div className="row-span-5" style={inputStyle}>
+                  <form controlId="validationFormik04">
+                    <label>Nickname</label>
+                    <input
+                      type="text"
+                      placeholder="Enter your nickname."
+                      name="nickname"
+                      value={values.nickname || ''}
+                      onChange={handleChange}
+                      style={infoInputStyle}
+                    />
+                    <ErrorMessage
+                      name="nickname"
+                      component="p"
+                      style={errorStyle}
+                    />
+                  </form>
+                </div>
 
-          <Button variant="primary" type="submit">
-            Register
-          </Button>
-        </Form>
+                <div className="row-span-6" style={{ textAlign: 'center' }}>
+                  <button
+                    variant="primary"
+                    type="submit"
+                    style={RegisterButtonStyle}
+                  >
+                    Register
+                  </button>
+                </div>
+
+                {/* 이미 회원가입 되어 있으면 로그인으로 돌리는 코드인데 화면이 넘쳐서 못함
+                <div className="row-span-7" style={{ textAlign: 'center' }}>
+                  <p style={LoginAd}>
+                    Do you already have an Id? click "Login"!
+                  </p>
+                  <input
+                    className="btnSignup"
+                    type="button"
+                    value="Login"
+                    onClick={onClickLogin}
+                    style={LoginButtonStyle}
+                  />
+                </div> */}
+              </form>
+            </div>
+          </div>
+        </div>
       )}
     </Formik>
   );

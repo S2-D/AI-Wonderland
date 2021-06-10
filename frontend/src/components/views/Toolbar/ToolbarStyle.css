@@ -14,7 +14,7 @@
 }
 
 .toolbar {
-  position: sticky;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
@@ -26,10 +26,6 @@
   border-top: 2px solid #e9e8e2;
   margin-left: auto;
   margin-right: auto;
-}
-
-ul {
-  list-style: none;
 }
 
 .toolbar .toolwrap {
