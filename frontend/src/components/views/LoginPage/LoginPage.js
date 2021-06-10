@@ -116,7 +116,7 @@ function LoginPage({ setLoginUserId }) {
             style={{ display: 'block' }}
           >
             <div
-              className="row-span-1 p-4"
+              className="row-span-1 p-3"
               style={{
                 fontFamily: 'light_p',
                 color: '#13F2C9',
@@ -145,7 +145,7 @@ function LoginPage({ setLoginUserId }) {
                 </p>
               </div>
             </div>
-            <div className="row-span-2 p-2" style={inputStyle}>
+            <div className="row-span-2 p-1" style={inputStyle}>
               {/* Email */}
               <label>Email</label>
               <div>
@@ -159,7 +159,9 @@ function LoginPage({ setLoginUserId }) {
                   style={infoInputStyle}
                 />
                 {errors.email && (
-                  <p style={errorStyle}>Please check your email format.</p>
+                  <p style={errorStyle}>
+                    Are you sure this is the correct email address?
+                  </p>
                 )}
               </div>
             </div>
@@ -177,7 +179,7 @@ function LoginPage({ setLoginUserId }) {
                 />
                 {errors.password && (
                   <p className="ErrorText" style={errorStyle}>
-                    Password is not matched. Please try again.
+                    Please check your password.
                   </p>
                 )}
               </div>
@@ -194,7 +196,6 @@ function LoginPage({ setLoginUserId }) {
               </div>
             </div>
             <div className="row-span-5 p-2" style={{ textAlign: 'center' }}>
-              <p style={SignUpAd}>If you don't have time pass, click below!</p>
               <input
                 className="btnSignup"
                 type="button"

@@ -9,7 +9,7 @@ export default function Logout() {
   const LogoutHandler = () => {
     if (isLogin() === true) {
       localStorage.removeItem('access_token');
-      alert('Are you sure to log out?');
+      alert('You are logged out.');
       //페이지 리렌더링 안하면 버튼이 상태가 바뀌지 않아 reload 코드 추가
       window.location.reload();
     } else {

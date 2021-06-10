@@ -12,6 +12,7 @@ export default function Bottom() {
     async function getBottomProduct() {
       try {
         const response = await axios.get(BestBottomUrl);
+        console.log(response.data);
         if (response.status === 200) {
           setBestBottoms(response.data.data);
           console.log(BestBottoms);

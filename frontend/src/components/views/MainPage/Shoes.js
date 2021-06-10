@@ -16,7 +16,6 @@ export default function Shoes() {
         if (response.status === 200) {
           setBestShoes(response.data.data);
           console.log(BestShoes);
-          console.log(BestShoes);
         } else if (response.status === 404) {
           console.log('404 진입' + response);
           alert('Fail to load the product data');

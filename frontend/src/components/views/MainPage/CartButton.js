@@ -3,7 +3,7 @@ import baseUrl from '../../../url/http';
 import { react, useState, useEffect } from 'react';
 
 // API - 로그인 유저의 스크랩북에 상품 추가하기
-export default function CartButton() {
+export default function CartButton(props) {
   const [userNo, setUserNo] = useState(0);
   useEffect(() => {
     async function getUser() {
@@ -29,7 +29,7 @@ export default function CartButton() {
         `${baseUrl}/scrapbook/scrapbooklist/`,
         {
           mem_id: userNo,
-          p_no: productNumber,
+          p_no: props.p_price,
         },
         {
           headers: { Authorization: `jwt ${access_token}` },
@@ -38,6 +38,7 @@ export default function CartButton() {
       .then((response) => {
         console.log(response);
         console.log(response.data.message);
+        console.log(p_no);
       });
   };
 

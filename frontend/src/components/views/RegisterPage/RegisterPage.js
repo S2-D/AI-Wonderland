@@ -14,9 +14,7 @@ import { Autoplay } from 'swiper';
 const schema = yup.object().shape({
   email: yup
     .string()
-    .email(
-      'The email address does not match the format. Please check the value.'
-    )
+    .email('Please check your email address.')
     .required('Please enter your email.'),
   password: yup
     .string()
@@ -29,13 +27,10 @@ const schema = yup.object().shape({
     .required('Please enter your Password.'),
   confirm: yup
     .string()
-    .oneOf(
-      [yup.ref('password'), null],
-      'Password is not matched. Please try again.'
-    )
+    .oneOf([yup.ref('password'), null], 'Passwords do not match.')
     .required('Please enter your password one more time.'),
 
-  nickname: yup.string().required('Please enter your nickname.'),
+  nickname: yup.string().required('Please enter a nickname.'),
 });
 
 function RegisterPage() {
@@ -44,7 +39,7 @@ function RegisterPage() {
     axios.post(baseUrl + '/member/signUp/', data).then((response) => {
       console.log('response: ', response.data.status);
       if (response.data.status === 'success') {
-        alert('Register Complete!');
+        alert('Sign up complete!');
         history.push('/login');
       } else {
         alert(response.data.status.error);

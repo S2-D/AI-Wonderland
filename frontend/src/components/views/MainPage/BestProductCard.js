@@ -26,7 +26,7 @@ export default function BestProductCard(props) {
       {/* <Card style={{ styledCard }}> */}
       <Card.Img
         variant="top"
-        src={imageUrl}
+        src={props.p_imgUrl}
         style={{
           height: '100%',
           maxHeight: '150px',
@@ -41,7 +41,6 @@ export default function BestProductCard(props) {
           style={{
             fontSize: '70%',
             float: 'left',
-            overflow: 'hidden',
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             marginBottom: '0',
