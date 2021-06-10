@@ -7,7 +7,7 @@ class ScrapbookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Scrapbook
-        # fields = ('mem_id', 'p_no')
+        # fields = ('id', 'p_no')
         fields = '__all__'
 
 class ScrapbookCRUDSerializer(serializers.ModelSerializer):
@@ -22,5 +22,5 @@ class ScrapbookCRUDSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Scrapbook
-        fields = ('mem_id', 'p_no')
-        # fields = '__all__'
+        # fields = ('p_no',)
+        fields = '__all__'
