@@ -65,8 +65,9 @@ export default function ProductList() {
       <GNB />
       <div className="flex m-2 justify-center">
         <div className="grid grid-cols-4 gap-1">
-          <div className="col-span-4 flex justify-center m-3 gap-2">
+          <div className="col-span-4 flex justify-center mt-2 gap-2">
             <button
+              className="product-list-category-btn"
               onClick={() => {
                 setCategoryValue(1);
               }}
@@ -74,6 +75,7 @@ export default function ProductList() {
               Tops
             </button>
             <button
+              className="product-list-category-btn"
               onClick={() => {
                 setCategoryValue(2);
               }}
@@ -81,6 +83,7 @@ export default function ProductList() {
               Bottoms
             </button>
             <button
+              className="product-list-category-btn"
               onClick={() => {
                 setCategoryValue(3);
               }}
@@ -88,49 +91,45 @@ export default function ProductList() {
               Shoes
             </button>
             <button
+              className="product-list-category-btn"
               onClick={() => {
                 setCategoryValue(4);
               }}
             >
               Others
             </button>
-            <button>Timegram</button>
+            <button className="product-list-timegram-btn">Timegram</button>
           </div>
-          <div className="col-span-4 flex justify-end m-3 gap-2">
-            {/* <DropdownButton
-            title="Sort by"
-            style={{
-              float: 'right',
-              padding: '10px',
-            }}
-            variant="Secondary"
-            size="sm"
-          >
-            {orders.map((order, id) => (
-              <Dropdown.Item
-                key={id}
-                name={order.name}
-                value={order.value}
-                onClick={(e) => {
-                  setOrderingValue(order.value);
-                }}
-              >
-                {order.name}
-              </Dropdown.Item>
+          <div className="col-span-4 flex justify-end mr-2">
+            {/* <ProductListDropDown /> */}
+            <DropdownButton
+              title="Sort by"
+              variant="dropdown"
+              className="dropdown-btn"
+            >
+              {orders.map((order, id) => (
+                <Dropdown.Item
+                  key={id}
+                  name={order.name}
+                  onClick={(e) => {
+                    setOrderingValue(order.value);
+                  }}
+                >
+                  {order.name}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
+          </div>
+          <div className="col-span-4 flex flex-wrap justify-center m-3 gap-2">
+            {products.map((product, idx) => (
+              <ProductListCard
+                key={idx}
+                p_imgUrl={product.p_image}
+                p_name={product.p_name}
+                p_price={product.p_price}
+                p_toDetail={product.p_no}
+              />
             ))}
-          </DropdownButton>
-        </div>
-        <div className="col-span-4 flex flex-wrap justify-center m-3 gap-2">
-          {products.map((product, idx) => (
-            <ProductCard
-              key={idx}
-              p_imgUrl={product.p_image}
-              p_name={product.p_name}
-              p_price={product.p_price}
-              p_toDetail={product.p_no}
-            />
-          ))} */}
-            <ProductListCard />
           </div>
         </div>
       </div>
