@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
-import Wallet from '../GNB/Wallet';
 import './Attendance.css';
 import baseUrl from '../../../url/http';
 import Avatar from 'boring-avatars';
@@ -10,27 +9,27 @@ import avatarName from './AvatarName';
 
 export default function Attendance() {
   const [attendanceInfo, setAttendanceInfo] = useState([]);
-  const [infoUrl, setInfoUrl] = useState([
-    `http://127.0.0.1:8000/api/attendance/`,
-  ]);
-  // db live 후 활용해야할 api url
-  // const [infoUrl, setInfoUrl] = useState([baseUrl + '/attendance/']);
+  // const [infoUrl, setInfoUrl] = useState([
+  //   `http://127.0.0.1:8000/api/attendance/`,
+  // ]);
+  // 아래 코드 1줄은 db live 후 활용해야할 api url. 위 코드 3줄은 로컬에서 테스팅 할때
+  const [infoUrl, setInfoUrl] = useState([baseUrl + '/attendance/']);
   const [prevUrlLink, setPrevUrlLink] = useState([]);
   const [nextUrlLink, setNextUrlLink] = useState([]);
   const access_token = localStorage.getItem('access_token');
 
   async function getAttendanceInfo() {
     try {
-      const response = await axios.get(infoUrl, {
-        headers: {
-          Authorization:
-            'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFiY0BleGFtcGxlLmNvbSIsImV4cCI6MTYyMzY5NjI5MSwiZW1haWwiOiJhYmNAZXhhbXBsZS5jb20iLCJvcmlnX2lhdCI6MTYyMzA5MTQ5MX0.iK-MTpxX1mqkk1gKBdaWr2Ns8UsPUueqn2H9GYqCuJE',
-        },
-      });
-      // db live 후 활용해야할 JWT header 코드
       // const response = await axios.get(infoUrl, {
-      //   headers: { Authorization: `jwt ${access_token}`},
+      //   headers: {
+      //     Authorization:
+      //       'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFiY0BleGFtcGxlLmNvbSIsImV4cCI6MTYyMzY5NjI5MSwiZW1haWwiOiJhYmNAZXhhbXBsZS5jb20iLCJvcmlnX2lhdCI6MTYyMzA5MTQ5MX0.iK-MTpxX1mqkk1gKBdaWr2Ns8UsPUueqn2H9GYqCuJE',
+      //   },
       // });
+      // 아래 코드 3줄은 db live 후 활용해야할 JWT header 코드. 위 코드는 로컬에서 테스팅 할때
+      const response = await axios.get(infoUrl, {
+        headers: { Authorization: `jwt ${access_token}` },
+      });
       console.log(response.data.results);
       if (response.status === 200) {
         setAttendanceInfo(response.data.results);
@@ -58,21 +57,21 @@ export default function Attendance() {
 
   async function checkinHandler() {
     await axios
-      .post(`http://127.0.0.1:8000/api/attendance/`, null, {
-        headers: {
-          Authorization:
-            'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFiY0BleGFtcGxlLmNvbSIsImV4cCI6MTYyMzY5NjI5MSwiZW1haWwiOiJhYmNAZXhhbXBsZS5jb20iLCJvcmlnX2lhdCI6MTYyMzA5MTQ5MX0.iK-MTpxX1mqkk1gKBdaWr2Ns8UsPUueqn2H9GYqCuJE',
-        },
-      })
-      // db live 후 활용해야할 JWT header 코드
       // .post(`http://127.0.0.1:8000/api/attendance/`, null, {
-      //   headers: { Authorization: `jwt ${access_token}` },
+      //   headers: {
+      //     Authorization:
+      //       'jwt eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFiY0BleGFtcGxlLmNvbSIsImV4cCI6MTYyMzY5NjI5MSwiZW1haWwiOiJhYmNAZXhhbXBsZS5jb20iLCJvcmlnX2lhdCI6MTYyMzA5MTQ5MX0.iK-MTpxX1mqkk1gKBdaWr2Ns8UsPUueqn2H9GYqCuJE',
+      //   },
       // })
+      // 아래 코드 3줄은 db live 후 활용해야할 JWT header 코드. 위 코드는 로컬에서 테스팅할때
+      .post(`http://127.0.0.1:8000/api/attendance/`, null, {
+        headers: { Authorization: `jwt ${access_token}` },
+      })
       .then((response) => {
         if (response.status === 201) {
-          setInfoUrl(`http://127.0.0.1:8000/api/attendance/`);
-          // db live 후 활용해야할 url 코드
-          // setInfoUrl(baseUrl + '/attendance/');
+          // setInfoUrl(`http://127.0.0.1:8000/api/attendance/`);
+          // 아래 코드 1줄은 db live 후 활용해야할 url 코드. 위 코드 한줄은 로컬에서 테스팅할때
+          setInfoUrl(baseUrl + '/attendance/');
           alert('You have been rewarded $300 in return!');
         }
       })
