@@ -6,6 +6,10 @@ import Info from './Info';
 import isLogin from '../../../url/lib/isLogin';
 import baseUrl from '../../../url/http';
 
+//지워야함
+
+import testPage1 from './testPage1';
+
 function MyPage() {
   function changeBackground(e) {
     e.target.style.color = '#083242';
@@ -53,7 +57,7 @@ function MyPage() {
 
   return (
     <>
-      <div style={{ paddingBottom: '65px' }}>
+      <div style={{ paddingBottom: '180px' }}>
         <GNB />
         <Info />
         <div className="grid grid-row-4 grid-col-4 inline-block align-text-middle">
@@ -124,6 +128,9 @@ function MyPage() {
           >
             Log Out
           </div>
+        </div>
+        <div>
+          <Link to="/mypage/testpage1">testpage</Link>
         </div>
       </div>
       <Toolbar />

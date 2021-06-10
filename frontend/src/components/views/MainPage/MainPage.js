@@ -26,7 +26,7 @@ export default function MainPage() {
       >
         <GNB />
         <MainSlider />
-        <div className="container">
+        <div className="mainItemcontainer">
           <div className="topItems_Tops">
             <h2>TOP 4 items by Tops</h2>
             <p className="subAd">Explore the best items of the Tops.</p>

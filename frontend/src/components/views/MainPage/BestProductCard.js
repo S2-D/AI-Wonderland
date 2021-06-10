@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 // 전체 라이브러리를 임포트하기보단, 개별 컴포넌트를 임포트해야 성능(용량, 속도)가 좋음
 import styled, { css } from 'styled-components';
 import CartButton from './CartButton';
-import Cartbutton from './CartButton';
+
 // 카드 이미지 설정
 const imageUrl = 'images/example/one.png'; // 차후 url 형식으로 바꿔주어야 함
 

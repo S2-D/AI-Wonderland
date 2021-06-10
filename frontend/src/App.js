@@ -12,6 +12,11 @@ import Intro from './components/views/Intro/Intro';
 import MyPage from './components/views/MyPage/MyPage';
 import Attendance from './components/views/Attendance/Attendance';
 
+//지워야함
+import testPage1 from './components/views/MyPage/testPage1';
+import testPage2 from './components/views/MyPage/testPage2';
+import testPage3 from './components/views/MyPage/testPage3';
+
 import 'bootstrap/dist/css/bootstrap.css';
 // 최상위 컴포넌트에 적용해주면 일괄 적용 가능함
 
@@ -50,6 +55,18 @@ function App() {
           {/* 마이페이지 */}
           <PrivateRoute component={MyPage} path="/mypage" exact />
           <Route component={Attendance} path="/mypage/attendance" exact />
+          {/* 지워야함 */}
+          <Route component={testPage1} path="/mypage/testpage1" exact />
+          <Route
+            component={testPage2}
+            path="/mypage/testpage1/testpage2"
+            exact
+          />
+          <Route
+            component={testPage3}
+            path="/mypage/testpage1/testpage2/testpage3"
+            exact
+          />
         </Switch>
       </div>
     </Router>
