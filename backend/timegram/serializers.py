@@ -2,32 +2,26 @@ from rest_framework import serializers
 from .models import Timegram, Like
 from member.models import User
 from scrapbook.models import Scrapbook
+from products.models import Product
+from member.models import User
 
 
-class TimegramCreateSerializer(serializers.ModelSerializer):
+class TimegramCreateSerializer(serializers.Serializer):
+    p_no1_id = serializers.CharField(allow_blank=True, allow_null=True)
+    p_no2_id = serializers.CharField(allow_blank=True, allow_null=True)
+    p_no3_id = serializers.CharField(allow_blank=True, allow_null=True)
+    p_no4_id = serializers.CharField(allow_blank=True, allow_null=True)
+    p_no5_id = serializers.CharField(allow_blank=True, allow_null=True)
+    p_no6_id = serializers.CharField(allow_blank=True, allow_null=True)
+    title = serializers.CharField()
+    total_price = serializers.FloatField()
+    mem_id = serializers.IntegerField()
 
     def create(self, validated_data):
-        p_no1 = validated_data['p_no1']
-        p_no2 = validated_data['p_no2']
-        p_no3 = validated_data['p_no3']
-        p_no4 = validated_data['p_no4']
-        p_no5 = validated_data['p_no5']
-        p_no6 = validated_data['p_no6']
         total_price = validated_data['total_price']
-        mem_id = validated_data['mem'].id
+        mem_id = validated_data['mem_id']
 
-        timegram_item = Timegram.objects.create(
-            title=validated_data['title'],
-            p_no1=p_no1,
-            p_no2=p_no2,
-            p_no3=p_no3,
-            p_no4=p_no4,
-            p_no5=p_no5,
-            p_no6=p_no6,
-            total_price=total_price,
-            mem_id=mem_id
-        )
-
+        timegram_item = Timegram.objects.create(**validated_data)
         timegram_item.save()
 
         # 타임그램 등록시 사용자 머니 차감
@@ -37,7 +31,8 @@ class TimegramCreateSerializer(serializers.ModelSerializer):
         user.update(money=current_money)
 
         # 스크랩북 삭제
-        scrap_list = [p_no1, p_no2, p_no3, p_no4, p_no5, p_no6]
+        scrap_list = [validated_data['p_no1_id'], validated_data['p_no2_id'], validated_data['p_no3_id'],
+                      validated_data['p_no4_id'], validated_data['p_no5_id'], validated_data['p_no6_id']]
 
         for i in range(len(scrap_list)):
             if scrap_list[i] != '':
@@ -52,26 +47,54 @@ class TimegramCreateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TimegramListSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Timegram
+        model = Product
         fields = '__all__'
-        depth = 1
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
+
+
+class TimegramListSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    p_no1 = ProductSerializer()
+    p_no2 = ProductSerializer()
+    p_no3 = ProductSerializer()
+    p_no4 = ProductSerializer()
+    p_no5 = ProductSerializer()
+    p_no6 = ProductSerializer()
+    flag = serializers.BooleanField()
+    mem = UserSerializer()
+    title = serializers.CharField()
+    total_like = serializers.IntegerField()
+    total_price = serializers.FloatField()
+    dt_modified = serializers.DateTimeField()
+    dt_created = serializers.DateTimeField()
 
 
 class LikeCreateSerializer(serializers.Serializer):
-    mem = serializers.CharField(required=True)
+    mem = serializers.CharField()
     timegram = serializers.CharField(required=True)
 
     def create(self, validated_data):
         like_list = Like.objects.filter(
             mem_id=validated_data['mem'], timegram_id=validated_data['timegram'])
 
+        timegram_like = Timegram.objects.filter(id=validated_data['timegram'])
+
         # update
         if len(like_list) > 0:
             if like_list[0].flag:
+                timegram_like.update(total_like=int(
+                    timegram_like[0].total_like) - 1)
                 flag = False
             else:
+                timegram_like.update(total_like=int(
+                    timegram_like[0].total_like) + 1)
                 flag = True
 
             like_item = Like.objects.filter(
@@ -81,6 +104,9 @@ class LikeCreateSerializer(serializers.Serializer):
 
         # create
         else:
+            timegram_like.update(total_like=int(
+                timegram_like[0].total_like) + 1)
+
             like_item = Like.objects.create(
                 mem_id=validated_data['mem'],
                 timegram_id=validated_data['timegram'],

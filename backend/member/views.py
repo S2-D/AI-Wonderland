@@ -15,14 +15,25 @@ from drf_yasg.utils import swagger_auto_schema
 
 @api_view(['GET'])
 def getMoney(request):
+    """
+    멤버 가상머니 조회
+    ---
+    """
     if request.method == 'GET':
-        memberInfo = User.objects.filter(pk=request.user.id)
-        serializer = UserMoneySerializer(memberInfo, many=True)
-        return Response(
-            {
-                "money": serializer.data
-            }, status=status.HTTP_200_OK
-        )
+        try:
+            memberInfo = User.objects.filter(pk=request.user.id)
+            serializer = UserMoneySerializer(memberInfo, many=True)
+            return Response(
+                {
+                    "money": serializer.data
+                }, status=status.HTTP_200_OK
+            )
+        except:
+            return Response({
+                "status_code": status.HTTP_400_BAD_REQUEST,
+                'status': 'error',
+                'message': '멤버 가상머니 조회 중 에러가 발생했습니다.'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 @swagger_auto_schema(method='get')
@@ -33,26 +44,33 @@ def mypage_info(request):
     ---
     """
     if request.method == 'GET':
-        memberInfo = User.objects.filter(pk=request.user.id)
+        try:
+            memberInfo = User.objects.filter(pk=request.user.id)
 
-        if str(memberInfo[0].email) != str(request.user):
-            return Response(
-                {
-                    "status_code": status.HTTP_401_UNAUTHORIZED,
-                    "status": "error",
-                    "message": "본인 계정정보만 접근가능합니다."
-                }, status=status.HTTP_401_UNAUTHORIZED
-            )
+            if str(memberInfo[0].email) != str(request.user):
+                return Response(
+                    {
+                        "status_code": status.HTTP_401_UNAUTHORIZED,
+                        "status": "error",
+                        "message": "본인 계정정보만 접근가능합니다."
+                    }, status=status.HTTP_401_UNAUTHORIZED
+                )
 
-        else:
-            serializer = UserSerializer(memberInfo, many=True)
-            return Response(
-                {
-                    "status_code": status.HTTP_200_OK,
-                    "status": "success",
-                    "data": serializer.data
-                }, status=status.HTTP_200_OK
-            )
+            else:
+                serializer = UserSerializer(memberInfo, many=True)
+                return Response(
+                    {
+                        "status_code": status.HTTP_200_OK,
+                        "status": "success",
+                        "data": serializer.data
+                    }, status=status.HTTP_200_OK
+                )
+        except:
+            return Response({
+                "status_code": status.HTTP_400_BAD_REQUEST,
+                'status': 'error',
+                'message': '마이페이지의 정보 조회 중 에러가 발생했습니다.'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 @swagger_auto_schema(methods=['post'], request_body=UserCreateSerializer)
@@ -67,33 +85,40 @@ def sign_up(request):
     password : 비밀번호는 영문, 숫자, 특수문자를 사용하여 8자리 이상으로 입력하세요.
     """
     if request.method == 'POST':
-        serializer = UserCreateSerializer(data=request.data)
+        try:
+            serializer = UserCreateSerializer(data=request.data)
 
-        if not serializer.is_valid(raise_exception=True):
+            if not serializer.is_valid(raise_exception=True):
+                return Response(
+                    {
+                        "status_code": status.HTTP_409_CONFLICT,
+                        "status": "error",
+                        "message": "데이터가 유효하지 않습니다."
+                    }, status=status.HTTP_409_CONFLICT
+                )
+
+            if User.objects.filter(email=serializer.validated_data['email']).first() is None:
+                serializer.save()
+                return Response(
+                    {
+                        "status_code": status.HTTP_201_CREATED,
+                        "status": "success",
+                        "message": "회원가입이 완료되었습니다."
+                    }, status=status.HTTP_201_CREATED
+                )
             return Response(
                 {
                     "status_code": status.HTTP_409_CONFLICT,
                     "status": "error",
-                    "message": "데이터가 유효하지 않습니다."
+                    "message": "email이 중복되었습니다."
                 }, status=status.HTTP_409_CONFLICT
             )
-
-        if User.objects.filter(email=serializer.validated_data['email']).first() is None:
-            serializer.save()
-            return Response(
-                {
-                    "status_code": status.HTTP_201_CREATED,
-                    "status": "success",
-                    "message": "회원가입이 완료되었습니다."
-                }, status=status.HTTP_201_CREATED
-            )
-        return Response(
-            {
-                "status_code": status.HTTP_409_CONFLICT,
-                "status": "error",
-                "message": "email이 중복되었습니다."
-            }, status=status.HTTP_409_CONFLICT
-        )
+        except:
+            return Response({
+                "status_code": status.HTTP_400_BAD_REQUEST,
+                'status': 'error',
+                'message': '멤버 회원가입 중 에러가 발생했습니다.'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 @swagger_auto_schema(methods=['post'], request_body=UserLoginSerializer)
@@ -107,57 +132,70 @@ def sign_in(request):
     password : 비밀번호를 입력하세요
     """
     if request.method == 'POST':
-        serializer = UserLoginSerializer(data=request.data)
+        try:
+            serializer = UserLoginSerializer(data=request.data)
 
-        if not serializer.is_valid(raise_exception=True):
-            return Response(
-                {
-                    "status_code": status.HTTP_409_CONFLICT,
-                    "status": "error",
-                    "message": "데이터가 유효하지 않습니다."
-                }, status=status.HTTP_409_CONFLICT
-            )
-        if serializer.validated_data['email'] == "None":
+            if not serializer.is_valid(raise_exception=True):
+                return Response(
+                    {
+                        "status_code": status.HTTP_409_CONFLICT,
+                        "status": "error",
+                        "message": "데이터가 유효하지 않습니다."
+                    }, status=status.HTTP_409_CONFLICT
+                )
+            if serializer.validated_data['email'] == "None":
+                return Response(
+                    {
+                        "status_code": status.HTTP_200_OK,
+                        "status": "success",
+                        "message": "로그인 정보가 일치하지 않습니다."
+                    }, status=status.HTTP_200_OK
+                )
             return Response(
                 {
                     "status_code": status.HTTP_200_OK,
                     "status": "success",
-                    "message": "로그인 정보가 일치하지 않습니다."
+                    "message": "로그인에 성공하였습니다.",
+                    "token": serializer.data['token']
                 }, status=status.HTTP_200_OK
             )
-        return Response(
-            {
-                "status_code": status.HTTP_200_OK,
-                "status": "success",
-                "message": "로그인에 성공하였습니다.",
-                "token": serializer.data['token']
-            }, status=status.HTTP_200_OK
-        )
+        except:
+            return Response({
+                "status_code": status.HTTP_400_BAD_REQUEST,
+                'status': 'error',
+                'message': '멤버 로그인 중 에러가 발생했습니다.'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 @swagger_auto_schema(method='get')
 @api_view(['GET'])
 def authenticated_user(request):
     """
-    로그인된 사용자 정보 조회
+    로그인 사용자 정보 조회
     ---
     로그인 후 페이지 redirect 시 사용하세요.
     로그인 후 발급받은 토큰을 headers에 추가하세요.
     Authorization : jwt {access_token}
     """
+    try:
+        user = {
+            "id": request.user.id,
+            "email": request.user.email,
+            "nickname": request.user.nickname,
+            "money": request.user.money,
+            "joindate": request.user.joindate,
+        }
 
-    user = {
-        "id": request.user.id,
-        "email": request.user.email,
-        "nickname": request.user.nickname,
-        "money": request.user.money,
-        "joindate": request.user.joindate,
-    }
-
-    return Response(
-        {
-            "status_code": status.HTTP_200_OK,
-            "status": "success",
-            "user": user
-        }, status=status.HTTP_200_OK
-    )
+        return Response(
+            {
+                "status_code": status.HTTP_200_OK,
+                "status": "success",
+                "user": user
+            }, status=status.HTTP_200_OK
+        )
+    except:
+        return Response({
+            "status_code": status.HTTP_400_BAD_REQUEST,
+            'status': 'error',
+            'message': '로그인 사용자 정보 조회 중 에러가 발생했습니다.'
+        }, status=status.HTTP_400_BAD_REQUEST)
