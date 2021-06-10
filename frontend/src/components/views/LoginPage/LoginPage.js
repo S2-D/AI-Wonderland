@@ -54,8 +54,9 @@ function LoginPage({ setLoginUserId }) {
   const errorStyle = {
     fontFamily: 'sb_pixel',
     fontSize: '22px',
-    color: '#eb2f06',
+    color: 'white',
     textAlign: 'center',
+    textShadow: '2px 2px 2px #eb2f06',
   };
 
   const infoInputStyle = {
@@ -143,7 +144,7 @@ function LoginPage({ setLoginUserId }) {
                     textShadow: '3px 2px 2px #187FD9',
                   }}
                 >
-                  AI WONDERLAND
+                  TIME PORTAL
                 </p>
               </div>
             </div>
@@ -190,17 +191,17 @@ function LoginPage({ setLoginUserId }) {
                 <input
                   className="btnLogin"
                   type="submit"
-                  value="Login"
+                  value="Log In"
                   style={LoginButtonStyle}
                 />
               </div>
             </div>
             <div className="row-span-5 p-2" style={{ textAlign: 'center' }}>
-              <p style={SignUpAd}>Don't you have an Id? click "Sign Up"!</p>
+              <p style={SignUpAd}>If you don't have time pass, click below!</p>
               <input
                 className="btnSignup"
                 type="button"
-                value="Sign Up"
+                value="Sign Up for Travel Pass"
                 onClick={onClickSignup}
                 style={SignUpButtonStyle}
               />
