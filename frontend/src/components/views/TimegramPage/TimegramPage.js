@@ -3,49 +3,66 @@ import axios from 'axios';
 import baseUrl from '../../../url/http';
 import './Timegram.css';
 
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
 
 import TimegramCard from './TimegramCard.js';
 import Toolbar from '../Toolbar/Toolbar';
 import Compass from '../GNB/Compass';
 
 function TimegramPage() {
-  // ordering -p_readcount : 조회 순, -p_price : 가격 순, -p_rank : 랭킹 순, -p_date : 등록일 순
-  const [orderingValue, setOrderingValue] = useState('-p_readcount');
+  // -dt_created : 최신 순 , -total_like : 좋아요 순, total_price :낮은 가격순, -total_price : 높은 가격순
+  const [orderingValue, setOrderingValue] = useState('-dt_created');
   const orders = [
-    { id: 1, name: 'View Count', value: '-p_readcount' },
-    { id: 2, name: 'Amazon Best Sellers Rank', value: '-p_price' },
-    { id: 3, name: 'Price: High-Low', value: '-p_rank' },
-    { id: 4, name: 'Price: Low-High', value: '' },
-    { id: 5, name: 'Newest', value: '-p_date' },
+    { id: 1, name: 'Newest', value: '-dt_created' },
+    { id: 2, name: 'Likes', value: '-total_like' },
+    { id: 3, name: 'Price: High-Low', value: '-total_price' },
+    { id: 4, name: 'Price: Low-High', value: 'total_price' },
   ];
+  const timegramOrderUrl = `${baseUrl}/timegram/timegramList/?page=1&ordering=${orderingValue}`;
 
-  // 상품 카테고리 받아오기
+  // Categories
   const categoryUrl = `${baseUrl}/products/categotylist/`;
   const [categories, setCategories] = useState([]);
 
   // Timegram
-  const timegramUrl = `${baseUrl}/timegram/timegramList/`;
-  const [timegrams, setTimegrams] = useState([]);
+  const [timegramPage, setTimegramPage] = useState(1);
+  const [timegramNextPage, setTimegramNextPage] = useState(1);
+  const [timegramInfo, setTimegramInfo] = useState([]);
+  const timegramInfoUrl = `${baseUrl}/timegram/timegramList/?page=${timegramPage}&ordering=${orderingValue}`;
+
   const [loading, setLoading] = useState(false);
   const [isLike, setIsLike] = useState(false);
 
-  async function onClickLike(e) {
-    const timegram_id = e.target.id;
+  const onClickLike = (e) => {
+    const access_token = localStorage.getItem('access_token');
+    if (access_token == null) {
+      alert('Login is required!!');
+      return;
+    }
 
     const data = {
-      timegram: timegram_id,
+      timegram: e.target.id,
     };
 
-    const access_token = localStorage.getItem('access_token');
-
     try {
-      await axios
+      axios
         .post(baseUrl + '/timegram/like/', data, {
           headers: { Authorization: `jwt ${access_token}` },
         })
         .then((response) => {
           if (response.data.status === 'success') {
+            for (let i in timegramInfo) {
+              if (timegramInfo[i].id == e.target.id) {
+                if (timegramInfo[i].flag) {
+                  timegramInfo[i].flag = false;
+                  timegramInfo[i].total_like -= 1;
+                } else {
+                  timegramInfo[i].flag = true;
+                  timegramInfo[i].total_like += 1;
+                }
+              }
+            }
+
             if (isLike) {
               setIsLike(false);
             } else {
@@ -60,7 +77,11 @@ function TimegramPage() {
         alert('You must be logged in to click the like button!!');
       }
     }
-  }
+  };
+
+  const loadMoreTimegram = () => {
+    setTimegramPage((timegramPage) => timegramPage + 1);
+  };
 
   useEffect(() => {
     async function getCategoriesList() {
@@ -69,7 +90,6 @@ function TimegramPage() {
 
         if (response.status === 200) {
           setCategories(response.data.results);
-          getTimegramList();
         } else if (response.status === 404) {
           console.log('404 진입' + response);
           alert('Fail to load the categoty data');
@@ -79,24 +99,53 @@ function TimegramPage() {
       }
     }
 
-    async function getTimegramList() {
-      try {
-        const response = await axios.get(timegramUrl);
+    getCategoriesList();
+  }, []);
 
+  useEffect(() => {
+    async function getTimegramInfo() {
+      try {
+        const access_token = localStorage.getItem('access_token');
+        if (access_token != null) {
+          axios.defaults.headers.common[
+            'Authorization'
+          ] = `jwt ${access_token}`;
+        }
+
+        const response = await axios.get(timegramInfoUrl);
+        console.log('타임그램 총 갯수 : ', response.data.count);
+        console.log('타임그램 데이터 : ', response.data.results);
         if (response.status === 200) {
-          setTimegrams(response.data.results);
+          setTimegramNextPage(response.data.next);
+          setTimegramInfo([...timegramInfo, ...response.data.results]);
           setLoading(true);
         } else if (response.status === 404) {
-          console.log('404 진입' + response);
+          console.log('404 진입', response);
           alert('Fail to load the timegram data');
         }
       } catch (error) {
-        console.log(error);
+        console.log('타임그램 데이터 : ', error);
       }
     }
+    getTimegramInfo();
+  }, [timegramInfoUrl]);
 
-    getCategoriesList();
-  }, [isLike]);
+  useEffect(() => {
+    async function getTimegramOrder() {
+      try {
+        const response = await axios.get(timegramOrderUrl);
+        if (response.status === 200) {
+          setTimegramInfo(response.data.results);
+        } else if (response.status === 404) {
+          console.log('404 진입', response);
+          alert('Fail to load the timegram data');
+        }
+      } catch (error) {
+        console.log('타임그램 데이터 : ', error);
+      }
+    }
+    getTimegramOrder();
+  }, [timegramOrderUrl]);
 
   return (
     <>
@@ -152,13 +201,36 @@ function TimegramPage() {
             >
               Timegram
             </li>
+            <DropdownButton
+              title="Sort by"
+              style={{
+                float: 'right',
+                padding: '10px',
+              }}
+              variant="Secondary"
+              size="sm"
+            >
+              {orders.map((order, id) => (
+                <Dropdown.Item
+                  key={id}
+                  name={order.name}
+                  value={order.value}
+                  onClick={(e) => {
+                    setOrderingValue(order.value);
+                  }}
+                >
+                  {order.name}
+                </Dropdown.Item>
+              ))}
+            </DropdownButton>
           </Col>
         </Row>
         {!loading ? (
           <Row className="justify-content-md-center p-5"></Row>
         ) : (
           <div>
-            {timegrams.map((timegram, idx) => (
+            <p className="p-1 text-sm font-semibold">Timegram</p>
+            {timegramInfo.map((timegram, idx) => (
               <Row
                 key={idx}
                 style={{
@@ -167,7 +239,6 @@ function TimegramPage() {
                   alignItems: 'center',
                 }}
               >
-                <hr></hr>
                 <TimegramCard
                   key={idx}
                   id={timegram.id}
@@ -200,7 +271,9 @@ function TimegramPage() {
                   id={timegram.id}
                   onClick={onClickLike}
                   type="button"
-                  className={isLike ? 'btn_like btn_unlike' : 'btn_like'}
+                  className={
+                    timegram.flag == true ? 'btn_like btn_unlike' : 'btn_like'
+                  }
                 >
                   <span id={timegram.id} className="img_emoti">
                     좋아요
@@ -212,6 +285,22 @@ function TimegramPage() {
                 </button>
               </Row>
             ))}
+            <div className="col-span-5 m-3 flex justify-center">
+              {timegramNextPage === null ? null : (
+                <button
+                  type="button"
+                  className="bg-purple-600 text-sm text-white font-semibold rounded-lg"
+                  style={{
+                    fontFamily: 'neodgm',
+                    width: '180px',
+                    height: '30px',
+                  }}
+                  onClick={loadMoreTimegram}
+                >
+                  + Load More Timegrams
+                </button>
+              )}
+            </div>
           </div>
         )}
       </Container>

@@ -13,7 +13,7 @@ function Toolbar() {
   };
 
   const handleTimegram = () => {
-    history.push('/main');
+    history.push('/timegram');
   };
 
   const handleSearch = () => {
