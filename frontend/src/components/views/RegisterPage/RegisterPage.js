@@ -9,6 +9,7 @@ import axios from 'axios';
 
 import baseUrl from '../../../url/http';
 import RegisterStyle from './RegisterStyle.css';
+import { Autoplay } from 'swiper';
 
 const schema = yup.object().shape({
   email: yup
@@ -61,7 +62,7 @@ function RegisterPage() {
     color: 'white',
     textShadow: '2px 2px 2px gray',
     fontFamily: 'sb_pixel',
-    fontSize: '30px',
+    fontSize: '27px',
     textAlign: 'center',
   };
 
@@ -74,7 +75,7 @@ function RegisterPage() {
 
   const infoInputStyle = {
     fontFamily: 'sb_pixel',
-    fontSize: '30px',
+    fontSize: '27px',
     borderRadius: '5px',
     boxShadow: '0 8px 16px 0 rgb(0 0 0 / 30%)',
     textAlign: 'center',
@@ -140,7 +141,7 @@ function RegisterPage() {
                 paddingRight: '10px',
                 borderRadius: '10px',
                 backgroundColor: 'rgb(0 0 0 / 30%)',
-                display: 'block',
+                width: '100vh',
               }}
             >
               <div
@@ -149,6 +150,7 @@ function RegisterPage() {
                   fontFamily: 'light_p',
                   color: 'white',
                   fontSize: '25px',
+                  overflow: 'auto',
                 }}
               >
                 <div className="logoBox">
@@ -185,7 +187,11 @@ function RegisterPage() {
                       onChange={handleChange}
                       style={infoInputStyle}
                     />
-                    <ErrorMessage name="email" component="p" />
+                    <ErrorMessage
+                      name="email"
+                      component="p"
+                      style={errorStyle}
+                    />
                   </form>
                 </div>
 
@@ -200,7 +206,11 @@ function RegisterPage() {
                       onChange={handleChange}
                       style={infoInputStyle}
                     />
-                    <ErrorMessage name="password" component="p" />
+                    <ErrorMessage
+                      name="password"
+                      component="p"
+                      style={errorStyle}
+                    />
                   </form>
                 </div>
 
@@ -215,7 +225,11 @@ function RegisterPage() {
                       onChange={handleChange}
                       style={infoInputStyle}
                     />
-                    <ErrorMessage name="confirm" component="p" />
+                    <ErrorMessage
+                      name="confirm"
+                      component="p"
+                      style={errorStyle}
+                    />
                   </form>
                 </div>
 
@@ -230,7 +244,11 @@ function RegisterPage() {
                       onChange={handleChange}
                       style={infoInputStyle}
                     />
-                    <ErrorMessage name="nickname" component="p" />
+                    <ErrorMessage
+                      name="nickname"
+                      component="p"
+                      style={errorStyle}
+                    />
                   </form>
                 </div>
 

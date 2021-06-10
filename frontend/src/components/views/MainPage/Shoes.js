@@ -9,27 +9,27 @@ export default function Shoes() {
   let categoryCode = 3;
   const BestShoesUrl = `${baseUrl}/products/top4list/?pcategory_code=${categoryCode}`;
 
-  const response = axios.get(BestShoesUrl);
-
   useEffect(() => {
     async function getShoesProduct() {
       try {
         const response = await axios.get(BestShoesUrl);
         if (response.status === 200) {
           setBestShoes(response.data.data);
+          console.log(BestShoes);
+          console.log(BestShoes);
         } else if (response.status === 404) {
           console.log('404 진입' + response);
           alert('Fail to load the product data');
         }
       } catch (error) {
-        const response = await axios.get(BestShoesUrl);
+        await axios.get(BestShoesUrl);
       }
     }
     getShoesProduct();
   }, [BestShoesUrl]);
   return (
     <div>
-      <li>
+      <li style={{ listStyle: 'none' }}>
         {BestShoes.map((product, idx) => (
           <BestProductCard
             key={idx}

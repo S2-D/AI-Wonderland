@@ -8,27 +8,26 @@ export default function Bottom() {
   let categoryCode = 2;
   const BestBottomUrl = `${baseUrl}/products/top4list/?pcategory_code=${categoryCode}`;
 
-  const response = axios.get(BestBottomUrl);
-
   useEffect(() => {
     async function getBottomProduct() {
       try {
         const response = await axios.get(BestBottomUrl);
         if (response.status === 200) {
           setBestBottoms(response.data.data);
+          console.log(BestBottoms);
         } else if (response.status === 404) {
           console.log('404 진입' + response);
           alert('Fail to load the product data');
         }
       } catch (error) {
-        const response = await axios.get(BestBottomUrl);
+        await axios.get(BestBottomUrl);
       }
     }
     getBottomProduct();
   }, [BestBottomUrl]);
   return (
     <div>
-      <li>
+      <li style={{ listStyle: 'none' }}>
         {BestBottoms.map((product, idx) => (
           <BestProductCard
             key={idx}

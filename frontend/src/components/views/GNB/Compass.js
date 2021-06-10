@@ -1,6 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import CompassStyle from './CompassStyle.css';
+import baseUrl from '../../../url/http';
 
 function Compass() {
   //유저의 Url 위치를 알려주는 코드
@@ -17,9 +18,11 @@ function Compass() {
   const thirdLocation = pathname.split('/')[3];
   const fourthLocation = pathname.split('/')[4];
 
+  const totalLocation = firstLocation + ' > ';
+
   return (
     <div className="compass">
-      <p>{locationWhole}</p>
+      <p>{totalLocation}</p>
     </div>
   );
 }

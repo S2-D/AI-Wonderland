@@ -109,6 +109,7 @@ function LoginPage({ setLoginUserId }) {
             paddingRight: '10px',
             borderRadius: '10px',
             backgroundColor: 'rgb(0 0 0 / 12%)',
+            width: '100vh',
           }}
         >
           <form

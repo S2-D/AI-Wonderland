@@ -9,8 +9,6 @@ export default function Top() {
   let categoryCode = 1;
   const BestTopUrl = `${baseUrl}/products/top4list/?pcategory_code=${categoryCode}`;
 
-  const response = axios.get(BestTopUrl);
-
   useEffect(() => {
     async function getTopProduct() {
       try {
@@ -23,7 +21,7 @@ export default function Top() {
           alert('Fail to load the product data');
         }
       } catch (error) {
-        const response = await axios.get(BestTopUrl);
+        await axios.get(BestTopUrl);
       }
     }
     getTopProduct();
@@ -31,7 +29,7 @@ export default function Top() {
 
   return (
     <div>
-      <li>
+      <li style={{ listStyle: 'none' }}>
         {BestTops.map((product, idx) => (
           <BestProductCard
             key={idx}

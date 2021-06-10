@@ -9,14 +9,13 @@ export default function Etc() {
   let categoryCode = 4;
   const BestEtcUrl = `${baseUrl}/products/top4list/?pcategory_code=${categoryCode}`;
 
-  const response = axios.get(BestEtcUrl);
-
   useEffect(() => {
     async function getEtcProduct() {
       try {
         const response = await axios.get(BestEtcUrl);
         if (response.status === 200) {
           setBestEtc(response.data.data);
+          console.log(BestEtc);
         } else if (response.status === 404) {
           console.log('404 진입' + response);
           alert('Fail to load the product data');
@@ -29,7 +28,7 @@ export default function Etc() {
   }, [BestEtcUrl]);
   return (
     <div>
-      <li>
+      <li style={{ listStyle: 'none' }}>
         {BestEtc.map((product, idx) => (
           <BestProductCard
             key={idx}
