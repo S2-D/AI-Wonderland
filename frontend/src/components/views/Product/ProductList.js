@@ -10,10 +10,13 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
 
+import GNB from '../GNB/GNB';
+import Toolbar from '../Toolbar/Toolbar';
+import ProductListCard from './ProductListCard';
+import ProductCard from './ProductCard.js';
+
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import ProductListDropDown from './ProductListDropDown';
-import ProductCard from './ProductCard.js';
-import ProductListCard from './ProductListCard';
 
 export default function ProductList() {
   // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타
@@ -58,41 +61,43 @@ export default function ProductList() {
   }, [productsUrl]);
 
   return (
-    <div className="flex m-2 justify-center">
-      <div className="grid grid-cols-4 gap-1">
-        <div className="col-span-4 flex justify-center m-3 gap-2">
-          <button
-            onClick={() => {
-              setCategoryValue(1);
-            }}
-          >
-            Tops
-          </button>
-          <button
-            onClick={() => {
-              setCategoryValue(2);
-            }}
-          >
-            Bottoms
-          </button>
-          <button
-            onClick={() => {
-              setCategoryValue(3);
-            }}
-          >
-            Shoes
-          </button>
-          <button
-            onClick={() => {
-              setCategoryValue(4);
-            }}
-          >
-            Others
-          </button>
-          <button>Timegram</button>
-        </div>
-        <div className="col-span-4 flex justify-end m-3 gap-2">
-          {/* <DropdownButton
+    <div style={{ paddingBottom: '65px' }}>
+      <GNB />
+      <div className="flex m-2 justify-center">
+        <div className="grid grid-cols-4 gap-1">
+          <div className="col-span-4 flex justify-center m-3 gap-2">
+            <button
+              onClick={() => {
+                setCategoryValue(1);
+              }}
+            >
+              Tops
+            </button>
+            <button
+              onClick={() => {
+                setCategoryValue(2);
+              }}
+            >
+              Bottoms
+            </button>
+            <button
+              onClick={() => {
+                setCategoryValue(3);
+              }}
+            >
+              Shoes
+            </button>
+            <button
+              onClick={() => {
+                setCategoryValue(4);
+              }}
+            >
+              Others
+            </button>
+            <button>Timegram</button>
+          </div>
+          <div className="col-span-4 flex justify-end m-3 gap-2">
+            {/* <DropdownButton
             title="Sort by"
             style={{
               float: 'right',
@@ -125,9 +130,11 @@ export default function ProductList() {
               p_toDetail={product.p_no}
             />
           ))} */}
-          <ProductListCard />
+            <ProductListCard />
+          </div>
         </div>
       </div>
+      <Toolbar />
     </div>
   );
 }
