@@ -10,13 +10,19 @@ class Timegram(models.Model):
     dt_modified = models.DateTimeField(
         verbose_name="Date Modified", auto_now=True)
     total_like = models.IntegerField(default=0)
-    p_no1 = models.CharField(max_length=20, blank=True)
-    p_no2 = models.CharField(max_length=20, blank=True)
-    p_no3 = models.CharField(max_length=20, blank=True)
-    p_no4 = models.CharField(max_length=20, blank=True)
-    p_no5 = models.CharField(max_length=20, blank=True)
-    p_no6 = models.CharField(max_length=20, blank=True)
-    total_price = models.IntegerField(default=0)
+    p_no1 = models.ForeignKey(
+        'products.Product', on_delete=models.CASCADE, verbose_name='상품1 ID', related_name='p_no1', null=True, blank=True)
+    p_no2 = models.ForeignKey(
+        'products.Product', on_delete=models.CASCADE, verbose_name='상품2 ID', related_name='p_no2', null=True, blank=True)
+    p_no3 = models.ForeignKey(
+        'products.Product', on_delete=models.CASCADE, verbose_name='상품3 ID', related_name='p_no3', null=True, blank=True)
+    p_no4 = models.ForeignKey(
+        'products.Product', on_delete=models.CASCADE, verbose_name='상품4 ID', related_name='p_no4', null=True, blank=True)
+    p_no5 = models.ForeignKey(
+        'products.Product', on_delete=models.CASCADE, verbose_name='상품5 ID', related_name='p_no5', null=True, blank=True)
+    p_no6 = models.ForeignKey(
+        'products.Product', on_delete=models.CASCADE, verbose_name='상품6 ID', related_name='p_no6', null=True, blank=True)
+    total_price = models.FloatField(default=0)
     mem = models.ForeignKey(
         'member.User', on_delete=models.CASCADE, verbose_name='회원 ID')
 

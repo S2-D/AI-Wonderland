@@ -4,12 +4,13 @@ from . import views
 from django.conf.urls import url
 
 router = routers.DefaultRouter()
-router.register(r'timegramList', views.TimegramList)
-router.register(r'timegramCreate', views.TimegramCreate)
 
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('like/<int:id>', views.like_list),
+    path('<int:id>/like/', views.like_list),
     path('like/', views.like_post),
+    path('timegramList/', views.TimegramList.as_view()),
+    path('TimegramCreate/', views.TimegramCreate.as_view())
+
 ]
