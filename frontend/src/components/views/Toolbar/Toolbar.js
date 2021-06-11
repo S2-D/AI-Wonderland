@@ -21,7 +21,7 @@ function Toolbar() {
   };
 
   const handleScrapbook = () => {
-    history.push('/main');
+    history.push('/scrapbook');
   };
 
   const handleMypage = () => {
@@ -64,7 +64,9 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              className={'scrapbook' + (pathname === '/' ? '_touched' : '')}
+              className={
+                'scrapbook' + (pathname === '/scrapbook' ? '_touched' : '')
+              }
               onClick={handleScrapbook}
             >
               Scrapbook
