@@ -194,3 +194,4 @@ sketch
 
 # config
 config/*
+/frontend/src/url/http.js
