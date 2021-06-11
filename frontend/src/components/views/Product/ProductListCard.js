@@ -12,7 +12,7 @@ export default function ProductListCard(props) {
   
   const onClickAddHandler = (e) => {
     e.preventDefault();
-    alert(e.target.dataset.id)
+    // alert(e.target.dataset.id)
 
   const body = {
     p_no: e.target.dataset.id
@@ -28,7 +28,7 @@ export default function ProductListCard(props) {
     })
     .then((res) => {
       console.log(res.data);
-      alert('scrapbook 등록');
+      alert('Item Added');
     })
     .catch((error) => {
       console.log(error.response);
