@@ -27,7 +27,7 @@ export default function TimegramCard(props) {
 
     // 조회된 상품이 6개보다 작을경우
     while (list.length < 6) {
-      list.push({ p_no: '', p_image: '/images/rabbit_example.jpg' });
+      list.push({ p_no: '', p_image: 'https://aiwonderland-back.herokuapp.com/static/images/rabbit_example.png' });
     }
 
     setProducts(list);
