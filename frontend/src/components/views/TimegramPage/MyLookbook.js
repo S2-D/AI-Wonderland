@@ -188,7 +188,7 @@ function MyLookbook() {
                     <span className="floatR img_price">
                       <img
                         className="flex content-center"
-                        src="./images/icon_img/coin_move.gif"
+                        src="https://aiwonderland-back.herokuapp.com/static/images/icon_img/coin_move.gif"
                         className="coin_img"
                         width="35px"
                         style={{ display: 'inline', marginTop: '0px' }}

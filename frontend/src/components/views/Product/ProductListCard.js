@@ -1,9 +1,41 @@
+/* eslint-disable */
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import axios from 'axios';
+import baseUrl from '../../../url/http';
 import styledProductListCard from './styledProductListCard.css';
 
+
 export default function ProductListCard(props) {
+  
+  const access_token = localStorage.getItem('access_token');
+  
+  const onClickAddHandler = (e) => {
+    e.preventDefault();
+    alert(e.target.dataset.id)
+
+  const body = {
+    p_no: e.target.dataset.id
+  };
+
+  console.log('post 값 ', body);
+    
+  axios
+    .post(baseUrl + '/scrapbook/scrapbooklist/', body, {
+      headers: {
+        Authorization: `jwt ${access_token}`,
+      },
+    })
+    .then((res) => {
+      console.log(res.data);
+      alert('scrapbook 등록');
+    })
+    .catch((error) => {
+      console.log(error.response);
+      console.log(error.request);
+    });
+  };
+
   return (
     <div className="product-list-card">
       <Link
@@ -17,9 +49,9 @@ export default function ProductListCard(props) {
         {props.p_todetail}
         <img
           className="product-list-card-img"
-          src="/images/intro/rabbit02_nerd.png"
+          src={props.p_imgUrl}
         ></img>
-        {props.p_image}
+        {/* {props.p_image} */}
         <section>
           <img
             className="product-list-card-p_price-coin"
@@ -28,13 +60,15 @@ export default function ProductListCard(props) {
           <div className="product-list-card-p_price">$ {props.p_price}</div>
         </section>
         <section className="product-list-card-p_name">{props.p_name}</section>
+        </Link>
         <section className="flex justify-end">
           <img
             src="/images/icon_img/product_cart_white.png"
             className="product-list-card-icon"
+            data-id={props.p_toDetail}
+            onClick={onClickAddHandler}
           ></img>
         </section>
-      </Link>
     </div>
   );
 }
