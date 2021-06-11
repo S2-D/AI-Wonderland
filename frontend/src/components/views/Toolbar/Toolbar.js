@@ -7,6 +7,7 @@ import { set } from 'react-hook-form';
 function Toolbar() {
   const history = useHistory();
   const pathname = location.pathname;
+  const firstLocation = pathname.split('/')[1];
 
   const handleHome = () => {
     history.push('/main');
@@ -21,7 +22,7 @@ function Toolbar() {
   };
 
   const handleScrapbook = () => {
-    history.push('/main');
+    history.push('/scrapbook');
   };
 
   const handleMypage = () => {
@@ -35,17 +36,19 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              className={'homeIcon' + (pathname === '/main' ? '_touched' : '')}
+              className={
+                'homeIcon' + (firstLocation === 'main' ? '_touched' : '')
+              }
               onClick={handleHome}
             >
-              Home
+              Main
             </button>
           </li>
           <li>
             <button
               type="button"
               className={
-                'timegram' + (pathname === '/timegram' ? '_touched' : '')
+                'timegram' + (firstLocation === 'timegram' ? '_touched' : '')
               }
               onClick={handleTimegram}
             >
@@ -55,7 +58,9 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              className={'search' + (pathname === '/search' ? '_touched' : '')}
+              className={
+                'search' + (firstLocation === 'search' ? '_touched' : '')
+              }
               onClick={handleSearch}
             >
               Search
@@ -64,7 +69,9 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              className={'scrapbook' + (pathname === '/' ? '_touched' : '')}
+              className={
+                'scrapbook' + (firstLocation === 'scrapbook' ? '_touched' : '')
+              }
               onClick={handleScrapbook}
             >
               Scrapbook
@@ -73,7 +80,9 @@ function Toolbar() {
           <li>
             <button
               type="button"
-              className={'mypage' + (pathname === '/mypage' ? '_touched' : '')}
+              className={
+                'mypage' + (firstLocation === 'mypage' ? '_touched' : '')
+              }
               onClick={handleMypage}
             >
               My Page
