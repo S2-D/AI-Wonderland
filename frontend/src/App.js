@@ -49,15 +49,11 @@ function App() {
           {/* 상품 상세 페이지 연결 */}
           <PublicRoute component={ProductDetail} path="/productDetail" exact />
           {/* 마이페이지 */}
-          <PrivateRoute component={MyPage} path="/mypage" exact />
+          <Route component={MyPage} path="/mypage" exact />
           {/* 스크랩북 */}
           <PrivateRoute component={ScrapbookPage} path="/scrapbook" exact />
           {/* 출석체크 */}
-          <PrivateRoute
-            component={Attendance}
-            path="/mypage/attendance"
-            exact
-          />
+          <Route component={Attendance} path="/mypage/attendance" exact />
         </Switch>
       </div>
     </Router>
