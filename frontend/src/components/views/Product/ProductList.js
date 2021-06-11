@@ -1,3 +1,4 @@
+/* eslint-disable */
 // To-do :
 // 2) 이미지 조건부 렌더링
 // 3) 가격 정렬 api 받아오기
@@ -6,12 +7,14 @@
 // 테일윈드 드랍다운 버튼 있음~! https://tailwindui.com/components/application-ui/elements/dropdowns
 
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
 
 import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
 import ProductListCard from './ProductListCard';
+
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
@@ -29,10 +32,12 @@ export default function ProductList({ match }) {
     { id: 5, name: 'Newest', value: '-p_date' },
   ];
   const [pageNumber, setPageNumber] = useState(1);
+  const [productNextPage, setProductNextPage] = useState(1);
 
   // 상품 데이터 받아오기
   const productsUrl = `${baseUrl}/products/productlist/?pcategory_code=${categoryValue}&ordering=${orderingValue}&page=${pageNumber}`;
   const [products, setProducts] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     const { categoryValue } = match.params;
@@ -47,9 +52,11 @@ export default function ProductList({ match }) {
     async function getProductList() {
       try {
         const response = await axios.get(productsUrl);
-        console.log('상품 데이터 ', response.data.results);
+        // console.log('상품 데이터 ', response.data);
         if (response.status === 200) {
-          setProducts(response.data.results);
+          setProducts([...products, ...response.data.results]);
+          setProductNextPage(response.data.next)
+          
         } else if (response.status === 404) {
           console.log('404 진입' + response);
           alert('Fail to load the product data');
@@ -60,6 +67,13 @@ export default function ProductList({ match }) {
     }
     getProductList();
   }, [productsUrl]);
+
+  const onClickCallAPIHandler = (e) => {
+    e.preventDefault();
+    setPageNumber(pageNumber + 1);
+
+  };
+  
 
   return (
     <div style={{ paddingBottom: '65px' }}>
@@ -99,7 +113,7 @@ export default function ProductList({ match }) {
             >
               Others
             </button>
-            <button className="product-list-timegram-btn">Timegram</button>
+            <button className="product-list-timegram-btn" onClick={() => history.push('/timegram')}>Timegram</button>
           </div>
           <div className="col-span-4 flex justify-end mr-2">
             {/* <ProductListDropDown /> */}
@@ -131,7 +145,23 @@ export default function ProductList({ match }) {
                 p_toDetail={product.p_no}
               />
             ))}
-          </div>
+            </div>
+            <div className="col-span-5 m-3 flex justify-center">
+              {productNextPage === null ? null : (
+                  <button
+                    type="button"
+                    className="bg-purple-600 text-sm text-white font-semibold rounded-lg"
+                    style={{
+                      fontFamily: 'neodgm',
+                      width: '180px',
+                      height: '30px',
+                    }}
+                    onClick={onClickCallAPIHandler}
+                  >
+                    Load More Items(+20)
+                  </button>
+                )}
+              </div>
         </div>
       </div>
       <Toolbar />

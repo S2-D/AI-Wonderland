@@ -101,7 +101,7 @@ function ScrapbookPage() {
       );
       setTotalPrice(totalPrice + parseInt(tmp['price']));
     } else {
-      return alert('더이상 추가할 수 없다');
+      return alert('Please remove an item to continue.');
     }
   };
 
@@ -111,16 +111,16 @@ function ScrapbookPage() {
     const idx = parseInt(e.target.dataset.idx);
 
     try {
-      if (confirm('삭제할거니?')) {
+      if (confirm('Would you like to remove this item from your look?')) {
         setTotalPrice(totalPrice - parseInt(myCardList[idx]['price']));
         myCardList.splice(idx, 1);
         setMyCardList(myCardList);
 
         setCardIdx(cardIdx - 1);
-        alert('삭제했어');
+        alert('Item removed.');
       }
     } catch (error) {
-      alert('삭제할 수 있는 아이템이 없어');
+      alert('The box is empty.');
     } finally {
       console.log(totalPrice);
     }
@@ -129,7 +129,7 @@ function ScrapbookPage() {
   // 9. Post on Timegram 버튼 누르면 모달 열기
   const onClickTimegramModalHandler = (e) => {
     if (myCardList.length < 1) {
-      return alert('1개 이상의 아이템만 timegram posting 할 수 있어');
+      return alert('Posting a look requires at least an item.');
     }
     setTimegramModalShow(true);
   };
@@ -141,24 +141,21 @@ function ScrapbookPage() {
       e.target.dataset.title == '' ||
       e.target.dataset.title == undefined
     ) {
-      return alert('제목 2글자 이상');
+      return alert('Your look title must be longer than two characters.');
     }
 
     const p_no = [];
     for (let i = 0; i < myCardList.length; i++) {
       p_no.push(myCardList[i]['p_no']);
     }
-    console.log(p_no);
 
     const body = {
       title: e.target.dataset.title,
       p_list: p_no,
       total_price: totalPrice,
     };
-    console.log('post 값 ', body);
     axios
       .post(baseUrl + '/timegram/TimegramCreate/', body, {
-        // axios.post(url + '/timegram/timegramCreate/', body, {
         headers: {
           Authorization: `jwt ${access_token}`,
         },
@@ -169,7 +166,7 @@ function ScrapbookPage() {
         setTotalPrice(0);
         setTmp([]);
 
-        alert('등록했다');
+        alert('Posting complete!');
         setTimegramModalShow(false);
         window.location = '/timegram';
       })
@@ -183,8 +180,8 @@ function ScrapbookPage() {
   const onClickDeleteItemHandler = (e) => {
     e.preventDefault();
 
-    if (confirm('니 스크랩북에서 삭제할거니?')) {
-      alert('스크랩북에서 삭제됐다');
+    if (confirm('Would you like to remove this item from your scrapbook?')) {
+      alert('Item removed.');
 
       axios
         .delete(baseUrl + `/scrapbook/scrapbooklist/${e.target.dataset.id}`, {
@@ -449,10 +446,11 @@ function ScrapbookPage() {
       </div>,
     ];
   });
-
+  
   return (
     <>
       <GNB />
+      <img src="https://aiwonderland-back.herokuapp.com/api/static/images/logo.png"/>
       <Container className="main_container">
         <div className="md_row">{CardList}</div>
         <div className="md_row">{CardList2}</div>
