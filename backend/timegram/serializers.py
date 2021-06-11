@@ -76,6 +76,12 @@ class TimegramListSerializer(serializers.Serializer):
     dt_created = serializers.DateTimeField()
 
 
+class MyLookbookSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Timegram
+        fields = '__all__'
+
+
 class LikeCreateSerializer(serializers.Serializer):
     mem = serializers.CharField()
     timegram = serializers.CharField(required=True)

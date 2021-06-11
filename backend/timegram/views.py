@@ -3,7 +3,7 @@ from rest_framework_jwt import authentication
 from rest_framework.pagination import PageNumberPagination
 
 from .models import Timegram, Like
-from .serializers import TimegramListSerializer, TimegramCreateSerializer, LikeCreateSerializer
+from .serializers import TimegramListSerializer, TimegramCreateSerializer, LikeCreateSerializer, MyLookbookSerializer
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
@@ -75,6 +75,65 @@ class TimegramList(generics.ListAPIView):
                 'message': '타임그램 목록 조회 중 에러가 발생했습니다.'
             }, status=status.HTTP_400_BAD_REQUEST)
 
+
+class MyLookbook(generics.ListAPIView):
+    """
+    나의 룩북 조회
+    ---
+    parameter 없으면 전체 리스트를 가져옵니다.
+    page : 조회할 페이지를 입력하세요.(페이지당 20개씩)
+    ordering : 정렬할 필드를 선택하세요. -dt_created  : 최신 순 , -total_like  : 좋아요 순, total_price :낮은 가격순, -total_price : 높은 가격순
+    """
+    queryset = Timegram.objects.filter()
+    serializer_class = MyLookbookSerializer
+    permission_classes = (permissions.AllowAny,)
+    authentication_classes = (authentication.JSONWebTokenAuthentication,)
+
+    param_ordering = openapi.Parameter(
+        'ordering',
+        openapi.IN_QUERY,
+        description='정렬 필드',
+        type=openapi.TYPE_STRING,
+        required=False
+    )
+
+    param_page = openapi.Parameter(
+        'page',
+        openapi.IN_QUERY,
+        description='페이지 번호',
+        type=openapi.TYPE_STRING,
+        required=False
+    )
+
+    @swagger_auto_schema(
+        manual_parameters=[param_ordering, param_page],
+    )
+    def list(self, request):
+        try:
+            ordering = self.request.query_params.get('ordering', None)
+
+            subquery = Like.objects.filter(
+                timegram=OuterRef("pk"), mem_id=request.user.id)
+
+            queryset = Timegram.objects.filter(mem_id=request.user.id).annotate(
+                flag=Subquery(subquery.values('flag')))
+
+            if ordering is not None:
+                list_queryset = queryset.order_by(ordering)
+            else:
+                list_queryset = queryset.order_by('-dt_created')
+
+            paginator = PageNumberPagination()
+            page = paginator.paginate_queryset(list_queryset, request)
+            serializer = TimegramListSerializer(page, many=True)
+
+            return paginator.get_paginated_response(serializer.data)
+        except:
+            return Response({
+                "status_code": status.HTTP_400_BAD_REQUEST,
+                'status': 'error',
+                'message': '타임그램 목록 조회 중 에러가 발생했습니다.'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 class TimegramCreate(generics.CreateAPIView):
     """
