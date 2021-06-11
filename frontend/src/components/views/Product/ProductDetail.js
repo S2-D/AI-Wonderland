@@ -22,7 +22,7 @@ const nlpDescription = [
   "Beautifully rendered, heartbreakingly adorab, item description example sentences this is amoomal deajanchi janchihanikka I'm hungry, but the train goes on. I like the song 'Ms little perfect' these day. I'm not sure if this paragraph's grammer is right though.",
 ];
 
-export default function ProductDetail() {
+export default function ProductDetail(props) {
   const [productInfo, setProductInfo] = useState([]);
   const [accessToken, setAccessToken] = useState('');
   const [userNo, setUserNo] = useState(0);
@@ -35,10 +35,8 @@ export default function ProductDetail() {
   const reviewRef = useRef(null);
   const scrollToReview = () => reviewRef.current.scrollIntoView();
 
-  // 아래는 다 예시 url임. 나중에 바꿔야 함.
-  // useEffect 안에 setState 3개. 프론트 url에 asin 붙이는 거는 app.js에서 path 뒷부분에 스트링 붙이는 거 찾아보기!
-  const productInfoUrl = `${baseUrl}/products/productlist/8037200124/`;
-  const reviewInfoUrl = `${baseUrl}/products/reviewlist/?page=${reviewPage}&p_no=B00007GDFV`;
+  const productInfoUrl = `${baseUrl}/products/productlist/${props.match.params['id']}/`;
+  const reviewInfoUrl = `${baseUrl}/products/reviewlist/?page=${reviewPage}&p_no=${props.match.params['id']}`;
 
   // API - 개별 상품 정보 받아오기
   useEffect(() => {
@@ -65,6 +63,7 @@ export default function ProductDetail() {
       try {
         const access_token = localStorage.getItem('access_token');
         console.log('memNO 데이터 : ', access_token);
+
         const response = await axios.get(`${baseUrl}/member/auth/`, {
           headers: { Authorization: `jwt ${access_token}` },
         });
@@ -174,7 +173,7 @@ export default function ProductDetail() {
                 width="35px"
                 style={{ display: 'inline', marginTop: '0px' }}
               />
-              $ 16,000 {productInfo.p_price}
+              $ {productInfo.p_price}
             </div>
             <div className="col-span-2 p-3 flex justify-center">
               <button
@@ -210,8 +209,7 @@ export default function ProductDetail() {
             }}
           >
             <p className="p-1 m-0">
-              Amazon Best Sellers Rank: 441908
-              {/* {productInfo.p_rank} */}
+              Amazon Best Sellers Rank: {productInfo.p_rank}
             </p>
             <p className="p-1 m-0">ASIN: {productInfo.p_no}</p>
             <p className="p-1 m-0">

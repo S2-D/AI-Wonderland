@@ -47,7 +47,11 @@ function App() {
           {/* 검색 페이지 연결 */}
           <PublicRoute component={SearchPage} path="/search" exact />
           {/* 상품 상세 페이지 연결 */}
-          <PublicRoute component={ProductDetail} path="/productDetail" exact />
+          <PublicRoute
+            component={ProductDetail}
+            path="/product_detail/:id"
+            exact
+          />
           {/* 마이페이지 */}
           <PrivateRoute component={MyPage} path="/mypage" exact />
           {/* 스크랩북 */}

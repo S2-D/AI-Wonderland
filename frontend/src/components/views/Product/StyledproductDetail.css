@@ -1,3 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@font-face {
+  font-family: light_p_7;
+  src: url(../../../fonts/light_pixel-7.ttf);
+}
+
+@font-face {
+  font-family: sb_pixel_7;
+  src: url(../../../fonts/small_bold_pixel-7.ttf);
+}
+
+@font-face {
+  font-family: backto_1982;
+  src: url(../../../fonts/BACKTO1982.TTF);
+}
+
+@font-face {
+  font-family: mini_pixel_7;
+  src: url(../../../fonts/mini_pixel-7.ttf);
+}

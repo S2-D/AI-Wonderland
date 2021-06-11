@@ -24,10 +24,9 @@ export default function ProductList() {
   const [orderingValue, setOrderingValue] = useState('-p_readcount');
   const orders = [
     { id: 1, name: 'View Count', value: '-p_readcount' },
-    { id: 2, name: 'Amazon Best Sellers Rank', value: '-p_price' },
-    { id: 3, name: 'Price: High-Low', value: '-p_rank' },
-    // { id: 4,name: 'Price: Low-High', value: '' },
-    //  To-do : 차후 api 개발되면 그때 추가하기
+    { id: 2, name: 'Amazon Best Sellers Rank', value: '-p_rank' },
+    { id: 3, name: 'Price: High-Low', value: '-p_price' },
+    { id: 4, name: 'Price: Low-High', value: 'p_price' },
     { id: 5, name: 'Newest', value: '-p_date' },
   ];
   const [pageNumber, setPageNumber] = useState(1);
@@ -35,13 +34,10 @@ export default function ProductList() {
   // 상품 데이터 받아오기
   const productsUrl = `${baseUrl}/products/productlist/?pcategory_code=${categoryValue}&ordering=${orderingValue}&page=${pageNumber}`;
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getProductList() {
       try {
-        setLoading(true);
-        // 데이터 받아오기 전 로딩
         const response = await axios.get(productsUrl);
         console.log('상품 데이터 ', response.data.results);
         if (response.status === 200) {
@@ -55,7 +51,6 @@ export default function ProductList() {
       }
     }
     getProductList();
-    setLoading(false);
   }, [productsUrl]);
 
   return (
