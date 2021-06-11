@@ -34,22 +34,18 @@ export default function MainPage() {
           </div>
           <div className="topItems_Bottoms">
             <h2>TOP 4 items by Bottoms</h2>
-            <p className="subAd">
-              Are you curious about the trend of pants back then?
-            </p>
+            <p className="subAd">Looks chic but comfy!</p>
             <Bottom />
           </div>
           <div className="topItems_Shoes">
             <h2>TOP 4 items by Shoes</h2>
-            <p className="subAd">Classic style always works!</p>
+            <p className="subAd">Classic never goes out of style.</p>
             <div>
               <Shoes />
             </div>
             <div className="topItems_Others">
               <h2>TOP 4 items by Others</h2>
-              <p className="subAd">
-                Don't forget to add accessories into your scrapbook!
-              </p>
+              <p className="subAd">Accessories that make you shine!</p>
               <Etc />
             </div>
           </div>

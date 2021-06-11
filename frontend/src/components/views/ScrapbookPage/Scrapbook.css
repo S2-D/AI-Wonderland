@@ -1,13 +1,33 @@
-
-.pointer {cursor: pointer}
-.main_container { --bs-gutter-x: 0; min-width: 100% !important; margin: 1rem 1rem 1rem 1rem; } /* color: #14C5D9;} */
+.pointer {
+  cursor: pointer;
+}
+.main_container {
+  --bs-gutter-x: 0;
+  min-width: 100% !important;
+  margin: 1rem 1rem 1rem 1rem;
+} /* color: #14C5D9;} */
 
 /* .top_row { display: flex; margin: 2rem 1rem 0.5rem 1rem !important; justify-content: space-around; align-items: stretch; } 위 오른쪽 아래 왼쪽 */
-.md_row { display: flex; justify-content: space-evenly; align-items: stretch; margin-bottom: 1rem;}
-.price_row { display: block; text-align: center; align-items: stretch; margin-bottom: 1rem; font-family: 'light_p';}
-.tab_row { margin-left: 0.5rem; margin-right: 0.5rem; font-family: 'light_p';}
+.md_row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: stretch;
+  margin-bottom: 1rem;
+}
+.price_row {
+  display: block;
+  text-align: center;
+  align-items: stretch;
+  margin-bottom: 1rem;
+  font-family: 'light_p';
+}
+.tab_row {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  font-family: 'light_p';
+}
 
-.card {
+.card_item {
   border-radius: 0 !important;
   width: 30vw;
   height: 35vw;
@@ -31,9 +51,8 @@
   color: white;
 }
 
-
 .modal-content {
-  background-color: rgba( 255, 255, 255, 0) !important;
+  background-color: rgba(255, 255, 255, 0) !important;
   border: 1px solid rgba(0, 0, 0, 0) !important;
   font-family: 'light_p';
   text-align: center;
@@ -67,10 +86,10 @@
   border-radius: 0 !important;
 }
 
-.nav-link{
+.nav-link {
   color: black !important;
 }
 
 .nav-link.active {
-  color: #14A1D9 !important;
+  color: #14a1d9 !important;
 }
