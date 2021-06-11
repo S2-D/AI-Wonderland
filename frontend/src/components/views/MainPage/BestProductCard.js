@@ -1,14 +1,12 @@
 import Card from 'react-bootstrap/Card';
 // 전체 라이브러리를 임포트하기보단, 개별 컴포넌트를 임포트해야 성능(용량, 속도)가 좋음
 import styled, { css } from 'styled-components';
-import CartButton from './CartButton';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
 import { react, useState, useEffect } from 'react';
 
 export default function BestProductCard(props) {
   const [userNo, setUserNo] = useState(0);
-  const [productNo, setProductNo] = useState();
   useEffect(() => {
     async function getUser() {
       try {
@@ -28,14 +26,12 @@ export default function BestProductCard(props) {
 
   const addtoScrapbook = () => {
     const access_token = localStorage.getItem('access_token');
-    setProductNo(`${props.p_no}`);
-    console.log(productNo);
     axios
       .post(
         `${baseUrl}/scrapbook/scrapbooklist/`,
         {
           mem_id: userNo,
-          p_no: productNo,
+          p_no: `${props.p_toDetail}`,
         },
         {
           headers: { Authorization: `jwt ${access_token}` },
@@ -62,7 +58,7 @@ export default function BestProductCard(props) {
         verticalAlign: 'top',
         fontFamily: 'light_p',
         boxShadow: '0 8px 16px 0 rgb(0 0 0 / 30%)',
-        border: '2px solid #14a1d9',
+        border: '2px solid #14A1D9',
         borderRadius: '10px',
       }}
     >
@@ -88,6 +84,7 @@ export default function BestProductCard(props) {
             textOverflow: 'ellipsis',
             whiteSpace: 'nowrap',
             marginBottom: '0',
+            color: '#1b1464',
           }}
         >
           <img
@@ -112,6 +109,7 @@ export default function BestProductCard(props) {
             whiteSpace: 'nowrap',
             marginTop: '0',
             marginBottom: '0',
+            color: '#1b1464',
           }}
         >
           {props.p_name}
@@ -128,7 +126,7 @@ export default function BestProductCard(props) {
                 marginBottom: '0',
                 padding: '0.2rem',
                 width: '20%',
-                backgroundColor: '#14a1d9',
+                backgroundColor: '#14A1D9',
                 borderRadius: '5rem',
               }}
               onClick={() => {

@@ -39,3 +39,7 @@
 .date-container {
   min-height: 380px;
 }
+#attendanceLog {
+  border-color: #14C5D9;
+  border-width: 2px;
+}

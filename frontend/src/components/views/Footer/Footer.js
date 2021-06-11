@@ -39,14 +39,14 @@ function Footer() {
           Copyright © Soondoong_Six. <br />
           All rights reserved.
         </div>
-        <div class="gitlab_address">
+        <div class="notion_address">
           <a
             href={
-              'https://kdt-gitlab.elice.io/001-part4-aifashionkeyword/team3/project-team3'
+              'https://www.notion.so/Project-WIKI-205d359cc22a429783f20b73026bb7da'
             }
             target="_blank"
           >
-            Our Gitlab
+            Our Notion
           </a>
         </div>
       </footer>

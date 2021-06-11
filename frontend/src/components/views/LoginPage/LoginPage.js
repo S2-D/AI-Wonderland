@@ -108,6 +108,8 @@ function LoginPage({ setLoginUserId }) {
             borderRadius: '10px',
             backgroundColor: 'rgb(0 0 0 / 12%)',
             width: '100vh',
+            height: '600px',
+            overflow: 'auto',
           }}
         >
           <form
