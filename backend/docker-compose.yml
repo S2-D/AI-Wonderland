@@ -1,0 +1,22 @@
+version: '3.6'
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./backend:/srv/docker-server
+      - ./log:/var/log/nginx
+    depends_on:
+      - web
+  web:
+    container_name: backend
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: gunicorn backend.wsgi:application --bind 0.0.0.0:8000
+    volumes: 
+      - ./backend:/srv/docker-server
+    expose:
+      - "8000"
