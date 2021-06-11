@@ -43,22 +43,30 @@ export default function CartButton(props) {
   };
 
   return (
-    <i
-      className="fas fa-shopping-cart"
-      style={{
-        color: '#0984e3',
-        float: 'right',
-      }}
-      onClick={() => {
-        {
-          if (userNo === 0) {
-            alert('Please login to continue.');
-          } else {
-            alert('The item is added to the scrapbook.');
-            addtoScrapbook();
+    <button>
+      <img
+        src="./images/icon_img/product_cart_white.png"
+        style={{
+          float: 'right',
+          justifyContent: 'flexEnd',
+          marginRight: '0',
+          marginBottom: '0',
+          padding: '0.2rem',
+          width: '20%',
+          backgroundColor: '#14a1d9',
+          borderRadius: '5rem',
+        }}
+        onClick={() => {
+          {
+            if (userNo === 0) {
+              alert('Please login to continue.');
+            } else {
+              alert('The item is added to the scrapbook.');
+              addtoScrapbook();
+            }
           }
-        }
-      }}
-    ></i>
+        }}
+      ></img>
+    </button>
   );
 }
