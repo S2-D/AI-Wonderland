@@ -13,14 +13,16 @@ export default function BestProductCard(props) {
         display: 'inline-flex',
         justifyContent: 'center',
         // width: 'calc(50% - 9px)',
-        width: '130px',
+        width: '160px',
         height: '250px',
         marginLeft: '4.5px',
         marginRight: '4.5px',
         marginBottom: '24px',
         verticalAlign: 'top',
         fontFamily: 'light_p',
-        boxShadow: '0 8px 16px 0 rgb(0 0 0 / 12%)',
+        boxShadow: '0 8px 16px 0 rgb(0 0 0 / 30%)',
+        border: '2px solid #14a1d9',
+        borderRadius: '10px',
       }}
     >
       {/* <Card style={{ styledCard }}> */}
@@ -32,6 +34,7 @@ export default function BestProductCard(props) {
           maxHeight: '150px',
           width: '100%',
           maxWidth: '130px',
+          margin: 'auto',
         }}
       />
       <Card.Body
@@ -46,7 +49,18 @@ export default function BestProductCard(props) {
             marginBottom: '0',
           }}
         >
-          $ {props.p_price}
+          <img
+            src="/images/icon_img/coin_move.gif"
+            style={{
+              display: 'inline-flex',
+              width: '15px',
+              height: 'auto',
+              marginLeft: '0.1rem',
+              marginRight: '0.3rem',
+              marginBottom: '0.2rem',
+            }}
+          />
+          ${props.p_price}
         </Card.Title>
         <Card.Text
           style={{

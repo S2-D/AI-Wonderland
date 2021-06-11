@@ -53,6 +53,13 @@ function RegisterPage() {
     history.push('/login');
   };
 
+  const errorImgStyle = {
+    width: '30px',
+    height: '30px',
+    margin: 'auto',
+    display: 'inline-block',
+  };
+
   const inputStyle = {
     color: 'white',
     textShadow: '2px 2px 2px gray',
@@ -184,6 +191,7 @@ function RegisterPage() {
                       onChange={handleChange}
                       style={infoInputStyle}
                     />
+
                     <ErrorMessage
                       name="email"
                       component="p"

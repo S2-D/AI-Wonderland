@@ -160,6 +160,16 @@ function LoginPage({ setLoginUserId }) {
                 />
                 {errors.email && (
                   <p style={errorStyle}>
+                    <img
+                      src="./images/icon_img/error_rabbit.png"
+                      className="errorLogo"
+                      style={{
+                        width: '30px',
+                        height: '30px',
+                        margin: 'auto',
+                        display: 'inline-block',
+                      }}
+                    />
                     Are you sure this is the correct email address?
                   </p>
                 )}
@@ -179,6 +189,16 @@ function LoginPage({ setLoginUserId }) {
                 />
                 {errors.password && (
                   <p className="ErrorText" style={errorStyle}>
+                    <img
+                      src="./images/icon_img/error_rabbit.png"
+                      className="errorLogo"
+                      style={{
+                        width: '30px',
+                        height: '30px',
+                        margin: 'auto',
+                        display: 'inline-block',
+                      }}
+                    />
                     Please check your password.
                   </p>
                 )}
