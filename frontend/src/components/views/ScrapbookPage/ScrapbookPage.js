@@ -15,7 +15,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
-import './Scrapbook.css';
+import '../../../../public/css/Scrapbook.css';
 
 // Import Swiper styles
 import 'swiper/swiper.min.css';

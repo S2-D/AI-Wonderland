@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
-import styledProductListCard from './styledProductListCard.css';
+import styledProductListCard from '../../../../public/css/styledProductListCard.css';
 
 
 export default function ProductListCard(props) {

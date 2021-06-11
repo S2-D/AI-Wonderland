@@ -2,7 +2,7 @@ import { React } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import isLogin from '../../../url/lib/isLogin';
 import baseUrl from '../../../url/http';
-import Logout_button from './Logout_button.css';
+import Logout_button from '../../../../public/css/Logout_button.css';
 
 //to do: 로그인. 로그아웃 컨펌창 띄워서 받고 하기!(https://studyingych.tistory.com/62)
 export default function LogoutButton() {

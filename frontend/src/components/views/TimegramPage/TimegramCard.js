@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './Timegram.css';
+import '../../../../public/css/Timegram.css';
 
 export default function TimegramCard(props) {
   const [products, setProducts] = useState([]);

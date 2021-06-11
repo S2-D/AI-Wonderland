@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import baseUrl from '../../../url/http';
 
 import 'tailwindcss/tailwind.css';
-import LoginPageStyle from './LoginPageStyle.css';
+import LoginPageStyle from '../../../../public/css/LoginPageStyle.css';
 import { Autoplay } from 'swiper';
 
 function LoginPage({ setLoginUserId }) {

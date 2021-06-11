@@ -8,7 +8,7 @@ import * as yup from 'yup';
 import axios from 'axios';
 
 import baseUrl from '../../../url/http';
-import RegisterStyle from './RegisterStyle.css';
+import RegisterStyle from '../../../../public/css/RegisterStyle.css';
 import { Autoplay } from 'swiper';
 
 const schema = yup.object().shape({

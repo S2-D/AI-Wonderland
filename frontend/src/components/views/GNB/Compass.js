@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory, useLocation, Route } from 'react-router-dom';
-import CompassStyle from './CompassStyle.css';
+import CompassStyle from '../../../../public/css/CompassStyle.css';
 import baseUrl from '../../../url/http';
 import axios from 'axios';
 

@@ -9,7 +9,7 @@ import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.min.css';
 
-import './styledCarousel.css';
+import '../../../../public/css/styledCarousel.css';
 import 'tailwindcss/tailwind.css';
 
 //import Swiper core and required modules

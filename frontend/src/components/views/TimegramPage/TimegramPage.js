@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
-import './Timegram.css';
+import '../../../../public/css/Timegram.css';
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { Row, Spinner } from 'react-bootstrap';

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
-import './Attendance.css';
+import '../../../../public/css/Attendance.css';
 import baseUrl from '../../../url/http';
 import Avatar from 'boring-avatars';
 import avatarName from './AvatarName';
