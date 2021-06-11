@@ -33,8 +33,6 @@ export default function ProductList({ match }) {
   // 상품 데이터 받아오기
   const productsUrl = `${baseUrl}/products/productlist/?pcategory_code=${categoryValue}&ordering=${orderingValue}&page=${pageNumber}`;
   const [products, setProducts] = useState([]);
-<<<<<<< HEAD
-=======
 
   useEffect(() => {
     const { categoryValue } = match.params;
@@ -44,7 +42,6 @@ export default function ProductList({ match }) {
       setCategoryValue(categoryValue);
     }
   }, []);
->>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
 
   useEffect(() => {
     async function getProductList() {
