@@ -53,7 +53,7 @@ export default function CartButton(props) {
           marginBottom: '0',
           padding: '0.2rem',
           width: '20%',
-          backgroundColor: '#14a1d9',
+          backgroundColor: '#14A1D9',
           borderRadius: '5rem',
         }}
         onClick={() => {
