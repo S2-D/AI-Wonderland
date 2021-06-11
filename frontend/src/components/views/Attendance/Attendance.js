@@ -64,7 +64,7 @@ export default function Attendance() {
       //   },
       // })
       // 아래 코드 3줄은 db live 후 활용해야할 JWT header 코드. 위 코드는 로컬에서 테스팅할때
-      .post(`http://127.0.0.1:8000/api/attendance/`, null, {
+      .post(baseUrl + '/attendance/', null, {
         headers: { Authorization: `jwt ${access_token}` },
       })
       .then((response) => {
