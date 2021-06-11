@@ -104,7 +104,7 @@ export default function IntroTimeTalk(props) {
                   {window.alert(
                     ' ! Traveling to AI Wonderland – the Vintage Shop for the 2000s Look.'
                   )}
-                  {window.alert("Welocme to 2000's")}
+                  {window.alert("Welcome to the 2000's")}
                   {window.location.replace('Main')}
                 </div>
               )}

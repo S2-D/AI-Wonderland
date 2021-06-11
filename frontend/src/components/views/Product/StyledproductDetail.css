@@ -17,3 +17,21 @@
   font-family: mini_pixel_7;
   src: url(../../../fonts/mini_pixel-7.ttf);
 }
+
+#product-info {
+  max-width: 310px;
+  height: auto;
+  font-family: sb_pixel_7;
+  border: 0.3rem solid;
+  border-radius: 0.5rem;
+  border-color: #14a1d9;
+}
+
+#product-brand {
+  margin: none;
+  font-size: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 0px;
+  align-content: center;
+}

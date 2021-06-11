@@ -12,11 +12,11 @@ import Toolbar from '../Toolbar/Toolbar';
 import ProductDetailRecommend from './ProductDetailRecommend';
 
 import 'tailwindcss/tailwind.css';
+import styledproductDetail from './styledproductDetail.css';
 import Avatar from 'boring-avatars'; // 아바타 자동 생성 라이브러리
 import avatarName from './ProductDetailAvatarName';
 
 const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
-// const userKeyWords = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 const itemDescription = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 const nlpDescription = [
   "Beautifully rendered, heartbreakingly adorab, item description example sentences this is amoomal deajanchi janchihanikka I'm hungry, but the train goes on. I like the song 'Ms little perfect' these day. I'm not sure if this paragraph's grammer is right though.",
@@ -24,6 +24,9 @@ const nlpDescription = [
 
 export default function ProductDetail(props) {
   const [productInfo, setProductInfo] = useState([]);
+  const [description, setDescription] = useState('');
+  const [keyword, setKeyword] = useState([]);
+  const [kList, setKList] = useState([]);
   const [accessToken, setAccessToken] = useState('');
   const [userNo, setUserNo] = useState(0);
   const [nlpOnToggle, setNlpOnToggle] = useState(false);
@@ -46,6 +49,7 @@ export default function ProductDetail(props) {
         console.log('상품 데이터 : ', response.data);
         if (response.status === 200) {
           setProductInfo(response.data);
+          setDescription(response.data.p_description);
         } else if (response.status === 404) {
           console.log('404 진입 ', response);
           alert('Fail to load the product data');
@@ -57,6 +61,12 @@ export default function ProductDetail(props) {
     getProductInfo();
   }, [productInfoUrl]);
 
+  // useEffect(() => {
+  //   setKeyword(productInfo.p_keyword.split(','));
+  // }, [productInfo]);
+
+  // console.log(productInfo);
+  // console.log(kList);
   // API - 로그인 유저 정보 받아오기
   useEffect(() => {
     async function getUser() {
@@ -127,21 +137,37 @@ export default function ProductDetail(props) {
     setReviewPage((reviewPage) => reviewPage + 1);
   };
 
+  console.log(productInfo['p_description']);
+
+  // const CardList = row_num.map((card, idx) => {
+  //   return ([
+  //     <div className="scrap_card card pointer" key={idx}>
+  //       <Card.Img variant="scrap" src={myCardList.length > card ? (myCardList[card]['src']) : ("")} data-idx={card} style={myCardList.length > card ? { height: '37.7vw' } : { }} onClick={onClickDeleteHandler}/>
+  //     </div>
+  //   ]);
+  // });
+
+  // const keywordList = kList.map((word, idx) => {
+  //   return [
+  //     <div
+  //       key={idx}
+  //       className="rounded-xl text-sm py-2 px-3 bg-purple-500"
+  //       style={{ fontFamily: 'neodgm', color: 'white' }}
+  //     >
+  //       {word}
+  //     </div>,
+  //   ];
+  // });
+
   return (
     <div style={{ paddingBottom: '65px' }}>
       <GNB />
-      <div
-        className="flex my-4 justify-center font-mono"
-        // style={{ fontFamily: 'light_p_7' }}
-      >
+      <div className="flex my-4 justify-center">
         <div className="flex flex-col gap-3 justify-center">
           {/* 상품 정보 (1) - 이미지, 브랜드, 리뷰 수, 상품명, 가격, 스크랩북에 추가 */}
           <div
-            className="grid grid-cols-2 gap-x-2 gap-y-1 p-1 auto-rows-auto shadow-sm"
-            style={{
-              maxWidth: '310px',
-              height: 'auto',
-            }}
+            id="product-info"
+            className="grid grid-cols-2 gap-x-2 gap-y-1 p-1 auto-rows-auto"
           >
             <div className="col-span-2 p-4 flex justify-center">
               <img
@@ -149,23 +175,30 @@ export default function ProductDetail(props) {
                   maxWidth: '240px',
                   height: 'auto',
                 }}
-                src="https://images-na.ssl-images-amazon.com/images/I/41Rtah4DGHL.jpg"
-                // 지금은 api 완성 전 예시 이미지. 나중에 상품 정보에서 꺼내와야 함
+                src={productInfo.p_image}
               ></img>
             </div>
-            <div className="col-span-1 pl-3 pr-0 pt-0 pb-0 flex justify-start">
-              <p className="m-0 text-sm font-semibold">{productInfo.p_brand}</p>
+            <div className="col-span-1 pl-4 pr-0 pt-0 pb-0 flex justify-start">
+              <p className="m-0 text-lg">{productInfo.p_brand}</p>
             </div>
-            <div className="col-span-1 pr-3 m-0 flex justify-end">
+            <div className="col-span-1 pr-4 m-0 flex justify-end">
               {/* <p className="text-sm">{reviewInfo.count} Reviews</p> */}
-              <button className="text-sm underline" onClick={scrollToReview}>
+              <button className="text-lg underline" onClick={scrollToReview}>
                 {reviewCount} Reviews
               </button>
             </div>
             <div className="col-span-2 p-3">
-              <p className="text-md font-medium m-0">{productInfo.p_name}</p>
+              <p
+                style={{
+                  fontSize: '25px',
+                  margin: '0px',
+                  lineHeight: 'normal',
+                }}
+              >
+                {productInfo.p_name}
+              </p>
             </div>
-            <div className="col-span-2 pl-4 text-lg font-semibold">
+            <div className="col-span-2 pl-4" style={{ fontSize: '25px' }}>
               <img
                 className="flex content-center"
                 src="./images/icon_img/coin_move.gif"
@@ -173,16 +206,27 @@ export default function ProductDetail(props) {
                 width="35px"
                 style={{ display: 'inline', marginTop: '0px' }}
               />
-              $ {productInfo.p_price}
+              <p
+                style={{
+                  display: 'inline',
+                  fontSize: '30px',
+                  color: '#14a1d9',
+                }}
+              >
+                {' '}
+                $ {productInfo.p_price}
+              </p>
             </div>
             <div className="col-span-2 p-3 flex justify-center">
               <button
                 type="button"
-                className="bg-purple-700 hover:bg-purple-800 text-xl text-white font-semibold rounded-lg"
+                className="text-white font-semibold rounded-lg"
                 style={{
-                  fontFamily: 'neodgm',
+                  background: '#14A1D9',
+                  fontSize: '12px',
+                  fontFamily: 'light_p_7',
                   width: '270px',
-                  height: '35px',
+                  height: '40px',
                 }}
                 onClick={() => {
                   {
@@ -202,10 +246,14 @@ export default function ProductDetail(props) {
 
           {/* 상품 정보 (2) - 아마존 랭킹 순위, 상품 번호(ASIN), 등록 날짜 */}
           <div
-            className="shadow-sm py-2 px-3 text-xs font-medium"
+            id="product-info"
+            className="py-2 px-3"
             style={{
               maxWidth: '310px',
-              // height: 'auto',
+              fontSize: '20px',
+              fontFamily: 'sb_pixel_7',
+              lineHeight: 'normal',
+              color: 'grey',
             }}
           >
             <p className="p-1 m-0">
@@ -219,18 +267,26 @@ export default function ProductDetail(props) {
 
           {/* 상품 정보 (3) -상품 상세 설명 */}
           <div
-            className="shadow-sm py-2 px-3"
+            id="product-info"
+            className="shadow py-2 px-3"
             style={{
               maxWidth: '310px',
-              height: 'auto',
+              fontFamily: 'sb_pixel_7',
+              lineHeight: 'normal',
             }}
           >
-            <p className="flex p-1 text-sm font-semibold">Item Description</p>
-            {itemDescription.length > 0 ? (
-              <p className="p-2 text-xs text-center font-medium break-words">
-                {/* {productInfo.p_description.length > 0} */}
-                {/* {productInfo.p_description} */}
-                Show nomal item description
+            <p
+              className="flex p-1"
+              style={{ fontSize: '25px', color: '#14a1d9' }}
+            >
+              Item Description
+            </p>
+            {description.length > 0 ? (
+              <p
+                className="p-2 text-center break-words"
+                style={{ fontSize: '18px' }}
+              >
+                {description}
               </p>
             ) : (
               <div className="flex flex-wrap justify-center p-1 text-xs text-center font-semibold text-gray-700">
@@ -270,47 +326,69 @@ export default function ProductDetail(props) {
             ) : null}
           </div>
           <div
-            className="shadow-sm py-2 px-3 text-md font-medium"
+            id="product-info"
+            className="py-2 px-3"
             style={{
               maxWidth: '310px',
               height: 'auto',
             }}
           >
             {/* 상품 인포 3 - AI 유저 키워드 */}
-            <p className="pl-1 pt-1 pb-1 text-sm font-semibold">
+            <p
+              className="pl-1 pt-1 pb-1"
+              style={{
+                maxWidth: '310px',
+                fontFamily: 'sb_pixel_7',
+                lineHeight: 'normal',
+                fontSize: '25px',
+                color: '#14a1d9',
+              }}
+            >
               AI Review Analysis
             </p>
             <div className="inline-flex flex-wrap justify-center gap-x-3 gap-y-2 m-2">
-              {userKeyWords.length > 0 ? (
-                userKeyWords.map((keyWord, idx) => (
-                  <div
-                    key={idx}
-                    className="rounded-xl text-sm py-2 px-3 bg-purple-500"
-                    style={{ fontFamily: 'neodgm', color: 'white' }}
-                  >
-                    {keyWord}
-                  </div>
-                ))
-              ) : (
-                <div>
-                  <p className="p-1 text-xs text-justify font-medium">
-                    Oh No! There is insufficient data for the AI to analyze.
-                  </p>
-                </div>
-              )}
+              {/* {keyword.length > 0 ? ( */}
+              {/* // Object.values(kList).map((list, idx) => {
+                //   <div
+                //     key={idx}
+                //     className="rounded-xl text-sm py-2 px-3 bg-purple-500"
+                //     style={{ fontFamily: 'neodgm', color: 'white' }}
+                //   >
+                //     {list}
+                //   </div>;
+                // }) */}
+              {/* { keyword } */}
+              {/* ) : ( */}
+              <div>
+                <p className="p-1 text-xs text-justify font-medium">
+                  Oh No! There is insufficient data for the AI to analyze.
+                </p>
+              </div>
+              {/* )} */}
             </div>
             {/* <p>{productInfo.p_keyword}</p> */}
           </div>
 
           {/* 상품 인포 4 - 추천 상품 */}
           <div
+            id="product-info"
             className="shadow-sm py-2 px-3 text-md font-medium"
             style={{
               maxWidth: '310px',
-              height: 'auto',
+              fontFamily: 'sb_pixel_7',
+              lineHeight: 'normal',
             }}
           >
-            <p className="pl-1 pt-1 pb-3 text-sm font-semibold">
+            <p
+              className="pl-1 pt-1 pb-3"
+              style={{
+                maxWidth: '310px',
+                fontFamily: 'sb_pixel_7',
+                lineHeight: 'normal',
+                fontSize: '25px',
+                color: '#14a1d9',
+              }}
+            >
               Customers who bought this item also bought
             </p>
             <div className="rounded-none shadow-none">
@@ -320,13 +398,24 @@ export default function ProductDetail(props) {
 
           {/* 상품 인포 5 - 리뷰 불러오기 */}
           <div
-            className="shadow-sm py-2 px-3 text-md font-medium"
+            id="product-info"
+            className="py-2 px-3"
             style={{
               maxWidth: '310px',
               height: 'auto',
             }}
           >
-            <p className="p-1 text-sm font-semibold" ref={reviewRef}>
+            <p
+              style={{
+                maxWidth: '310px',
+                fontFamily: 'sb_pixel_7',
+                lineHeight: 'normal',
+                fontSize: '25px',
+                color: '#14a1d9',
+              }}
+              className="p-1"
+              ref={reviewRef}
+            >
               Customer Reviews
             </p>
             {reviewInfo.map((review, idx) => (
@@ -336,7 +425,7 @@ export default function ProductDetail(props) {
                 style={{
                   maxWidth: '310px',
                   height: 'auto',
-                  borderStyle: 'inset',
+                  // borderStyle: 'inset',
                   // backgroundColor: '#187FD9',
                 }}
               >
@@ -359,31 +448,34 @@ export default function ProductDetail(props) {
                   />
                 </div>
                 <div className="col-span-4 flex flex-col justify-center">
-                  <p className="flex justify-start pl-1 mb-0 text-xs font-semibold">
+                  <p
+                    className="flex justify-start pl-1 mb-0 text-lg"
+                    style={{ lineHeight: 'normal' }}
+                  >
                     {review.summary}
                   </p>
                   {
-                    <p className="flex justify-end pt-1 pr-2 mb-0 text-xs font-medium">
+                    <p className="flex justify-end pt-1 pr-2 mt-0 mb-0 text-lg">
                       {/* Darrow H Ankrum II */}
                       by {review.review_memID}
                     </p>
                   }
                 </div>
                 <div className="col-span-5 flex justify-center">
-                  <p className="px-3 py-2 mb-0 text-xs font-medium">
+                  <p className="px-3 py-2 mb-0 text-md">
                     {review.review_content}
                     {/* mother-in-law wanted it as a present for her sister. she liked
                   it and said it would work. */}
                   </p>
                 </div>
                 <div className="col-span-3 flex justify-start self-center">
-                  <p className="pl-4 mb-0 text-xs font-medium">
+                  <p className="pl-4 mb-0 text-md">
                     {review.review_date}
                     {/* 2013-09-22 */}
                   </p>
                 </div>
                 <div className="col-span-2 flex justify-end self-center">
-                  <p className="pr-1 mb-0 text-xs font-semibold">
+                  <p className="pr-1 mb-0 text-md">
                     {review.review_vote} people
                     <i
                       className="far fa-thumbs-up"
