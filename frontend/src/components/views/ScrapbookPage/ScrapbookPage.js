@@ -10,29 +10,26 @@ import Toolbar from '../Toolbar/Toolbar';
 import "./Scrapbook.css"
 
 // Import Swiper styles
-import "swiper/swiper.min.css";
-import "swiper/components/pagination/pagination.min.css"
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
 
-import SwiperCore, {
-  Pagination
-} from 'swiper/core';
+import SwiperCore, { Pagination } from 'swiper/core';
 
 // install Swiper modules
 SwiperCore.use([Pagination]);
 
-
 function ScrapbookPage() {
   // 2. data state 저장
-  const [itemlist, setItemlist] = useState([])
-  const [topList, setTopList] = useState([])
-  const [bottomList, setBottomList] = useState([])
-  const [shoesList, setShoesList] = useState([])
-  const [etcList, setEtcList] = useState([])
+  const [itemlist, setItemlist] = useState([]);
+  const [topList, setTopList] = useState([]);
+  const [bottomList, setBottomList] = useState([]);
+  const [shoesList, setShoesList] = useState([]);
+  const [etcList, setEtcList] = useState([]);
 
-  const [totalPrice, setTotalPrice] = useState(0)
-  const [cardIdx, setCardIdx] = useState(0)
-  const [tmp, setTmp] = useState({})
-  const [myCardList, setMyCardList] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [cardIdx, setCardIdx] = useState(0);
+  const [tmp, setTmp] = useState({});
+  const [myCardList, setMyCardList] = useState([]);
 
   const [modalShow, setModalShow] = useState(false);
   const [timegramModalShow, setTimegramModalShow] = useState(false);
@@ -56,43 +53,52 @@ function ScrapbookPage() {
   }, []);
 
   useEffect(() => {
-    
     for (let i = 0; i < itemlist.length; i++) {
       if (itemlist[i].p_no.pcategory_code == 1) {
-        setTopList(topList => [...topList, itemlist[i]])
+        setTopList((topList) => [...topList, itemlist[i]]);
       } else if (itemlist[i].p_no.pcategory_code == 2) {
-        setBottomList(bottomList => [...bottomList, itemlist[i]])
+        setBottomList((bottomList) => [...bottomList, itemlist[i]]);
       } else if (itemlist[i].p_no.pcategory_code == 3) {
-        setShoesList(shoesList => [...shoesList, itemlist[i]])
+        setShoesList((shoesList) => [...shoesList, itemlist[i]]);
       } else {
-        setEtcList(etcList => [...etcList, itemlist[i]])
+        setEtcList((etcList) => [...etcList, itemlist[i]]);
       }
     }
-
-  }, [itemlist])
+  }, [itemlist]);
 
   // 6. 캐러셀 누르면 모달 열기
   const onClickModalHandler = (e) => {
     e.preventDefault();
-    setModalShow(true)
-    setTmp({ 'name' : e.target.dataset.name, 'price' : e.target.dataset.price, 'src' : e.currentTarget.src, 'p_no' : e.target.dataset.no})
-  }
+    setModalShow(true);
+    setTmp({
+      name: e.target.dataset.name,
+      price: e.target.dataset.price,
+      src: e.currentTarget.src,
+      p_no: e.target.dataset.no,
+    });
+  };
 
   // 7. 모달에서 ADD 누르면카드에 들어가게 만들기
   const onAddHandler = (e) => {
-    setModalShow(false)
+    setModalShow(false);
     if (cardIdx < 6) {
-      setCardIdx(cardIdx + 1)
-      setMyCardList(myCardList.concat({ 'name' : tmp['name'], 'price' : tmp['price'], 'src' : tmp['src'], 'p_no' : tmp['p_no']}))
-      setTotalPrice(totalPrice + parseInt(tmp['price']))
+      setCardIdx(cardIdx + 1);
+      setMyCardList(
+        myCardList.concat({
+          name: tmp['name'],
+          price: tmp['price'],
+          src: tmp['src'],
+          p_no: tmp['p_no'],
+        })
+      );
+      setTotalPrice(totalPrice + parseInt(tmp['price']));
     } else {
-      return alert("더이상 추가할 수 없다")
+      return alert('더이상 추가할 수 없다');
     }
   }
   
   // 8. 카드 한번 더 누르면 삭제할지 물어보고 삭제한다고 하면 삭제하기 (+전체금액 마이너스 해야함)
   const onClickDeleteHandler = (e) => {
-    
     e.preventDefault();
     const idx = parseInt(e.target.dataset.idx)
 
@@ -102,33 +108,37 @@ function ScrapbookPage() {
         myCardList.splice(idx, 1)
         setMyCardList(myCardList);
 
-        setCardIdx(cardIdx - 1)
-        alert("삭제했어")
+        setCardIdx(cardIdx - 1);
+        alert('삭제했어');
       }
     } catch (error) {
-      alert("삭제할 수 있는 아이템이 없어")
+      alert('삭제할 수 있는 아이템이 없어');
     } finally {
-      console.log(totalPrice)
+      console.log(totalPrice);
     }
   }
 
   // 9. Post on Timegram 버튼 누르면 모달 열기
   const onClickTimegramModalHandler = (e) => {
     if (myCardList.length < 1) {
-      return alert("1개 이상의 아이템만 timegram posting 할 수 있어")
+      return alert('1개 이상의 아이템만 timegram posting 할 수 있어');
     }
-    setTimegramModalShow(true)
- }
+    setTimegramModalShow(true);
+  };
 
   // 10. api 연결
   const onAddTimegramHandler = (e) => {
-    if (e.target.dataset.title.length < 2 || e.target.dataset.title == "" || e.target.dataset.title == undefined) {
-      return alert("제목 2글자 이상")
+    if (
+      e.target.dataset.title.length < 2 ||
+      e.target.dataset.title == '' ||
+      e.target.dataset.title == undefined
+    ) {
+      return alert('제목 2글자 이상');
     }
 
-    const p_no = []
+    const p_no = [];
     for (let i = 0; i < myCardList.length; i++) {
-      p_no.push(myCardList[i]["p_no"])
+      p_no.push(myCardList[i]['p_no']);
     }
     console.log(p_no)
 
@@ -177,18 +187,22 @@ function ScrapbookPage() {
         window.location.reload();
       })
     }
+  };
 
-  }
-  
   const onClickResetHandler = (e) => {
-    setMyCardList([])
-    setCardIdx(0)
-    setTotalPrice(0)
-  }
+    setMyCardList([]);
+    setCardIdx(0);
+    setTotalPrice(0);
+  };
 
   function AddListModal() {
     return (
-      <Modal size="lg" show={modalShow} centered onHide={() => setModalShow(false)}>
+      <Modal
+        size="lg"
+        show={modalShow}
+        centered
+        onHide={() => setModalShow(false)}
+      >
         <Modal.Header className="modal-header-custom">
             <h2 onClick={() => setModalShow(false)}><i className="fas fa-times pointer" ></i></h2>
             
@@ -208,21 +222,26 @@ function ScrapbookPage() {
   }
 
   function AddTimegramModal() {
-    const [timegramTitle, setTimegramTitle] = useState("")
+    const [timegramTitle, setTimegramTitle] = useState('');
 
     const onChangeTitleHandler = (e) => {
       e.preventDefault();
-      setTimegramTitle(e.target.value)
-    }
+      setTimegramTitle(e.target.value);
+    };
 
     return (
-      <Modal size="lg" show={timegramModalShow} centered onHide={() => setTimegramModalShow(false)} >
+      <Modal
+        size="lg"
+        show={timegramModalShow}
+        centered
+        onHide={() => setTimegramModalShow(false)}
+      >
         <Modal.Header className="modal-header-custom">
           <h2 onClick={() => setTimegramModalShow(false)}><i className="fas fa-times pointer" ></i></h2>
         </Modal.Header>
         <Modal.Body>
           {/* Todo : text-align check */}
-          <div style={{textAlign: "center"}}>
+          <div style={{ textAlign: 'center' }}>
             <h2>How would you like to</h2>
             <h2>name this look?</h2>
             {/* Todo : input bgc check background-color: rgba( 255, 255, 255, 0)} */}
@@ -244,43 +263,41 @@ function ScrapbookPage() {
         <div className="scrap_slider">
           <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
           <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
-          {/* <button type="button" className="scrap_btn" data-id={item.id} onClick={onClickDeleteItemHandler}>X</button> */}
-          
         </div>
-      </SwiperSlide>
-    ]);
+      </SwiperSlide>,
+    ])
   });
   const myShoesList = shoesList.map((item, idx) => {
-    return ([
+    return [
       <SwiperSlide key={idx}>
         <div className="scrap_slider">
           <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
           <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
         </div>
-      </SwiperSlide>
-    ]);
+      </SwiperSlide>,
+    ];
   });
-  
+
   const myBottomList = bottomList.map((item, idx) => {
-    return ([
+    return [
       <SwiperSlide key={idx}>
         <div className="scrap_slider">
           <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
           <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
         </div>
-      </SwiperSlide>
-    ]);
+      </SwiperSlide>,
+    ];
   });
 
   const myEtcList = etcList.map((item, idx) => {
-    return ([
+    return [
       <SwiperSlide key={idx}>
         <div className="scrap_slider">
           <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
           <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
         </div>
-      </SwiperSlide>
-    ]);
+      </SwiperSlide>,
+    ];
   });
 
   const row_num = [0, 1, 2]
@@ -356,6 +373,6 @@ function ScrapbookPage() {
         <Toolbar />
     </Container>
     </>
-    );
+  );
 }
 export default ScrapbookPage;

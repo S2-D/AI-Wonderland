@@ -33,18 +33,18 @@ export default function App() {
           className="MainSwiper1"
         >
           <SwiperSlide className="Mainslide_2">
-            <img src="./images/welcome_image/welcome2.png" />
-            <p className="slideInfo">
-              Click the camera icon below. <br></br>You can find your friends.
-            </p>
+            <img src="./images/welcome_image/welcome3.gif" />
+            <p className="slideInfo">Go to my page and check attendance.</p>
           </SwiperSlide>
           <SwiperSlide className="Mainslide_1">
             <img src="./images/welcome_image/welcome1.png" />
             <p className="slideInfo">Welcome to the 2000's!</p>
           </SwiperSlide>
           <SwiperSlide className="Mainslide_3">
-            <img src="./images/welcome_image/welcome3.gif" />
-            <p className="slideInfo">Go to My Page and check the attendance!</p>
+            <img src="./images/welcome_image/welcome2.png" />
+            <p className="slideInfo">
+              Click the camera icon below. <br></br>You can find your friends.
+            </p>
           </SwiperSlide>
         </Swiper>
       </div>

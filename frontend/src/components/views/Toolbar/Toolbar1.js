@@ -17,9 +17,9 @@ function Toolbar() {
     history.push('/timegram');
   };
 
-  const handleSearch = () => {
-    history.push('/search');
-  };
+  // const handleSearch = () => {
+  //   history.push('/search');
+  // };
 
   const handleScrapbook = () => {
     history.push('/scrapbook');
@@ -55,7 +55,7 @@ function Toolbar() {
               Timegram
             </button>
           </li>
-          <li>
+          {/* <li>
             <button
               type="button"
               className={
@@ -65,7 +65,7 @@ function Toolbar() {
             >
               Search
             </button>
-          </li>
+          </li> */}
           <li>
             <button
               type="button"

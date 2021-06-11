@@ -36,12 +36,18 @@ function Footer() {
           </ul>
         </div>
         <div class="copyright">
-          Copyright © Soondoong_Six. All rights reserved.
+          Copyright © Soondoong_Six. <br />
+          All rights reserved.
         </div>
-        <div class="gitlab_address">
-          <Link to="https://kdt-gitlab.elice.io/001-part4-aifashionkeyword/team3/project-team3">
-            Our Gitlab
-          </Link>
+        <div class="notion_address">
+          <a
+            href={
+              'https://www.notion.so/Project-WIKI-205d359cc22a429783f20b73026bb7da'
+            }
+            target="_blank"
+          >
+            Our Notion
+          </a>
         </div>
       </footer>
     </>

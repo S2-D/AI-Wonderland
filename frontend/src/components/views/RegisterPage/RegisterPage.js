@@ -64,7 +64,7 @@ function RegisterPage() {
     color: 'white',
     textShadow: '2px 2px 2px gray',
     fontFamily: 'sb_pixel',
-    fontSize: '27px',
+    fontSize: '30px',
     textAlign: 'center',
   };
 
@@ -146,6 +146,8 @@ function RegisterPage() {
                 borderRadius: '10px',
                 backgroundColor: 'rgb(0 0 0 / 30%)',
                 width: '100vh',
+                height: '600px',
+                overflow: 'auto',
               }}
             >
               <div
@@ -154,7 +156,6 @@ function RegisterPage() {
                   fontFamily: 'light_p',
                   color: 'white',
                   fontSize: '20px',
-                  overflow: 'auto',
                 }}
               >
                 <div className="logoBox">
