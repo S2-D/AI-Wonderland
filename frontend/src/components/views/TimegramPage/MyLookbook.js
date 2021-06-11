@@ -166,22 +166,20 @@ function MyLookbook() {
               </div>
               {timegramInfo.map((timegram, idx) => (
                 <div key={idx} style={{ marginBottom: '80px' }}>
-                  <ul className="item_box">
-                    <TimegramCard
-                      key={idx}
-                      id={timegram.id}
-                      title={timegram.title}
-                      p_no1={timegram.p_no1}
-                      p_no2={timegram.p_no2}
-                      p_no3={timegram.p_no3}
-                      p_no4={timegram.p_no4}
-                      p_no5={timegram.p_no5}
-                      p_no6={timegram.p_no6}
-                      total_like={timegram.total_like}
-                      total_price={timegram.total_price}
-                      mem_id={timegram.mem.id}
-                    />
-                  </ul>
+                  <TimegramCard
+                    key={idx}
+                    id={timegram.id}
+                    title={timegram.title}
+                    p_no1={timegram.p_no1}
+                    p_no2={timegram.p_no2}
+                    p_no3={timegram.p_no3}
+                    p_no4={timegram.p_no4}
+                    p_no5={timegram.p_no5}
+                    p_no6={timegram.p_no6}
+                    total_like={timegram.total_like}
+                    total_price={timegram.total_price}
+                    mem_id={timegram.mem.id}
+                  />
                   <div
                     className="timegram_title"
                     style={{ padding: '10px 20px 0 0' }}

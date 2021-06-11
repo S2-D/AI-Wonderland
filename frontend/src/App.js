@@ -43,6 +43,12 @@ function App() {
           <PublicRoute component={MainPage} path="/main" exact />
           {/* 상품 리스트 페이지 연결  */}
           <PublicRoute component={ProductList} path="/productList" exact />
+          {/* 상품 리스트 페이지 연결  */}
+          <PublicRoute
+            component={ProductList}
+            path="/productList/:categoryValue"
+            exact
+          />
           {/* 타임그램 페이지 연결 */}
           <Route component={TimegramPage} path="/timegram" exact />
           {/* 검색 페이지 연결 */}

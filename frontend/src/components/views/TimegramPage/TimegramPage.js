@@ -5,13 +5,16 @@ import './Timegram.css';
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { Row, Spinner } from 'react-bootstrap';
-
+import { useHistory } from 'react-router-dom';
 import TimegramCard from './TimegramCard.js';
 
 import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
 
 function TimegramPage() {
+  // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타
+  const [categoryValue, setCategoryValue] = useState(1);
+  const history = useHistory();
   // -dt_created : 최신 순 , -total_like : 좋아요 순, total_price :낮은 가격순, -total_price : 높은 가격순
   const [orderingValue, setOrderingValue] = useState('-dt_created');
   const orders = [
@@ -21,10 +24,6 @@ function TimegramPage() {
     { id: 4, name: 'Price: Low-High', value: 'total_price' },
   ];
   const timegramOrderUrl = `${baseUrl}/timegram/timegramList/?page=1&ordering=${orderingValue}`;
-
-  // Categories
-  const categoryUrl = `${baseUrl}/products/categotylist/`;
-  const [categories, setCategories] = useState([]);
 
   // Timegram
   const [timegramPage, setTimegramPage] = useState(1);
@@ -85,24 +84,9 @@ function TimegramPage() {
     setTimegramPage((timegramPage) => timegramPage + 1);
   };
 
-  useEffect(() => {
-    async function getCategoriesList() {
-      try {
-        const response = await axios.get(categoryUrl);
-
-        if (response.status === 200) {
-          setCategories(response.data.results);
-        } else if (response.status === 404) {
-          console.log('404 진입' + response);
-          alert('Fail to load the categoty data');
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    getCategoriesList();
-  }, []);
+  const onClickCategory = (value) => {
+    history.push(`/productlist/${value}`);
+  };
 
   useEffect(() => {
     async function getTimegramInfo() {
@@ -156,75 +140,52 @@ function TimegramPage() {
         {loading ? (
           <div>
             <div className="topItems_Tops">
-              <div
-                style={{
-                  marginTop: '50px',
-                  marginBottom: '50px',
-                  textAlign: 'center',
-                }}
-              >
-                <ul
-                  style={{
-                    paddingRight: '32px',
+              <div className="col-span-4 flex justify-center mt-2 gap-2">
+                <button
+                  className="product-list-category-btn"
+                  onClick={() => {
+                    onClickCategory(1);
                   }}
                 >
-                  {categories.map((category, id) => (
-                    <li
-                      key={id}
-                      className="timegram-list-category-btn"
-                      name={category.pcategory_name}
-                      value={category.pcategory_code}
-                      onClick={(e) => {
-                        console.log(e.target.value);
-                      }}
-                      style={{
-                        display: 'inline-flex',
-                        float: 'center',
-                        padding: '5px',
-                        listStyle: 'none',
-                        height: '26px',
-                        fontWeight: '700',
-                      }}
-                    >
-                      <a
-                        style={{
-                          textDecoration: 'none',
-                        }}
-                        href={category.pcategory_code}
-                      >
-                        {category.pcategory_name}
-                      </a>
-                    </li>
-                  ))}
-                  <li
-                    className="product-list-timegram-btn"
-                    style={{
-                      display: 'inline-flex',
-                      float: 'center',
-                      padding: '5px',
-                      listStyle: 'none',
-                      height: '26px',
-                      fontWeight: '700',
-                    }}
-                  >
-                    Timegram
-                  </li>
-                </ul>
+                  Tops
+                </button>
+                <button
+                  className="product-list-category-btn"
+                  onClick={() => {
+                    onClickCategory(2);
+                  }}
+                >
+                  Bottoms
+                </button>
+                <button
+                  className="product-list-category-btn"
+                  onClick={() => {
+                    onClickCategory(3);
+                  }}
+                >
+                  Shoes
+                </button>
+                <button
+                  className="product-list-category-btn"
+                  onClick={() => {
+                    onClickCategory(4);
+                  }}
+                >
+                  Others
+                </button>
+                <button className="product-list-timegram-btn">Timegram</button>
+              </div>
+              <div className="col-span-4 flex justify-end mr-2">
+                {/* <ProductListDropDown /> */}
                 <DropdownButton
                   title="Sort by"
-                  style={{
-                    float: 'right',
-                    paddingRight: '10px',
-                  }}
-                  variant="Secondary"
-                  size="sm"
+                  variant="dropdown"
                   className="dropdown-btn"
                 >
                   {orders.map((order, id) => (
                     <Dropdown.Item
                       key={id}
                       name={order.name}
-                      value={order.value}
                       onClick={(e) => {
                         setOrderingValue(order.value);
                       }}
@@ -236,61 +197,53 @@ function TimegramPage() {
               </div>
               <h2>Timegram</h2>
               <p className="subAd">Explore the Timegram.</p>
-
               {timegramInfo.map((timegram, idx) => (
-                <div key={idx} style={{ marginBottom: '80px' }}>
-                  <ul className="item_box">
-                    <TimegramCard
-                      key={idx}
-                      id={timegram.id}
-                      title={timegram.title}
-                      p_no1={timegram.p_no1}
-                      p_no2={timegram.p_no2}
-                      p_no3={timegram.p_no3}
-                      p_no4={timegram.p_no4}
-                      p_no5={timegram.p_no5}
-                      p_no6={timegram.p_no6}
-                      total_like={timegram.total_like}
-                      total_price={timegram.total_price}
-                      mem_id={timegram.mem.id}
-                    />
-                  </ul>
-                  <div
-                    className="timegram_title"
-                    style={{ padding: '10px 20px 0 0' }}
-                  >
+                <div
+                  key={idx}
+                  className="col-span-4 flex flex-wrap justify-center m-3 gap-2"
+                >
+                  <TimegramCard
+                    key={idx}
+                    id={timegram.id}
+                    title={timegram.title}
+                    p_no1={timegram.p_no1}
+                    p_no2={timegram.p_no2}
+                    p_no3={timegram.p_no3}
+                    p_no4={timegram.p_no4}
+                    p_no5={timegram.p_no5}
+                    p_no6={timegram.p_no6}
+                    total_like={timegram.total_like}
+                    total_price={timegram.total_price}
+                    mem_id={timegram.mem.id}
+                  />
+                  <div className="timegram_title">
                     <span>{timegram.title}</span>
-                    <span className="floatR img_price">
+                    <span className="floatR" style={{ paddingLeft: '30px' }}>
                       <img
                         className="flex content-center"
                         src="./images/icon_img/coin_move.gif"
-                        className="coin_img"
-                        width="35px"
+                        width="20px"
                         style={{ display: 'inline', marginTop: '0px' }}
                       />
                       ${timegram.total_price}
                     </span>
                   </div>
-                  <div style={{ padding: '6px 10px 0', marginTop: '0px' }}>
-                    <button
-                      id={timegram.id}
-                      onClick={onClickLike}
-                      type="button"
-                      className={
-                        timegram.flag == true
-                          ? 'btn_like btn_unlike'
-                          : 'btn_like'
-                      }
-                    >
-                      <span id={timegram.id} className="img_emoti">
-                        좋아요
-                      </span>
-                      <span id={timegram.id} className="like_span">
-                        {' '}
-                        +{timegram.total_like} like!
-                      </span>
-                    </button>
-                  </div>
+                  <button
+                    id={timegram.id}
+                    onClick={onClickLike}
+                    type="button"
+                    className={
+                      timegram.flag == true ? 'btn_like btn_unlike' : 'btn_like'
+                    }
+                  >
+                    <span id={timegram.id} className="img_emoti">
+                      좋아요
+                    </span>
+                    <span id={timegram.id} className="like_span">
+                      {' '}
+                      +{timegram.total_like} like!
+                    </span>
+                  </button>
                 </div>
               ))}
             </div>
