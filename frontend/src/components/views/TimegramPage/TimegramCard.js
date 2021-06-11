@@ -27,7 +27,7 @@ export default function TimegramCard(props) {
 
     // 조회된 상품이 6개보다 작을경우
     while (list.length < 6) {
-      list.push({ p_no: '', p_image: './images/rabbit_example.png' });
+      list.push({ p_no: '', p_image: '/images/rabbit_example.jpg' });
     }
 
     setProducts(list);
@@ -41,7 +41,7 @@ export default function TimegramCard(props) {
             <img className="product-list-card-img" src={product.p_image} />
           ) : (
             <a
-              href={`/ProductDetail/${product.p_no}`}
+              href={`/product_detail/${product.p_no}`}
               style={{
                 height: '100%',
                 maxHeight: '150px',

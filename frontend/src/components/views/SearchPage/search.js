@@ -7,7 +7,7 @@ import Toolbar from '../Toolbar/Toolbar';
 import ProductListCard from '../Product/ProductListCard';
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
-import styledSearch from './styledSearch.css';
+import styledSearch from './searchStyle.css';
 
 export default function SearchPage() {
   // ordering -p_readcount : 조회 순, -p_price : 가격 순, -p_rank : 랭킹 순, -p_date : 등록일 순
@@ -20,22 +20,29 @@ export default function SearchPage() {
     { id: 5, name: 'Newest', value: '-p_date' },
   ];
 
+  const [searchPage, setSearchPage] = useState(2);
+  const [searchNextPage, setSearchNextPage] = useState(null);
+
   // 유저의 검색 키워드 업데이트
   const [searchKeyword, setSearchKeyword] = useState('');
+
   const onChangeHandler = (event) => {
     setSearchKeyword(event.target.value);
   };
   // 상품 데이터 받아오기
-  const searchUrl = `${baseUrl}/products/search/?p_name=${searchKeyword}&ordering=${orderingValue}`;
+  const searchUrl = `${baseUrl}/products/search/?p_name=${searchKeyword}&ordering=${orderingValue}&page=${searchPage}`;
+  const searchOriginUrl = `${baseUrl}/products/search/?p_name=${searchKeyword}&ordering=${orderingValue}&page=1`;
   const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(() => {
+  const loadMoreSearch = () => {
+    setSearchPage((searchPage) => searchPage + 1);
+
     async function getSearchResults() {
       try {
         const response = await axios.get(searchUrl);
         console.log('검색 데이터 ', response.data.results);
         if (response.status === 200) {
-          setSearchResults(response.data.results);
+          setSearchResults([...searchResults, ...response.data.results]);
         } else if (response.status === 404) {
           console.log('404 진입' + response);
           alert('Fail to load the product data');
@@ -44,8 +51,30 @@ export default function SearchPage() {
         console.log(error);
       }
     }
+
     getSearchResults();
-  }, [searchUrl]);
+  };
+
+  useEffect(() => {
+    async function getSearchResults() {
+      try {
+        if (searchKeyword != '') {
+          const response = await axios.get(searchOriginUrl);
+          console.log('검색 데이터 ', response.data.results);
+          if (response.status === 200) {
+            setSearchResults(response.data.results);
+            setSearchNextPage(response.data.next);
+          } else if (response.status === 404) {
+            console.log('404 진입' + response);
+            alert('Fail to load the product data');
+          }
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getSearchResults();
+  }, [searchOriginUrl]);
 
   return (
     <div style={{ paddingBottom: '65px' }}>
@@ -103,6 +132,23 @@ export default function SearchPage() {
             ))}
           </div>
         </div>
+      </div>
+      <div className="col-span-5 m-3 flex justify-center">
+        {searchNextPage === null ? null : (
+          <button
+            type="button"
+            className="bg-purple-600 text-sm text-white font-semibold rounded-lg"
+            style={{
+              fontFamily: 'neodgm',
+              width: '180px',
+              height: '30px',
+              marginBottom: '80px',
+            }}
+            onClick={loadMoreSearch}
+          >
+            + Load More Searchs
+          </button>
+        )}
       </div>
       <Toolbar />
     </div>

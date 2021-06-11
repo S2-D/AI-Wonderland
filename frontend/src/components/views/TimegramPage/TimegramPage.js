@@ -221,7 +221,7 @@ function TimegramPage() {
                     <span className="floatR" style={{ paddingLeft: '30px' }}>
                       <img
                         className="flex content-center"
-                        src="./images/icon_img/coin_move.gif"
+                        src="https://aiwonderland-back.herokuapp.com/static/images/icon_img/coin_move.gif"
                         width="20px"
                         style={{ display: 'inline', marginTop: '0px' }}
                       />
