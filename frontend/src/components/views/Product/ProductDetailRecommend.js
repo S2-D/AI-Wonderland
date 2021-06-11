@@ -23,7 +23,7 @@ SwiperCore.use([Navigation, Pagination]);
 const search_p_no = 'B00005OTJ8';
 const recommendProductsUrl = `${baseUrl}/products/alsoboughtlist/?search_p_no=${search_p_no}`;
 
-export default function ProductDetailRecommend() {
+export default function ProductDetailRecommend(props) {
   // api에서 정보 불러오기
   // 현재 데이터가 array 안에 담겨 있지 않음 + 예시 데이터라 캐러솔 확인 불충분
   // To-Do 나중에 백엔드에 p_no으로 맵함수 안의 맵으로 다시 불러와야 하는 것인지 물어보기(당연한 것 같지만)
@@ -32,7 +32,11 @@ export default function ProductDetailRecommend() {
     async function getRecommendProducts() {
       try {
         const response = await axios.get(recommendProductsUrl);
-        console.log('추천 상품 데이터 : ', response.data);
+        console.log('추천 상품 데이터 : ', response.data.data);
+        console.log('추천 상품 데이터 수 : ', response.data.data.length);
+        if (response.data.length === 0) {
+          props.handleProps('recommendItemZero');
+        }
         // console.log('추천 상품 데이터 : ', response.data.data[0].p_no);
         if (response.status === 200) {
           setRecommendProducts(response.data.data);
@@ -67,9 +71,8 @@ export default function ProductDetailRecommend() {
             key={idx}
             className="flex flex-col justify-center p-1 text-xs text-center font-semibold text-gray-700"
           >
-            {/* <p>{recommendProduct.p_image}</p> */}
             <img
-              src="https://images-na.ssl-images-amazon.com/images/I/51KgzdilYAL.jpg"
+              src={recommendProduct.p_image}
               style={{ width: '200px', height: 'auto' }}
             ></img>
             <p className="p-3 mb-0 text-sm" style={{ marginRight: 'auto' }}>

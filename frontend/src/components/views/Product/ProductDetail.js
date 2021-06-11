@@ -16,7 +16,6 @@ import styledproductDetail from './styledproductDetail.css';
 import Avatar from 'boring-avatars'; // 아바타 자동 생성 라이브러리
 import avatarName from './ProductDetailAvatarName';
 
-const userKeyWords = ['young', 'worm', 'wool', 'wonderful', 'withy']; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 const itemDescription = []; // api 완성 전 예시 배열임. 나중에 꼭 지우기(To-do)
 const nlpDescription = [
   "Beautifully rendered, heartbreakingly adorab, item description example sentences this is amoomal deajanchi janchihanikka I'm hungry, but the train goes on. I like the song 'Ms little perfect' these day. I'm not sure if this paragraph's grammer is right though.",
@@ -40,7 +39,7 @@ export default function ProductDetail(props) {
 
   const productInfoUrl = `${baseUrl}/products/productlist/${props.match.params['id']}/`;
   const reviewInfoUrl = `${baseUrl}/products/reviewlist/?page=${reviewPage}&p_no=${props.match.params['id']}`;
-
+  const [recommendProps, setRecommendProps] = useState('recommendItemZero');
   // API - 개별 상품 정보 받아오기
   useEffect(() => {
     async function getProductInfo() {
@@ -50,6 +49,10 @@ export default function ProductDetail(props) {
         if (response.status === 200) {
           setProductInfo(response.data);
           setDescription(response.data.p_description);
+          // 에러 수정을 위한 절박한 노력
+          // setKeyword(productInfo.p_keyword.toString());
+          // console.log('키워드 ' + keyword);
+          // setKeyword(productInfo.p_keyword);
         } else if (response.status === 404) {
           console.log('404 진입 ', response);
           alert('Fail to load the product data');
@@ -64,10 +67,10 @@ export default function ProductDetail(props) {
   // useEffect(() => {
   //   setKeyword(productInfo.p_keyword.split(','));
   // }, [productInfo]);
-
   // console.log(productInfo);
   // console.log(kList);
   // API - 로그인 유저 정보 받아오기
+
   useEffect(() => {
     async function getUser() {
       try {
@@ -201,7 +204,7 @@ export default function ProductDetail(props) {
             <div className="col-span-2 pl-4" style={{ fontSize: '25px' }}>
               <img
                 className="flex content-center"
-                src="./images/icon_img/coin_move.gif"
+                // src="https://ibb.co/zRPdB3J"
                 className="coin_img"
                 width="35px"
                 style={{ display: 'inline', marginTop: '0px' }}
@@ -213,7 +216,6 @@ export default function ProductDetail(props) {
                   color: '#14a1d9',
                 }}
               >
-                {' '}
                 $ {productInfo.p_price}
               </p>
             </div>
@@ -289,18 +291,17 @@ export default function ProductDetail(props) {
                 {description}
               </p>
             ) : (
-              <div className="flex flex-wrap justify-center p-1 text-xs text-center font-semibold text-gray-700">
-                <img
-                  src="./images/rabbit_example.jpg"
-                  className="rounded-3xl m-4"
-                  style={{ width: '200px' }}
-                />
+              <div
+                className="flex flex-wrap justify-center p-1 text-center text-gray-700"
+                style={{ fontSize: '18px' }}
+              >
+                <img className="rounded-3xl m-4" style={{ width: '200px' }} />
                 Okay, our database does not have this detail about the item.
                 <br></br> How about we go back in time and extract the
                 information instead?*
                 <button
                   type="button"
-                  className="bg-purple-500 hover:bg-purple-800 m-3 text-lg text-white font-semibold rounded-lg"
+                  className="bg-blue-500 hover:bg-blue-800 m-3 text-lg text-white font-semibold rounded-lg"
                   style={{
                     fontFamily: 'neodgm',
                     width: '200px',
@@ -347,55 +348,57 @@ export default function ProductDetail(props) {
               AI Review Analysis
             </p>
             <div className="inline-flex flex-wrap justify-center gap-x-3 gap-y-2 m-2">
-              {/* {keyword.length > 0 ? ( */}
-              {/* // Object.values(kList).map((list, idx) => {
-                //   <div
-                //     key={idx}
+              <p style={{ fontSize: '20px' }}>{productInfo.p_keyword}</p>
+
+              {/* //     key={idx}
                 //     className="rounded-xl text-sm py-2 px-3 bg-purple-500"
                 //     style={{ fontFamily: 'neodgm', color: 'white' }}
-                //   >
-                //     {list}
-                //   </div>;
-                // }) */}
-              {/* { keyword } */}
-              {/* ) : ( */}
-              <div>
-                <p className="p-1 text-xs text-justify font-medium">
-                  Oh No! There is insufficient data for the AI to analyze.
-                </p>
-              </div>
-              {/* )} */}
+
+
+              {/* <div>
+                  <p className="p-1 text-lg text-justify">
+                    Oh No! There is insufficient data for the AI to analyze.
+                    {console.log(keyword)}
+                  </p>
+                </div>
+              )} */}
             </div>
             {/* <p>{productInfo.p_keyword}</p> */}
           </div>
 
           {/* 상품 인포 4 - 추천 상품 */}
-          <div
-            id="product-info"
-            className="shadow-sm py-2 px-3 text-md font-medium"
-            style={{
-              maxWidth: '310px',
-              fontFamily: 'sb_pixel_7',
-              lineHeight: 'normal',
-            }}
-          >
-            <p
-              className="pl-1 pt-1 pb-3"
+          {}
+          {recommendProps === 'recommendItemZero' ? null : (
+            <div
+              id="product-info"
+              className="shadow-sm py-2 px-3 text-md font-medium"
               style={{
                 maxWidth: '310px',
                 fontFamily: 'sb_pixel_7',
                 lineHeight: 'normal',
-                fontSize: '25px',
-                color: '#14a1d9',
               }}
             >
-              Customers who bought this item also bought
-            </p>
-            <div className="rounded-none shadow-none">
-              <ProductDetailRecommend />
+              <p
+                className="pl-1 pt-1 pb-3"
+                style={{
+                  maxWidth: '310px',
+                  fontFamily: 'sb_pixel_7',
+                  lineHeight: 'normal',
+                  fontSize: '25px',
+                  color: '#14a1d9',
+                }}
+              >
+                Customers who bought this item also bought
+              </p>
+              <div className="rounded-none shadow-none">
+                <ProductDetailRecommend
+                  handleProps={(recommend) => {
+                    setRecommendProps(recommend);
+                  }}
+                />
+              </div>
             </div>
-          </div>
-
+          )}
           {/* 상품 인포 5 - 리뷰 불러오기 */}
           <div
             id="product-info"
@@ -492,11 +495,13 @@ export default function ProductDetail(props) {
               {reviewNextPage === null ? null : (
                 <button
                   type="button"
-                  className="bg-purple-600 text-sm text-white font-semibold rounded-lg"
+                  className="text-white font-semibold rounded-lg"
                   style={{
-                    fontFamily: 'neodgm',
-                    width: '180px',
-                    height: '30px',
+                    background: '#14A1D9',
+                    fontSize: '12px',
+                    fontFamily: 'light_p_7',
+                    width: '270px',
+                    height: '40px',
                   }}
                   onClick={loadMoreReview}
                 >
