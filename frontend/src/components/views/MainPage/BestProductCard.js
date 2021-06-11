@@ -2,13 +2,54 @@ import Card from 'react-bootstrap/Card';
 // 전체 라이브러리를 임포트하기보단, 개별 컴포넌트를 임포트해야 성능(용량, 속도)가 좋음
 import styled, { css } from 'styled-components';
 import CartButton from './CartButton';
-
-// 카드 이미지 설정
-const imageUrl = 'images/example/one.png'; // 차후 url 형식으로 바꿔주어야 함
+import axios from 'axios';
+import baseUrl from '../../../url/http';
+import { react, useState, useEffect } from 'react';
 
 export default function BestProductCard(props) {
+  const [userNo, setUserNo] = useState(0);
+  const [productNo, setProductNo] = useState();
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const access_token = localStorage.getItem('access_token');
+        const response = await axios.get(`${baseUrl}/member/auth/`, {
+          headers: { Authorization: `jwt ${access_token}` },
+        });
+        if (response.data.status === 'success') {
+          setUserNo(response.data.user.id);
+        }
+      } catch (error) {
+        console.log('memNO 데이터 : ', error);
+      }
+    }
+    getUser();
+  }, []);
+
+  const addtoScrapbook = () => {
+    const access_token = localStorage.getItem('access_token');
+    setProductNo(`${props.p_no}`);
+    console.log(productNo);
+    axios
+      .post(
+        `${baseUrl}/scrapbook/scrapbooklist/`,
+        {
+          mem_id: userNo,
+          p_no: productNo,
+        },
+        {
+          headers: { Authorization: `jwt ${access_token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        console.log(response.data.message);
+      });
+  };
+
   return (
     <Card
+      className="mainCardBody"
       style={{
         display: 'inline-flex',
         justifyContent: 'center',
@@ -77,7 +118,31 @@ export default function BestProductCard(props) {
         </Card.Text>
         <Card.Link herf={props.p_toDetail} style={{ flex: '1' }}>
           {/* flex: '1'을 설정해주지 않으면 오른쪽 정렬 불가능함. 주의하기! */}
-          <CartButton />
+          <button>
+            <img
+              src="./images/icon_img/product_cart_white.png"
+              style={{
+                float: 'right',
+                justifyContent: 'flexEnd',
+                marginRight: '0',
+                marginBottom: '0',
+                padding: '0.2rem',
+                width: '20%',
+                backgroundColor: '#14a1d9',
+                borderRadius: '5rem',
+              }}
+              onClick={() => {
+                {
+                  if (userNo === 0) {
+                    alert('Please login to continue.');
+                  } else {
+                    alert('The item is added to the scrapbook.');
+                    addtoScrapbook();
+                  }
+                }
+              }}
+            ></img>
+          </button>
         </Card.Link>
       </Card.Body>
     </Card>

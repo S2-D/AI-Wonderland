@@ -36,12 +36,18 @@ function Footer() {
           </ul>
         </div>
         <div class="copyright">
-          Copyright © Soondoong_Six. All rights reserved.
+          Copyright © Soondoong_Six. <br />
+          All rights reserved.
         </div>
         <div class="gitlab_address">
-          <Link to="https://kdt-gitlab.elice.io/001-part4-aifashionkeyword/team3/project-team3">
+          <a
+            href={
+              'https://kdt-gitlab.elice.io/001-part4-aifashionkeyword/team3/project-team3'
+            }
+            target="_blank"
+          >
             Our Gitlab
-          </Link>
+          </a>
         </div>
       </footer>
     </>

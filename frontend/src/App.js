@@ -43,9 +43,9 @@ function App() {
           {/* 상품 리스트 페이지 연결  */}
           <PublicRoute component={ProductList} path="/productList" exact />
           {/* 타임그램 페이지 연결 */}
-          <Route component={TimegramPage} path="/timegram" exact />
+          <PublicRoute component={TimegramPage} path="/timegram" exact />
           {/* 검색 페이지 연결 */}
-          <Route component={SearchPage} path="/search" exact />
+          <PublicRoute component={SearchPage} path="/search" exact />
           {/* 상품 상세 페이지 연결 */}
           <PublicRoute component={ProductDetail} path="/productDetail" exact />
           {/* 마이페이지 */}
@@ -53,7 +53,11 @@ function App() {
           {/* 스크랩북 */}
           <PrivateRoute component={ScrapbookPage} path="/scrapbook" exact />
           {/* 출석체크 */}
-          <Route component={Attendance} path="/mypage/attendance" exact />
+          <PrivateRoute
+            component={Attendance}
+            path="/mypage/attendance"
+            exact
+          />
         </Switch>
       </div>
     </Router>
