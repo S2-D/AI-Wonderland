@@ -1,7 +1,6 @@
 import Card from 'react-bootstrap/Card';
 // 전체 라이브러리를 임포트하기보단, 개별 컴포넌트를 임포트해야 성능(용량, 속도)가 좋음
 import styled, { css } from 'styled-components';
-import CartButton from './CartButton';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
 import { react, useState, useEffect } from 'react';
