@@ -23,6 +23,7 @@ const nlpDescription = [
 
 export default function ProductDetail(props) {
   const [productInfo, setProductInfo] = useState([]);
+  const [PNo, setPNo] = useState();
   const [description, setDescription] = useState('');
   const [keyword, setKeyword] = useState([]);
   const [kList, setKList] = useState([]);
@@ -49,10 +50,7 @@ export default function ProductDetail(props) {
         if (response.status === 200) {
           setProductInfo(response.data);
           setDescription(response.data.p_description);
-          // 에러 수정을 위한 절박한 노력
-          // setKeyword(productInfo.p_keyword.toString());
-          // console.log('키워드 ' + keyword);
-          // setKeyword(productInfo.p_keyword);
+          setPNo(response.data.p_no);
         } else if (response.status === 404) {
           console.log('404 진입 ', response);
           alert('Fail to load the product data');
@@ -63,13 +61,6 @@ export default function ProductDetail(props) {
     }
     getProductInfo();
   }, [productInfoUrl]);
-
-  // useEffect(() => {
-  //   setKeyword(productInfo.p_keyword.split(','));
-  // }, [productInfo]);
-  // console.log(productInfo);
-  // console.log(kList);
-  // API - 로그인 유저 정보 받아오기
 
   useEffect(() => {
     async function getUser() {
@@ -99,7 +90,7 @@ export default function ProductDetail(props) {
         `${baseUrl}/scrapbook/scrapbooklist/`,
         {
           mem_id: userNo,
-          p_no: 'B000072XRF',
+          p_no: PNo,
         },
         {
           headers: {
@@ -141,26 +132,6 @@ export default function ProductDetail(props) {
   };
 
   console.log(productInfo['p_description']);
-
-  // const CardList = row_num.map((card, idx) => {
-  //   return ([
-  //     <div className="scrap_card card pointer" key={idx}>
-  //       <Card.Img variant="scrap" src={myCardList.length > card ? (myCardList[card]['src']) : ("")} data-idx={card} style={myCardList.length > card ? { height: '37.7vw' } : { }} onClick={onClickDeleteHandler}/>
-  //     </div>
-  //   ]);
-  // });
-
-  // const keywordList = kList.map((word, idx) => {
-  //   return [
-  //     <div
-  //       key={idx}
-  //       className="rounded-xl text-sm py-2 px-3 bg-purple-500"
-  //       style={{ fontFamily: 'neodgm', color: 'white' }}
-  //     >
-  //       {word}
-  //     </div>,
-  //   ];
-  // });
 
   return (
     <div style={{ paddingBottom: '65px' }}>
@@ -232,7 +203,7 @@ export default function ProductDetail(props) {
                 }}
                 onClick={() => {
                   {
-                    if (userNo === 0) {
+                    if (!accessToken) {
                       alert('Please login to continue.');
                     } else {
                       alert('The item is added to the scrapbook.');
