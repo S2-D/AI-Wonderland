@@ -62,11 +62,7 @@ function App() {
           {/* 스크랩북 */}
           <PrivateRoute component={ScrapbookPage} path="/scrapbook" exact />
           {/* 출석체크 */}
-          <PrivateRoute
-            component={Attendance}
-            path="/mypage/attendance"
-            exact
-          />
+          <PrivateRoute component={Attendance} path="/attendance" exact />
         </Switch>
       </div>
     </Router>
