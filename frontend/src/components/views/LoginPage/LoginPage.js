@@ -127,7 +127,7 @@ function LoginPage({ setLoginUserId }) {
             >
               <div className="logoBox">
                 <img
-                  src="./images/logo_white.png"
+                  src="https://aiwonderland-back.herokuapp.com/static/images/logo_white.png"
                   className="loginLogo"
                   style={{
                     width: '100px',

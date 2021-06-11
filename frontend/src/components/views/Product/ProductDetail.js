@@ -12,7 +12,7 @@ import Toolbar from '../Toolbar/Toolbar';
 import ProductDetailRecommend from './ProductDetailRecommend';
 
 import 'tailwindcss/tailwind.css';
-import styledproductDetail from './StyledproductDetail.css';
+import styledproductDetail from './styledproductDetail.css';
 import Avatar from 'boring-avatars'; // 아바타 자동 생성 라이브러리
 import avatarName from './ProductDetailAvatarName';
 
