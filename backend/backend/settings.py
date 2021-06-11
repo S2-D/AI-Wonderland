@@ -9,8 +9,6 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import os
-import datetime
 
 from pathlib import Path
 
@@ -27,7 +25,7 @@ SECRET_KEY = 'django-insecure-h9#v(rz7q57#*v8!-)x=$4hw64l8j*-3)@%yble$1f-kc0x0z)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -39,10 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'member',
-    'products',
-    'timegram',
 ]
 
 MIDDLEWARE = [
@@ -81,29 +75,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'mysql.cnf'),
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    ),
-}
-
-JWT_AUTH = {
-    'JWT_SECRET_KEY': SECRET_KEY, #Verify Signature의 secret key
-    'JWT_ALGORITHM': 'HS256', #암호화에 쓰이는 알고리즘
-    'JWT_ALLOW_REFRESH': True, #갱신 허용 여부
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7), #기본 토큰 만료 제한
-    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28), #토큰 갱신 제한
-}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -123,14 +99,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'member.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Asia/Seoul'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
