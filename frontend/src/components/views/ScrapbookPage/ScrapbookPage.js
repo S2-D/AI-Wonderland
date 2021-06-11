@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
-import { Container, Form, Card, FormControl, Tabs, Tab, Image, Modal, Button } from 'react-bootstrap'
+import { Container, Card, FormControl, Tabs, Tab, Image, Modal } from 'react-bootstrap'
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import GNB from '../GNB/GNB';
+import Toolbar from '../Toolbar/Toolbar';
 import "./Scrapbook.css"
 
 // Import Swiper styles
@@ -37,12 +38,11 @@ function ScrapbookPage() {
   const [timegramModalShow, setTimegramModalShow] = useState(false);
 
   const access_token = localStorage.getItem('access_token');
-  const url = 'http://127.0.0.1:8000'
 
   // 1. 내 스크랩북 리스트 가져오기
   useEffect(() => {
     
-    axios.get(url + '/api/scrapbook/scrapbooklist/', {
+    axios.get(baseUrl + '/scrapbook/scrapbooklist/', {
       headers: {
         Authorization: `jwt ${access_token}`,
       },
@@ -58,7 +58,6 @@ function ScrapbookPage() {
   useEffect(() => {
     
     for (let i = 0; i < itemlist.length; i++) {
-      
       if (itemlist[i].p_no.pcategory_code == 1) {
         setTopList(topList => [...topList, itemlist[i]])
       } else if (itemlist[i].p_no.pcategory_code == 2) {
@@ -89,7 +88,6 @@ function ScrapbookPage() {
     } else {
       return alert("더이상 추가할 수 없다")
     }
-
   }
   
   // 8. 카드 한번 더 누르면 삭제할지 물어보고 삭제한다고 하면 삭제하기 (+전체금액 마이너스 해야함)
@@ -97,9 +95,9 @@ function ScrapbookPage() {
     
     e.preventDefault();
     const idx = parseInt(e.target.dataset.idx)
+
     try {
       if (confirm("삭제할거니?")){
-      
         setTotalPrice(totalPrice - parseInt(myCardList[idx]['price']))
         myCardList.splice(idx, 1)
         setMyCardList(myCardList);
@@ -112,8 +110,6 @@ function ScrapbookPage() {
     } finally {
       console.log(totalPrice)
     }
-
-    
   }
 
   // 9. Post on Timegram 버튼 누르면 모달 열기
@@ -134,43 +130,42 @@ function ScrapbookPage() {
     for (let i = 0; i < myCardList.length; i++) {
       p_no.push(myCardList[i]["p_no"])
     }
+    console.log(p_no)
 
     const body = {
       title: e.target.dataset.title,
-      p_no : p_no,
+      p_list : p_no,
       total_price: totalPrice,
-      mem: 3 // todo : api 수정되면 뺄 것.
-  }
+    }
     console.log("post 값 ", body)
-    // axios.post(url + '/api/timegram/timegramCreate/', body, {
-    //   headers: {
-    //       Authorization: `jwt ${access_token}`
-    //   }
-    // }).then((res) => {
-    //   console.log(res.data)
+    axios.post(baseUrl + '/timegram/TimegramCreate/', body, {
+    // axios.post(url + '/timegram/timegramCreate/', body, {
+      headers: {
+          Authorization: `jwt ${access_token}`
+      }
+    }).then((res) => {
+      console.log(res.data)
       
       setTotalPrice(0)
       setTmp([])
 
       alert("등록했다")
       setTimegramModalShow(false)
-      // window.location = "/timegram"
-    // }).catch((error) => {
-    //     console.log(error.response)
-    //     console.log(error.request)
-    //     // console.log(error.response.message)
-    // })
+      window.location = "/timegram"
+    }).catch((error) => {
+        console.log(error.response)
+        console.log(error.request)
+    })
   }
 
   // 11. 삭제버튼 누르면 스크랩북 리스트에서 삭제
   const onClickDeleteItemHandler = (e) => {
     e.preventDefault();
-    console.log(e.target.dataset.id)
 
     if (confirm("니 스크랩북에서 삭제할거니?")){
-      alert("스크랩북에서 삭제")
+      alert("스크랩북에서 삭제됐다")
       
-      axios.delete(url + `/api/scrapbook/scrapbooklist/${e.target.dataset.id}`, {
+      axios.delete(baseUrl + `/scrapbook/scrapbooklist/${e.target.dataset.id}`, {
         headers: {
             Authorization: `jwt ${access_token}`
         }
@@ -195,26 +190,18 @@ function ScrapbookPage() {
     return (
       <Modal size="lg" show={modalShow} centered onHide={() => setModalShow(false)}>
         <Modal.Header className="modal-header-custom">
-            <h2 onClick={() => setModalShow(false)}>x</h2>
+            <h2 onClick={() => setModalShow(false)}><i className="fas fa-times pointer" ></i></h2>
+            
         </Modal.Header>
         <Modal.Body>
           <h2>Adding this item</h2>
           <h2>to your look?</h2>
           <div style={{ width: "30vw", textAlign: 'center', display: 'contents'}}>
-            <Image src={tmp['src']} style={{ height: '200px', width: 'auto'}}/>
+            <Image src={tmp['src']} style={{ height: '80vw', width: 'auto', margin: '2rem 0.5rem'}}/>
           </div>
             <p>{tmp['name']}</p>
             <p>${tmp['price']}</p>
-          <button
-              type="button"
-              className="bg-purple-700 hover:bg-purple-800 text-lg text-white font-semibold rounded-lg"
-              style={{
-                fontFamily: 'neodgm',
-                width: '80px',
-                height: '35px',
-              }}
-              onClick={onAddHandler}
-            >ADD</button>
+            <button type="button" className="scrap_btn" style={{ fontSize : '1rem'}}onClick={onAddHandler}>ADD</button>
         </Modal.Body>
       </Modal>
     );
@@ -231,7 +218,7 @@ function ScrapbookPage() {
     return (
       <Modal size="lg" show={timegramModalShow} centered onHide={() => setTimegramModalShow(false)} >
         <Modal.Header className="modal-header-custom">
-          <h2 onClick={() => setTimegramModalShow(false)}>x</h2>
+          <h2 onClick={() => setTimegramModalShow(false)}><i className="fas fa-times pointer" ></i></h2>
         </Modal.Header>
         <Modal.Body>
           {/* Todo : text-align check */}
@@ -240,22 +227,11 @@ function ScrapbookPage() {
             <h2>name this look?</h2>
             {/* Todo : input bgc check background-color: rgba( 255, 255, 255, 0)} */}
             <div style={{marginTop: '2rem', marginBottom: '2rem', textAlign: "center", display: 'block'}}>
-              <FormControl style={{margin: '1rem auto', textAlign: "center", width: "50%"}} type="text" placeholder="Enter Timegram Title" onChange={onChangeTitleHandler} />
+              <FormControl style={{margin: '1rem auto', textAlign: "center", width: "75%"}} type="text" placeholder="Enter Timegram Title" onChange={onChangeTitleHandler} />
             </div>
-            <h4>Look Cost : ${totalPrice}</h4>
-            <h4>Available Balance : $</h4>
+            <p>Look Cost : ${totalPrice}</p>
           </div>
-          <button
-              type="button"
-              className="bg-purple-700 hover:bg-purple-800 text-lg text-white font-semibold rounded-lg"
-              style={{
-                fontFamily: 'neodgm',
-                width: '80px',
-                height: '35px',
-              }}
-              data-title={timegramTitle}
-              onClick={onAddTimegramHandler}
-            >POST</button>
+          <button type="button" className="scrap_btn" style={{ fontSize : '1rem'}} data-title={timegramTitle} onClick={onAddTimegramHandler}>POST</button>
         </Modal.Body>
       </Modal>
     );
@@ -265,20 +241,11 @@ function ScrapbookPage() {
   const myTopList = topList.map((item, idx) => {
     return ([
       <SwiperSlide key={idx} >
-        <div style={{textAlign: "center"}}>
-          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw'}}/>
-          <p>${item.p_no.p_price}</p>
-          <button
-              type="button"
-              className="bg-purple-700 hover:bg-purple-800 text-lg text-white font-semibold rounded-lg"
-              data-id={item.id}
-              style={{
-                fontFamily: 'neodgm',
-                width: '30px',
-                height: '25px',
-              }}
-              onClick={onClickDeleteItemHandler}
-            >x</button>
+        <div className="scrap_slider">
+          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
+          <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
+          {/* <button type="button" className="scrap_btn" data-id={item.id} onClick={onClickDeleteItemHandler}>X</button> */}
+          
         </div>
       </SwiperSlide>
     ]);
@@ -286,9 +253,9 @@ function ScrapbookPage() {
   const myShoesList = shoesList.map((item, idx) => {
     return ([
       <SwiperSlide key={idx}>
-        <div style={{textAlign: "center"}}>
-          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw'}}/>
-          <p>${item.p_no.p_price}</p>
+        <div className="scrap_slider">
+          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
+          <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
         </div>
       </SwiperSlide>
     ]);
@@ -297,9 +264,9 @@ function ScrapbookPage() {
   const myBottomList = bottomList.map((item, idx) => {
     return ([
       <SwiperSlide key={idx}>
-        <div style={{textAlign: "center"}}>
-          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw'}}/>
-          <p>${item.p_no.p_price}</p>
+        <div className="scrap_slider">
+          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
+          <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
         </div>
       </SwiperSlide>
     ]);
@@ -308,55 +275,47 @@ function ScrapbookPage() {
   const myEtcList = etcList.map((item, idx) => {
     return ([
       <SwiperSlide key={idx}>
-        <div style={{textAlign: "center"}}>
-          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw'}}/>
-          <p>${item.p_no.p_price}</p>
+        <div className="scrap_slider">
+          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
+          <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
         </div>
       </SwiperSlide>
     ]);
   });
 
+  const row_num = [0, 1, 2]
+  const row_num2 = [3, 4, 5]
+  const CardList = row_num.map((card, idx) => {
+    return ([
+      <div className="scrap_card card pointer" key={idx}>
+        <Card.Img variant="scrap" src={myCardList.length > card ? (myCardList[card]['src']) : ("")} data-idx={card} style={myCardList.length > card ? { height: '37.7vw' } : { }} onClick={onClickDeleteHandler}/>
+      </div>
+    ]);
+  });
+
+  const CardList2 = row_num2.map((card, idx) => {
+    return ([
+      <div className="scrap_card card pointer" key={idx}>
+        <Card.Img variant="scrap" src={myCardList.length > card ? (myCardList[card]['src']) : ("")} data-idx={card} style={myCardList.length > card ? { height: '37.7vw' } : { }} onClick={onClickDeleteHandler}/>
+      </div>
+    ]);
+  });
+  
   return (
     <>
-    {/* <GNB /> */}
+    <GNB />
     <Container className="main_container">
-      <img src="https://drive.google.com/uc?export=download&id=1R1jZGiCoehKJpT65QSOKAW_jarwRkmpX"></img>
         <div className="md_row">
-          <div className="card">
-            <Card.Img variant="top" src={myCardList.length > 0 ? (myCardList[0]['src']) : ("")} data-idx={0} onClick={onClickDeleteHandler}/>
-          </div>
-          <div className="card">
-            <Card.Img variant="top" src={myCardList.length > 1 ? (myCardList[1]['src']) : ("")} data-idx={1} onClick={onClickDeleteHandler}/>
-          </div>
-          <div className="card">
-            <Card.Img variant="top" src={myCardList.length > 2 ? (myCardList[2]['src']) : ("")} data-idx={2} onClick={onClickDeleteHandler}/>
-          </div>
+          {CardList}
         </div>
         <div className="md_row">
-          <div className="card">
-            <Card.Img variant="top" src={myCardList.length > 3 ? (myCardList[3]['src']) : ("")} data-idx={3} onClick={onClickDeleteHandler}/>
-          </div>
-          <div className="card">
-            <Card.Img variant="top" src={myCardList.length > 4 ? (myCardList[4]['src']) : ("")} data-idx={4} onClick={onClickDeleteHandler}/>
-          </div>
-          <div className="card">
-            <Card.Img variant="top" src={myCardList.length > 5 ? (myCardList[5]['src']) : ("")} data-idx={5} onClick={onClickDeleteHandler}/>
-          </div>
+          {CardList2}
         </div>
         <AddListModal onHide={() => setModalShow(false)} />
         <AddTimegramModal onHide={() => setTimegramModalShow(false)} />
         <div className="price_row">
-          <h3>${totalPrice}</h3>
-          <button
-              type="button"
-              className="bg-purple-700 hover:bg-purple-800 text-lg text-white font-semibold rounded-lg"
-              style={{
-                fontFamily: 'neodgm',
-                width: '80px',
-                height: '35px',
-              }}
-              onClick={onClickResetHandler}
-            >Reset</button>
+          <p>${totalPrice}</p>
+          <button type="button" className="scrap_btn" onClick={onClickResetHandler}>Reset</button>
         </div>
         
         <div className="tab_row"> {/* 4. tab 4개로 분리 */}
@@ -385,24 +344,16 @@ function ScrapbookPage() {
                 <Tab eventKey="etclist" title="Etc" >
                   <div className="tab-border">
                     <Swiper slidesPerView={2} spaceBetween={15} autoHeight={true} pagination={{ "dynamicBullets": true, "clickable": true}} observer = {true} observeParents={true} className="etc">
+                      {myEtcList}
                     </Swiper>
                   </div>
                 </Tab>
               </Tabs>
         </div>
-        <div className="md_row" >
-          <button
-              type="button"
-              className="bg-purple-700 hover:bg-purple-800 text-lg text-white font-semibold rounded-lg"
-              style={{
-                fontFamily: 'neodgm',
-                width: '270px',
-                height: '35px',
-                marginBottom: '1rem'
-              }}
-              onClick={onClickTimegramModalHandler}
-            >Post on Timegram</button>
+        <div className="bottom_row" >
+          <button type="button" style={{ width: '80vw', backgroundColor: '#187fd9'}} className="scrap_btn" onClick={onClickTimegramModalHandler}>Post on Timegram</button>
         </div>
+        <Toolbar />
     </Container>
     </>
     );

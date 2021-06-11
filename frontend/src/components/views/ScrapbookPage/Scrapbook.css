@@ -1,19 +1,38 @@
+.pointer { cursor: pointer; }
+.main_container { --bs-gutter-x: 0; min-width: 100% !important; margin: 1rem 1rem 1rem 1rem; font-family: 'sb_pixel_7'; font-size: 2rem;} /* color: #14C5D9;} */
 
-.pointer {cursor: pointer}
-.main_container { --bs-gutter-x: 0; min-width: 100% !important; margin: 1rem 1rem 1rem 1rem; } /* color: #14C5D9;} */
+.main_container > div > p {
+  margin-bottom: 0;
+}
 
 /* .top_row { display: flex; margin: 2rem 1rem 0.5rem 1rem !important; justify-content: space-around; align-items: stretch; } 위 오른쪽 아래 왼쪽 */
 .md_row { display: flex; justify-content: space-evenly; align-items: stretch; margin-bottom: 1rem;}
-.price_row { display: block; text-align: center; align-items: stretch; margin-bottom: 1rem; font-family: 'light_p';}
-.tab_row { margin-left: 0.5rem; margin-right: 0.5rem; font-family: 'light_p';}
+.price_row { display: block; text-align: center; align-items: stretch; margin-bottom: 1rem; }
+.tab_row { margin-left: 0.5rem; margin-right: 0.5rem; }
+.bottom_row { display: flex; justify-content: space-evenly; align-items: stretch; margin-bottom: 1rem; padding-bottom: 75px;}
 
-.card {
+.md_row > .scrap_card {
   border-radius: 0 !important;
   width: 30vw;
-  height: 35vw;
+  height: 38vw;
   background-color: #fff;
   background-clip: border-box;
+  /* border: 1px solid rgba(20, 161, 217, 1); */
 }
+
+.scrap_btn {
+  font-size: 2rem;
+  background-color: #14A1D9;
+  color: #fff;
+  /* font-family: 'light_p'; */
+  /* border: 1px solid #187fd9; */
+  padding: 0rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+/* .card-img-scrap {
+  height: 37.5vw;
+} */
 
 .tab-pane {
   height: 100% !important;
@@ -35,9 +54,9 @@
 .modal-content {
   background-color: rgba( 255, 255, 255, 0) !important;
   border: 1px solid rgba(0, 0, 0, 0) !important;
-  font-family: 'light_p';
   text-align: center;
   color: white;
+  font-family: 'light_p'; 
 }
 
 .modal-body > div > p {
@@ -57,20 +76,23 @@
 
 .tab-border > .swiper-container {
   width: 100%;
-  height: 55vw;
-  margin-bottom: 1rem;
+  height: 73vw;
   padding-top: 1rem;
   box-shadow: none;
 }
 
 .nav-tabs .nav-link {
-  border-radius: 0 !important;
+  border-radius: 0;
+  padding: 0rem 0.5rem;
+  color: black;
 }
 
-.nav-link{
-  color: black !important;
-}
-
-.nav-link.active {
+.nav-tabs .nav-link.active {
   color: #14A1D9 !important;
+}
+
+.scrap_slider > p {
+  text-align: "center";
+  margin-bottom: 0;
+  font-size: 2rem;
 }
