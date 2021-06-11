@@ -31,7 +31,7 @@ export default function TimegramCard(props) {
     }
 
     setProducts(list);
-  }, []);
+  }, [props]);
 
   return (
     <div>

@@ -11,7 +11,7 @@ import TimegramCard from './TimegramCard.js';
 import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
 
-function TimegramPage() {
+function MyLookbook() {
   // -dt_created : 최신 순 , -total_like : 좋아요 순, total_price :낮은 가격순, -total_price : 높은 가격순
   const [orderingValue, setOrderingValue] = useState('-dt_created');
   const orders = [
@@ -20,17 +20,13 @@ function TimegramPage() {
     { id: 3, name: 'Price: High-Low', value: '-total_price' },
     { id: 4, name: 'Price: Low-High', value: 'total_price' },
   ];
-  const timegramOrderUrl = `${baseUrl}/timegram/timegramList/?page=1&ordering=${orderingValue}`;
-
-  // Categories
-  const categoryUrl = `${baseUrl}/products/categotylist/`;
-  const [categories, setCategories] = useState([]);
+  const timegramOrderUrl = `${baseUrl}/timegram/MyLookbook/?page=1&ordering=${orderingValue}`;
 
   // Timegram
   const [timegramPage, setTimegramPage] = useState(1);
   const [timegramNextPage, setTimegramNextPage] = useState(1);
   const [timegramInfo, setTimegramInfo] = useState([]);
-  const timegramInfoUrl = `${baseUrl}/timegram/timegramList/?page=${timegramPage}&ordering=${orderingValue}`;
+  const timegramInfoUrl = `${baseUrl}/timegram/MyLookbook/?page=${timegramPage}&ordering=${orderingValue}`;
 
   const [loading, setLoading] = useState(false);
   const [isLike, setIsLike] = useState(false);
@@ -86,25 +82,6 @@ function TimegramPage() {
   };
 
   useEffect(() => {
-    async function getCategoriesList() {
-      try {
-        const response = await axios.get(categoryUrl);
-
-        if (response.status === 200) {
-          setCategories(response.data.results);
-        } else if (response.status === 404) {
-          console.log('404 진입' + response);
-          alert('Fail to load the categoty data');
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    getCategoriesList();
-  }, []);
-
-  useEffect(() => {
     async function getTimegramInfo() {
       try {
         const access_token = localStorage.getItem('access_token');
@@ -156,60 +133,13 @@ function TimegramPage() {
         {loading ? (
           <div>
             <div className="topItems_Tops">
+              <h2>My Lookbook</h2>
               <div
                 style={{
-                  marginTop: '50px',
                   marginBottom: '50px',
                   textAlign: 'center',
                 }}
               >
-                <ul
-                  style={{
-                    paddingRight: '32px',
-                  }}
-                >
-                  {categories.map((category, id) => (
-                    <li
-                      key={id}
-                      className="timegram-list-category-btn"
-                      name={category.pcategory_name}
-                      value={category.pcategory_code}
-                      onClick={(e) => {
-                        console.log(e.target.value);
-                      }}
-                      style={{
-                        display: 'inline-flex',
-                        float: 'center',
-                        padding: '5px',
-                        listStyle: 'none',
-                        height: '26px',
-                        fontWeight: '700',
-                      }}
-                    >
-                      <a
-                        style={{
-                          textDecoration: 'none',
-                        }}
-                        href={category.pcategory_code}
-                      >
-                        {category.pcategory_name}
-                      </a>
-                    </li>
-                  ))}
-                  <li
-                    className="product-list-timegram-btn"
-                    style={{
-                      display: 'inline-flex',
-                      float: 'center',
-                      padding: '5px',
-                      listStyle: 'none',
-                      height: '26px',
-                      fontWeight: '700',
-                    }}
-                  >
-                    Timegram
-                  </li>
-                </ul>
                 <DropdownButton
                   title="Sort by"
                   style={{
@@ -234,9 +164,6 @@ function TimegramPage() {
                   ))}
                 </DropdownButton>
               </div>
-              <h2>Timegram</h2>
-              <p className="subAd">Explore the Timegram.</p>
-
               {timegramInfo.map((timegram, idx) => (
                 <div key={idx} style={{ marginBottom: '80px' }}>
                   <ul className="item_box">
@@ -328,4 +255,4 @@ function TimegramPage() {
   );
 }
 
-export default TimegramPage;
+export default MyLookbook;

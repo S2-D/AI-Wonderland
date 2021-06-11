@@ -1,3 +1,45 @@
+@font-face {
+  font-family: light_p_7;
+  src: url(../../../fonts/light_pixel-7.ttf);
+}
+
+@font-face {
+  font-family: sb_pixel_7;
+  src: url(../../../fonts/small_bold_pixel-7.ttf);
+}
+
+@font-face {
+  font-family: backto_1982;
+  src: url(../../../fonts/BACKTO1982.TTF);
+}
+
+@font-face {
+  font-family: mini_pixel_7;
+  src: url(../../../fonts/mini_pixel-7.ttf);
+}
+
+
+.timegram-list-category-btn {
+  font-family: sb_pixel_7;
+  font-size: 27px;
+  color: #187fd9;
+}
+
+.timegram-list-category-btn:hover {
+  color: tomato;
+  font-weight: 400;
+}
+
+.timegram-list-timegram-btn {
+  font-family: sb_pixel_7;
+  font-size: 27px;
+  color: #14a1d9;
+}
+
+
+
+
+
 .btn_like {
   margin: 100px auto;
   display: block;
@@ -82,4 +124,9 @@
 
 .floatR {
   float: right;
+}
+
+.dropdown-btn {
+  border-radius: 0.2rem;
+  font-family: sb_pixel_7;
 }

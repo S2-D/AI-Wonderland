@@ -85,7 +85,7 @@ function MyPage() {
               style={iconStyle}
             />
             <Link
-              to="/"
+              to="/myLookbook"
               style={textStyle}
               onMouseOver={changeBackground}
               onMouseLeave={changeBackgroundOriginal}

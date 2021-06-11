@@ -12,6 +12,7 @@ import Intro from './components/views/Intro/Intro';
 import MyPage from './components/views/MyPage/MyPage';
 import Attendance from './components/views/Attendance/Attendance';
 import ScrapbookPage from './components/views/ScrapbookPage/ScrapbookPage';
+import MyLookbook from './components/views/TimegramPage/MyLookbook';
 
 import 'bootstrap/dist/css/bootstrap.css';
 // 최상위 컴포넌트에 적용해주면 일괄 적용 가능함
@@ -43,13 +44,15 @@ function App() {
           {/* 상품 리스트 페이지 연결  */}
           <PublicRoute component={ProductList} path="/productList" exact />
           {/* 타임그램 페이지 연결 */}
-          <PublicRoute component={TimegramPage} path="/timegram" exact />
+          <Route component={TimegramPage} path="/timegram" exact />
           {/* 검색 페이지 연결 */}
-          <PublicRoute component={SearchPage} path="/search" exact />
+          <Route component={SearchPage} path="/search" exact />
           {/* 상품 상세 페이지 연결 */}
           <PublicRoute component={ProductDetail} path="/productDetail" exact />
           {/* 마이페이지 */}
-          <Route component={MyPage} path="/mypage" exact />
+          <PrivateRoute component={MyPage} path="/mypage" exact />
+          {/* 나의 룩북 */}
+          <PrivateRoute component={MyLookbook} path="/myLookbook" exact />
           {/* 스크랩북 */}
           <PrivateRoute component={ScrapbookPage} path="/scrapbook" exact />
           {/* 출석체크 */}
