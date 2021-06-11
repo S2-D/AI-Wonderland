@@ -1,93 +1,28 @@
 import React from 'react';
 
+import styledProductListCard from './styledProductListCard.css';
+
 export default function ProductListDropDown() {
   return (
-    <div class="relative inline-block text-left">
-      <div>
-        <button
-          type="button"
-          class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
-          id="menu-button"
-          aria-expanded="true"
-          aria-haspopup="true"
-        >
-          Options
-          {/* <!-- Heroicon name: solid/chevron-down --> */}
+    <div className="group inline-block">
+      <button className="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center max-w-32">
+        <span className="pr-1 font-semibold flex-1">Dropdown</span>
+        <span>
           <svg
-            class="-mr-1 ml-2 h-5 w-5"
+            className="fill-current h-4 w-4 transform group-hover:-rotate-180
+        transition duration-150 ease-in-out"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
-            fill="currentColor"
-            aria-hidden="true"
           >
-            <path
-              fill-rule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            />
+            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
           </svg>
-        </button>
-      </div>
-
-      {/* <!--
-    Dropdown menu, show/hide based on menu state.
-
-    Entering: "transition ease-out duration-100"
-      From: "transform opacity-0 scale-95"
-      To: "transform opacity-100 scale-100"
-    Leaving: "transition ease-in duration-75"
-      From: "transform opacity-100 scale-100"
-      To: "transform opacity-0 scale-95"
-  --> */}
-      <div
-        class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="menu-button"
-        tabindex="-1"
-      >
-        <div class="py-1" role="none">
-          {/* <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" --> */}
-          <a
-            href="#"
-            class="text-gray-700 block px-4 py-2 text-sm"
-            role="menuitem"
-            tabindex="-1"
-            id="menu-item-0"
-          >
-            Account settings
-          </a>
-          <a
-            href="#"
-            class="text-gray-700 block px-4 py-2 text-sm"
-            role="menuitem"
-            tabindex="-1"
-            id="menu-item-1"
-          >
-            Support
-          </a>
-          <a
-            href="#"
-            class="text-gray-700 block px-4 py-2 text-sm"
-            role="menuitem"
-            tabindex="-1"
-            id="menu-item-2"
-          >
-            License
-          </a>
-          <form method="POST" action="#" role="none">
-            <button
-              type="submit"
-              class="text-gray-700 block w-full text-left px-4 py-2 text-sm"
-              role="menuitem"
-              tabindex="-1"
-              id="menu-item-3"
-            >
-              Sign out
-            </button>
-          </form>
-        </div>
-      </div>
+        </span>
+      </button>
+      <ul className="bg-white border rounded-sm w-21 transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top">
+        <li className="rounded-sm px-2 py-1 hover:bg-gray-100">Programming</li>
+        <li className="rounded-sm px-2 py-1 hover:bg-gray-100">DevOps</li>
+        <li className="rounded-sm px-2 py-1 hover:bg-gray-100">Testing</li>
+      </ul>
     </div>
   );
 }

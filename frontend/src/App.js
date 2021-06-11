@@ -49,7 +49,11 @@ function App() {
           <PublicRoute component={ProductDetail} path="/productDetail" exact />
           {/* 마이페이지 */}
           <PrivateRoute component={MyPage} path="/mypage" exact />
-          <Route component={Attendance} path="/mypage/attendance" exact />
+          <PrivateRoute
+            component={Attendance}
+            path="/mypage/attendance"
+            exact
+          />
         </Switch>
       </div>
     </Router>

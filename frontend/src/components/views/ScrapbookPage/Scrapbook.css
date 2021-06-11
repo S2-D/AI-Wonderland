@@ -1,0 +1,76 @@
+
+.pointer {cursor: pointer}
+.main_container { --bs-gutter-x: 0; min-width: 100% !important; margin: 1rem 1rem 1rem 1rem; } /* color: #14C5D9;} */
+
+/* .top_row { display: flex; margin: 2rem 1rem 0.5rem 1rem !important; justify-content: space-around; align-items: stretch; } 위 오른쪽 아래 왼쪽 */
+.md_row { display: flex; justify-content: space-evenly; align-items: stretch; margin-bottom: 1rem;}
+.price_row { display: block; text-align: center; align-items: stretch; margin-bottom: 1rem; font-family: 'light_p';}
+.tab_row { margin-left: 0.5rem; margin-right: 0.5rem; font-family: 'light_p';}
+
+.card {
+  border-radius: 0 !important;
+  width: 30vw;
+  height: 35vw;
+  background-color: #fff;
+  background-clip: border-box;
+}
+
+.tab-pane {
+  height: 100% !important;
+}
+
+.modal-header-custom {
+  border-bottom: none !important;
+  display: block !important;
+  padding: 0 1.5rem 0 0 !important;
+}
+
+.modal-header > h2 {
+  float: right;
+  text-align: right !important;
+  color: white;
+}
+
+
+.modal-content {
+  background-color: rgba( 255, 255, 255, 0) !important;
+  border: 1px solid rgba(0, 0, 0, 0) !important;
+  font-family: 'light_p';
+  text-align: center;
+  color: white;
+}
+
+.modal-body > div > p {
+  color: white;
+}
+
+.modal-body > div > img {
+  display: inline;
+}
+
+.tab-border {
+  border-right: 1px solid rgb(222, 226, 230) !important;
+  border-bottom: 1px solid rgb(222, 226, 230) !important;
+  border-left: 1px solid rgb(222, 226, 230) !important;
+  margin-bottom: 1rem;
+}
+
+.tab-border > .swiper-container {
+  width: 100%;
+  height: 55vw;
+  margin-bottom: 1rem;
+  padding-top: 1rem;
+  box-shadow: none;
+}
+
+.nav-tabs .nav-link {
+  border-radius: 0 !important;
+}
+
+.nav-link{
+  color: black !important;
+}
+
+.nav-link.active {
+  color: #14A1D9 !important;
+}
