@@ -3,11 +3,13 @@ import axios from 'axios';
 import baseUrl from '../../../url/http';
 import './Timegram.css';
 
-import { Container, Row, Col, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Dropdown, DropdownButton } from 'react-bootstrap';
+import { Row, Spinner } from 'react-bootstrap';
 
 import TimegramCard from './TimegramCard.js';
+
+import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
-import Compass from '../GNB/Compass';
 
 function TimegramPage() {
   // -dt_created : 최신 순 , -total_like : 좋아요 순, total_price :낮은 가격순, -total_price : 높은 가격순
@@ -36,7 +38,7 @@ function TimegramPage() {
   const onClickLike = (e) => {
     const access_token = localStorage.getItem('access_token');
     if (access_token == null) {
-      alert('Login is required!!');
+      alert('Please login to continue.');
       return;
     }
 
@@ -74,7 +76,7 @@ function TimegramPage() {
         });
     } catch (error) {
       if (error.message.slice(-3) == 401) {
-        alert('You must be logged in to click the like button!!');
+        alert('Please login to continue.');
       }
     }
   };
@@ -149,142 +151,141 @@ function TimegramPage() {
 
   return (
     <>
-      <Compass />
-      <Container
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Row
-          style={{
-            marginTop: '20px',
-            marginBottom: '20px',
-          }}
-        >
-          <Col md="auto" sm="auto" xs="auto">
-            {categories.map((category, id) => (
-              <li
-                key={id}
-                name={category.pcategory_name}
-                value={category.pcategory_code}
-                onClick={(e) => {
-                  console.log(e.target.value);
-                }}
-                style={{
-                  display: 'inline-flex',
-                  float: 'center',
-                  padding: '5px',
-                  listStyle: 'none',
-                  height: '26px',
-                  fontSize: '13px',
-                  fontWeight: '700',
-                  color: '#999',
-                }}
-              >
-                <a href={category.pcategory_code}>{category.pcategory_name}</a>
-              </li>
-            ))}
-            <li
-              style={{
-                display: 'inline-flex',
-                float: 'center',
-                padding: '5px',
-                listStyle: 'none',
-                height: '26px',
-                fontSize: '13px',
-                fontWeight: '700',
-                color: '#999',
-              }}
-            >
-              Timegram
-            </li>
-            <DropdownButton
-              title="Sort by"
-              style={{
-                float: 'right',
-                padding: '10px',
-              }}
-              variant="Secondary"
-              size="sm"
-            >
-              {orders.map((order, id) => (
-                <Dropdown.Item
-                  key={id}
-                  name={order.name}
-                  value={order.value}
-                  onClick={(e) => {
-                    setOrderingValue(order.value);
-                  }}
-                >
-                  {order.name}
-                </Dropdown.Item>
-              ))}
-            </DropdownButton>
-          </Col>
-        </Row>
-        {!loading ? (
-          <Row className="justify-content-md-center p-5"></Row>
-        ) : (
+      <GNB />
+      <div className="mainItemcontainer">
+        {loading ? (
           <div>
-            <p className="p-1 text-sm font-semibold">Timegram</p>
-            {timegramInfo.map((timegram, idx) => (
-              <Row
-                key={idx}
+            <div className="topItems_Tops">
+              <div
                 style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  marginTop: '50px',
+                  marginBottom: '50px',
+                  textAlign: 'center',
                 }}
               >
-                <TimegramCard
-                  key={idx}
-                  id={timegram.id}
-                  title={timegram.title}
-                  p_no1={timegram.p_no1}
-                  p_no2={timegram.p_no2}
-                  p_no3={timegram.p_no3}
-                  p_no4={timegram.p_no4}
-                  p_no5={timegram.p_no5}
-                  p_no6={timegram.p_no6}
-                  total_like={timegram.total_like}
-                  total_price={timegram.total_price}
-                  mem_id={timegram.mem.id}
-                />
-                <div className="timegram_title">
-                  <span>{timegram.title}</span>
-                  <span className="floatR">
-                    <img
-                      className="flex content-center"
-                      src="./images/icon_img/coin_move.gif"
-                      className="coin_img"
-                      width="35px"
-                      style={{ display: 'inline', marginTop: '0px' }}
-                    />
-                    ${timegram.total_price}
-                  </span>
-                </div>
-
-                <button
-                  id={timegram.id}
-                  onClick={onClickLike}
-                  type="button"
-                  className={
-                    timegram.flag == true ? 'btn_like btn_unlike' : 'btn_like'
-                  }
+                <ul>
+                  {categories.map((category, id) => (
+                    <li
+                      key={id}
+                      name={category.pcategory_name}
+                      value={category.pcategory_code}
+                      onClick={(e) => {
+                        console.log(e.target.value);
+                      }}
+                      style={{
+                        display: 'inline-flex',
+                        float: 'center',
+                        padding: '5px',
+                        listStyle: 'none',
+                        height: '26px',
+                        fontSize: '13px',
+                        fontWeight: '700',
+                        color: '#999',
+                      }}
+                    >
+                      <a href={category.pcategory_code}>
+                        {category.pcategory_name}
+                      </a>
+                    </li>
+                  ))}
+                  <li
+                    style={{
+                      display: 'inline-flex',
+                      float: 'center',
+                      padding: '5px',
+                      listStyle: 'none',
+                      height: '26px',
+                      fontSize: '13px',
+                      fontWeight: '700',
+                      color: '#999',
+                    }}
+                  >
+                    Timegram
+                  </li>
+                </ul>
+                <DropdownButton
+                  title="Sort by"
+                  style={{
+                    float: 'right',
+                    paddingRight: '10px',
+                  }}
+                  variant="Secondary"
+                  size="sm"
                 >
-                  <span id={timegram.id} className="img_emoti">
-                    좋아요
-                  </span>
-                  <span id={timegram.id} className="like_span">
-                    {' '}
-                    +{timegram.total_like} like!
-                  </span>
-                </button>
-              </Row>
-            ))}
+                  {orders.map((order, id) => (
+                    <Dropdown.Item
+                      key={id}
+                      name={order.name}
+                      value={order.value}
+                      onClick={(e) => {
+                        setOrderingValue(order.value);
+                      }}
+                    >
+                      {order.name}
+                    </Dropdown.Item>
+                  ))}
+                </DropdownButton>
+              </div>
+              <h2>Timegram</h2>
+              <p className="subAd">Explore the Timegram.</p>
+
+              {timegramInfo.map((timegram, idx) => (
+                <div key={idx} style={{ marginBottom: '80px' }}>
+                  <ul className="item_box">
+                    <TimegramCard
+                      key={idx}
+                      id={timegram.id}
+                      title={timegram.title}
+                      p_no1={timegram.p_no1}
+                      p_no2={timegram.p_no2}
+                      p_no3={timegram.p_no3}
+                      p_no4={timegram.p_no4}
+                      p_no5={timegram.p_no5}
+                      p_no6={timegram.p_no6}
+                      total_like={timegram.total_like}
+                      total_price={timegram.total_price}
+                      mem_id={timegram.mem.id}
+                    />
+                  </ul>
+                  <div
+                    className="timegram_title"
+                    style={{ padding: '10px 20px 0 0' }}
+                  >
+                    <span>{timegram.title}</span>
+                    <span className="floatR img_price">
+                      <img
+                        className="flex content-center"
+                        src="./images/icon_img/coin_move.gif"
+                        className="coin_img"
+                        width="35px"
+                        style={{ display: 'inline', marginTop: '0px' }}
+                      />
+                      ${timegram.total_price}
+                    </span>
+                  </div>
+                  <div style={{ padding: '6px 10px 0', marginTop: '0px' }}>
+                    <button
+                      id={timegram.id}
+                      onClick={onClickLike}
+                      type="button"
+                      className={
+                        timegram.flag == true
+                          ? 'btn_like btn_unlike'
+                          : 'btn_like'
+                      }
+                    >
+                      <span id={timegram.id} className="img_emoti">
+                        좋아요
+                      </span>
+                      <span id={timegram.id} className="like_span">
+                        {' '}
+                        +{timegram.total_like} like!
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
             <div className="col-span-5 m-3 flex justify-center">
               {timegramNextPage === null ? null : (
                 <button
@@ -294,6 +295,7 @@ function TimegramPage() {
                     fontFamily: 'neodgm',
                     width: '180px',
                     height: '30px',
+                    marginBottom: '80px',
                   }}
                   onClick={loadMoreTimegram}
                 >
@@ -302,8 +304,17 @@ function TimegramPage() {
               )}
             </div>
           </div>
+        ) : (
+          <Row
+            className="justify-content-md-center p-5"
+            style={{ justifyContent: 'center' }}
+          >
+            <Spinner animation="border" role="status">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
+          </Row>
         )}
-      </Container>
+      </div>
       <Toolbar />
     </>
   );
