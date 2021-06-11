@@ -195,3 +195,8 @@ sketch
 # config
 config/*
 /frontend/src/url/http.js
+/backend/mysql.cnf
+/backend/nohup.out
+nohup.out
+frontend/yarn.lock
+yarn.lock

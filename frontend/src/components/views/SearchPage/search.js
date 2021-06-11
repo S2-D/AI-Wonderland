@@ -7,7 +7,7 @@ import Toolbar from '../Toolbar/Toolbar';
 import ProductListCard from '../Product/ProductListCard';
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
-import styledSearch from './searchStyle.css';
+import styledSearch from './styledSearch.css';
 
 export default function SearchPage() {
   // ordering -p_readcount : 조회 순, -p_price : 가격 순, -p_rank : 랭킹 순, -p_date : 등록일 순
