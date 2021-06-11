@@ -13,10 +13,8 @@ import baseUrl from '../../../url/http';
 import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
 import ProductListCard from './ProductListCard';
-import ProductCard from './ProductCard.js';
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
-import ProductListDropDown from './ProductListDropDown';
 
 export default function ProductList() {
   // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타

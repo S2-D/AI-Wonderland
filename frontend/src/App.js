@@ -5,7 +5,7 @@ import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import MainPage from './components/views/MainPage/MainPage';
 import TimegramPage from './components/views/TimegramPage/TimegramPage';
-import SearchPage from './components/views/SearchPage/search';
+import SearchPage from './components/views/SearchPage/Search';
 import ProductList from './components/views/Product/ProductList';
 import ProductDetail from './components/views/Product/ProductDetail';
 import Intro from './components/views/Intro/Intro';

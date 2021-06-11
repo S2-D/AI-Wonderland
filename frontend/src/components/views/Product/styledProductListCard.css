@@ -21,7 +21,7 @@
 .product-list-category-btn {
   font-family: sb_pixel_7;
   font-size: 27px;
-  color: #187fd9;
+  color: #1b1464;
 }
 
 .product-list-category-btn:hover {
@@ -32,7 +32,7 @@
 .product-list-timegram-btn {
   font-family: sb_pixel_7;
   font-size: 27px;
-  color: #14a1d9;
+  color: #1b1464;
 }
 
 .product-list-card {
@@ -72,7 +72,7 @@
   margin: 0.5rem;
   font-family: light_p_7;
   font-size: 10px;
-  color: #14a1d9;
+  color: #1b1464;
   display: inline-block;
   width: 100px;
   white-space: nowrap;
@@ -87,7 +87,7 @@
   margin-bottom: 0.2rem;
   padding: 0.2rem;
   width: 20%;
-  background-color: #14a1d9;
+  background-color: #187fd9;
   border-radius: 5rem;
 }
 
