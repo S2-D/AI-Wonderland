@@ -20,17 +20,17 @@ function Footer() {
             <li>
               <label>Contact</label>
               <span>
-                김나윤( lily.nayun.kim@gmail.com )
+                Nayun Kim: lily.nayun.kim@gmail.com
                 <br />
-                김정인( jungin3486@gmail.com )
+                Jungin Kim: jungin3486@gmail.com
                 <br />
-                배재욱( bae.jae.w@gmail.com )
+                Jaewook Bae: bae.jae.w@gmail.com
                 <br />
-                양혜진( dbdrmek00@gmail.com )
+                Hyejin Yang: dbdrmek00@gmail.com
                 <br />
-                신소담( damsoshin@gmail.com )
+                Sodam Shin: damsoshin@gmail.com
                 <br />
-                이슬기( ms.sseul@gmail.com )
+                Seulkee Lee: ms.sseul@gmail.com
               </span>
             </li>
           </ul>

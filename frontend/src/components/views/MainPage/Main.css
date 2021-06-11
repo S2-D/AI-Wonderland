@@ -1,9 +1,4 @@
 @font-face {
-  font-family: 'neodgm';
-  src: url('../../../fonts/neodgm_code.ttf');
-}
-
-@font-face {
   font-family: 'light_p';
   src: url('../../../fonts/light_pixel-7.ttf');
 }
@@ -13,16 +8,21 @@
   src: url('../../../fonts/small_bold_pixel-7.ttf');
 }
 
-.container h2 {
+.mainItemcontainer {
+  text-align: center;
+}
+
+.mainItemcontainer h2 {
   color: #14c5d9;
   font-family: 'light_p';
   padding: 10px 10px 0px 10px;
   font-size: 20px;
   margin-bottom: 0px;
   margin-top: 48px;
+  text-shadow: 0.5px 2px 2px #133e63;
 }
 
-.container .subAd {
+.mainItemcontainer .subAd {
   color: #14a1d9;
   font-family: 'light_p';
   font-size: 14px;
@@ -79,7 +79,7 @@ li.item {
 
 .curation_item .category_img .img_prdName {
   font-size: 18px;
-  font-family: 'neodgm';
+  font-family: 'sb_pixel';
   color: black;
   background-color: #ffffff;
   padding-left: 10px;
@@ -87,7 +87,7 @@ li.item {
 
 .curation_item .category_img .img_price {
   font-size: 18px;
-  font-family: 'neodgm';
+  font-family: 'sb_pixel';
   color: black;
   padding-left: 10px;
 }

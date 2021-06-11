@@ -15,6 +15,7 @@ import Attendance from './components/views/Attendance/Attendance';
 import 'bootstrap/dist/css/bootstrap.css';
 // 최상위 컴포넌트에 적용해주면 일괄 적용 가능함
 
+//URL 직접접근 막는 코드
 import PublicRoute from './url/lib/PublicRoute';
 import PrivateRoute from './url/lib/PrivateRoute';
 
@@ -48,12 +49,7 @@ function App() {
           <PublicRoute component={ProductDetail} path="/productDetail" exact />
           {/* 마이페이지 */}
           <PrivateRoute component={MyPage} path="/mypage" exact />
-          {/* Attendance */}
-          <PrivateRoute
-            component={Attendance}
-            path="/mypage/attendance"
-            exact
-          />
+          <Route component={Attendance} path="/mypage/attendance" exact />
         </Switch>
       </div>
     </Router>

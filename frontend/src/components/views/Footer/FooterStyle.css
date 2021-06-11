@@ -44,23 +44,23 @@
   display: inline-block;
   color: #5b5752;
   line-height: 1.67;
-  font-size: 14px;
-  font-family: 'neodgm';
+  font-size: 20px;
+  font-family: 'sb_pixel';
 }
 
 .copyright {
   padding: 13px 18px;
-  font-size: 15px;
+  font-size: 23px;
   color: #bbb8b5;
   line-height: 1.54;
-  font-family: 'neodgm';
+  font-family: 'sb_pixel';
 }
 
 .gitlab_address {
   position: relative;
   overflow: hidden;
   display: block;
-  font-size: 14px;
+  font-size: 20px;
   color: #5b5752;
   font-family: 'sb_pixel';
   line-height: 1.43;

@@ -33,11 +33,6 @@ export default function ProductDetail() {
   const reviewRef = useRef(null);
   const scrollToReview = () => reviewRef.current.scrollIntoView();
 
-  // const [Random, setRandom] = useState(0);
-  const random = Math.floor(Math.random() * avatarName.avatarName.length);
-  const [randomAvatarName, setrandomAvatarName] = useState('');
-  console.log('리뷰러 이름 랜덤 : ', randomAvatarName);
-
   // 아래는 다 예시 url임. 나중에 바꿔야 함.
   // useEffect 안에 setState 3개. 프론트 url에 asin 붙이는 거는 app.js에서 path 뒷부분에 스트링 붙이는 거 찾아보기!
   const productInfoUrl = `${baseUrl}/products/productlist/8037200124/`;
@@ -132,7 +127,10 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="flex my-4 justify-center font-mono">
+    <div
+      className="flex my-4 justify-center font-mono"
+      // style={{ fontFamily: 'light_p_7' }}
+    >
       <div className="flex flex-col gap-3 justify-center">
         {/* 상품 정보 (1) - 이미지, 브랜드, 리뷰 수, 상품명, 가격, 스크랩북에 추가 */}
         <div
@@ -339,12 +337,13 @@ export default function ProductDetail() {
               }}
             >
               <div className="col-span-1 pl-2 flex justify-start items-center">
-                {() =>
-                  setrandomAvatarName(random, avatarName.avatarName[random])
-                }
                 <Avatar
                   size={40}
-                  name={randomAvatarName}
+                  name={
+                    avatarName.avatarName[
+                      Math.floor(Math.random() * avatarName.avatarName.length)
+                    ]
+                  }
                   variant="beam"
                   colors={[
                     '#187FD9',

@@ -1,23 +1,21 @@
 .compass {
   background-color: #187fd9;
-  font-size: 13px;
   width: 100%;
   padding-left: 5px;
   font-family: 'light_p';
-  margin-bottom: -20px;
 }
 
-.compass a {
+.compass button {
   text-decoration: none;
   color: white;
+  position: relative;
+  margin-bottom: 0px;
+  font-size: 13px;
+  display: inline-block;
+  margin-right: 10px;
 }
 
-.compass a:hover {
-  color: #90eeff;
-  font-size: 110%;
-}
-
-.compass a:hover::after {
-  color: #ffffff;
-  font-size: 110%;
+.compass button:hover {
+  color: white;
+  text-shadow: 3px 2px 2px #1b1464;
 }
