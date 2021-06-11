@@ -11,6 +11,7 @@ import ProductDetail from './components/views/Product/ProductDetail';
 import Intro from './components/views/Intro/Intro';
 import MyPage from './components/views/MyPage/MyPage';
 import Attendance from './components/views/Attendance/Attendance';
+import ScrapbookPage from './components/views/ScrapbookPage/ScrapbookPage';
 
 import 'bootstrap/dist/css/bootstrap.css';
 // 최상위 컴포넌트에 적용해주면 일괄 적용 가능함
@@ -49,6 +50,9 @@ function App() {
           <PublicRoute component={ProductDetail} path="/productDetail" exact />
           {/* 마이페이지 */}
           <PrivateRoute component={MyPage} path="/mypage" exact />
+          {/* 스크랩북 */}
+          <PrivateRoute component={ScrapbookPage} path="/scrapbook" exact />
+          {/* 출석체크 */}
           <Route component={Attendance} path="/mypage/attendance" exact />
         </Switch>
       </div>
