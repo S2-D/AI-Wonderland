@@ -76,7 +76,11 @@ export default function Attendance() {
             </div>
             <div className="date-container">
               {attendanceInfo.map((record, idx) => (
-                <div key={idx} className="card mx-auto w-80 mb-2">
+                <div
+                  key={idx}
+                  id="attendanceLog"
+                  className="card mx-auto w-80 mb-2"
+                >
                   <div className="row align-items-center">
                     <div className="col-2">
                       <div className="m-2">
