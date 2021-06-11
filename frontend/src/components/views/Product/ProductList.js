@@ -18,7 +18,7 @@ import ProductListCard from './ProductListCard';
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
-export default function ProductList({ match }) {
+export default function ProductList(props) {
   // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타
   const [categoryValue, setCategoryValue] = useState(1);
 
@@ -40,7 +40,9 @@ export default function ProductList({ match }) {
   const history = useHistory();
 
   useEffect(() => {
-    const { categoryValue } = match.params;
+    // alert(match.params)
+    console.log(props.match.params['categoryValue'])
+    const { categoryValue } = props.match.params;
     if (categoryValue === undefined) {
       setCategoryValue(1);
     } else {
@@ -68,6 +70,32 @@ export default function ProductList({ match }) {
     getProductList();
   }, [productsUrl]);
 
+  useEffect(() => {
+    axios
+      .get(productsUrl)
+      .then((response) => {
+        setProducts(response.data.results);
+        setProductNextPage(response.data.next)
+      });
+    // async function getProductList() {
+    //   try {
+    //     const response = await axios.get(productsUrl);
+    //     // console.log('상품 데이터 ', response.data);
+    //     if (response.status === 200) {
+    //       setProducts(response.data.results);
+    //       setProductNextPage(response.data.next)
+          
+    //     } else if (response.status === 404) {
+    //       console.log('404 진입' + response);
+    //       alert('Fail to load the product data');
+    //     }
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+    // getProductList();
+  }, [categoryValue]);
+
   const onClickCallAPIHandler = (e) => {
     e.preventDefault();
     setPageNumber(pageNumber + 1);
@@ -83,33 +111,35 @@ export default function ProductList({ match }) {
           <div className="col-span-4 flex justify-center mt-2 gap-2">
             <button
               className="product-list-category-btn"
-              onClick={() => {
-                setCategoryValue(1);
-              }}
+              // onClick={() =>
+              //   history.push('/productlist/1')
+              // }
+              onClick={() => window.location = '/productlist/1'}
             >
               Tops
             </button>
             <button
               className="product-list-category-btn"
-              onClick={() => {
-                setCategoryValue(2);
-              }}
+              onClick={() => window.location = '/productlist/2'}
+              // onClick={() => history.push('/productlist/2')}
             >
               Bottoms
             </button>
             <button
               className="product-list-category-btn"
-              onClick={() => {
-                setCategoryValue(3);
-              }}
+              // onClick={() =>
+              //   history.push('/productlist/3')
+              // }
+              onClick={() => window.location = '/productlist/3'}
             >
               Shoes
             </button>
             <button
               className="product-list-category-btn"
-              onClick={() => {
-                setCategoryValue(4);
-              }}
+              // onClick={() => 
+              //   history.push('/productlist/4')
+              // }
+              onClick={() => window.location = '/productlist/4'}
             >
               Others
             </button>

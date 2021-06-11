@@ -446,11 +446,10 @@ function ScrapbookPage() {
       </div>,
     ];
   });
-  
+
   return (
     <>
       <GNB />
-      <img src="https://aiwonderland-back.herokuapp.com/api/static/images/logo.png"/>
       <Container className="main_container">
         <div className="md_row">{CardList}</div>
         <div className="md_row">{CardList2}</div>
