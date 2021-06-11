@@ -204,10 +204,10 @@ export default function ProductDetail(props) {
             <div className="col-span-2 pl-4" style={{ fontSize: '25px' }}>
               <img
                 className="flex content-center"
-                // src="https://ibb.co/zRPdB3J"
+                src="https://aiwonderland-back.herokuapp.com/static/images/icon_img/coin_move.gif"
                 className="coin_img"
-                width="35px"
-                style={{ display: 'inline', marginTop: '0px' }}
+                width="20px"
+                style={{ display: 'inline', margin: '5px' }}
               />
               <p
                 style={{
