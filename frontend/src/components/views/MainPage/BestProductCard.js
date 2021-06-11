@@ -114,33 +114,11 @@ export default function BestProductCard(props) {
         >
           {props.p_name}
         </Card.Text>
-        <Card.Link herf={props.p_toDetail} style={{ flex: '1' }}>
+        <Card.Link
+          href={`/product_detail/${props.p_toDetail}`}
+          style={{ flex: '1' }}
+        >
           {/* flex: '1'을 설정해주지 않으면 오른쪽 정렬 불가능함. 주의하기! */}
-          <button>
-            <img
-              src="./images/icon_img/product_cart_white.png"
-              style={{
-                float: 'right',
-                justifyContent: 'flexEnd',
-                marginRight: '0',
-                marginBottom: '0',
-                padding: '0.2rem',
-                width: '20%',
-                backgroundColor: '#14A1D9',
-                borderRadius: '5rem',
-              }}
-              onClick={() => {
-                {
-                  if (userNo === 0) {
-                    alert('Please login to continue.');
-                  } else {
-                    alert('The item is added to the scrapbook.');
-                    addtoScrapbook();
-                  }
-                }
-              }}
-            ></img>
-          </button>
         </Card.Link>
       </Card.Body>
     </Card>
