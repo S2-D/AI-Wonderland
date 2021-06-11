@@ -15,7 +15,7 @@ import ProductListCard from './ProductListCard';
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 
-export default function ProductList() {
+export default function ProductList({ match }) {
   // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타
   const [categoryValue, setCategoryValue] = useState(1);
 
@@ -33,6 +33,18 @@ export default function ProductList() {
   // 상품 데이터 받아오기
   const productsUrl = `${baseUrl}/products/productlist/?pcategory_code=${categoryValue}&ordering=${orderingValue}&page=${pageNumber}`;
   const [products, setProducts] = useState([]);
+<<<<<<< HEAD
+=======
+
+  useEffect(() => {
+    const { categoryValue } = match.params;
+    if (categoryValue === undefined) {
+      setCategoryValue(1);
+    } else {
+      setCategoryValue(categoryValue);
+    }
+  }, []);
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
 
   useEffect(() => {
     async function getProductList() {

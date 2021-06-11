@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import './Timegram.css';
 
 export default function TimegramCard(props) {
   const [products, setProducts] = useState([]);
@@ -27,38 +27,32 @@ export default function TimegramCard(props) {
 
     // 조회된 상품이 6개보다 작을경우
     while (list.length < 6) {
-      list.push({ p_no: '', p_image: '/images/rabbit_example.jpg' });
+      list.push({ p_no: '', p_image: './images/rabbit_example.png' });
     }
 
     setProducts(list);
-  }, []);
+  }, [props]);
 
   return (
-    <div>
-      <hr></hr>
+    <div className="col-span-4 flex flex-wrap justify-center m-3 gap-2">
       {products.map((product, idx) => (
-        <li key={idx} className="item">
+        <div key={idx} className="product-list-card">
           {product.p_no == '' ? (
-            <div className="category_img">
-              <div className="main_box_img">
-                <div className="label_box"></div>
-                <img src="./images/example/one.png" />
-              </div>
-            </div>
+            <img className="product-list-card-img" src={product.p_image} />
           ) : (
-            <Link
-              to={`/ProductDetail/${product.p_no}`}
-              className="curation_item"
+            <a
+              href={`/ProductDetail/${product.p_no}`}
+              style={{
+                height: '100%',
+                maxHeight: '150px',
+                width: '100%',
+                maxWidth: '130px',
+              }}
             >
-              <div className="category_img">
-                <div className="main_box_img">
-                  <div className="label_box"></div>
-                  <img src="./images/example/two.png" />
-                </div>
-              </div>
-            </Link>
+              <img className="product-list-card-img" src={product.p_image} />
+            </a>
           )}
-        </li>
+        </div>
       ))}
     </div>
   );

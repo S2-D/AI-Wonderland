@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
+<<<<<<< HEAD
 import {
   Container,
   Form,
@@ -17,6 +18,14 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import GNB from '../GNB/GNB';
 import './Scrapbook.css';
+=======
+import { Container, Card, FormControl, Tabs, Tab, Image, Modal } from 'react-bootstrap'
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import GNB from '../GNB/GNB';
+import Toolbar from '../Toolbar/Toolbar';
+import "./Scrapbook.css"
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
 
 // Import Swiper styles
 import 'swiper/swiper.min.css';
@@ -44,6 +53,7 @@ function ScrapbookPage() {
   const [timegramModalShow, setTimegramModalShow] = useState(false);
 
   const access_token = localStorage.getItem('access_token');
+<<<<<<< HEAD
   // const url = 'http://127.0.0.1:8000'
   const url = baseUrl;
   // 1. 내 스크랩북 리스트 가져오기
@@ -58,6 +68,20 @@ function ScrapbookPage() {
         console.log(res.data);
         setItemlist(res.data.data);
       });
+=======
+
+  // 1. 내 스크랩북 리스트 가져오기
+  useEffect(() => {
+    
+    axios.get(baseUrl + '/scrapbook/scrapbooklist/', {
+      headers: {
+        Authorization: `jwt ${access_token}`,
+      },
+    }).then((res) => {
+      console.log(res.data);
+      setItemlist(res.data.data)
+    })
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
     // .catch((error) => {
     //   setError(error);
     // });
@@ -106,6 +130,7 @@ function ScrapbookPage() {
     } else {
       return alert('더이상 추가할 수 없다');
     }
+<<<<<<< HEAD
   };
 
   // 8. 카드 한번 더 누르면 삭제할지 물어보고 삭제한다고 하면 삭제하기 (+전체금액 마이너스 해야함)
@@ -116,6 +141,19 @@ function ScrapbookPage() {
       if (confirm('삭제할거니?')) {
         setTotalPrice(totalPrice - parseInt(myCardList[idx]['price']));
         myCardList.splice(idx, 1);
+=======
+  }
+  
+  // 8. 카드 한번 더 누르면 삭제할지 물어보고 삭제한다고 하면 삭제하기 (+전체금액 마이너스 해야함)
+  const onClickDeleteHandler = (e) => {
+    e.preventDefault();
+    const idx = parseInt(e.target.dataset.idx)
+
+    try {
+      if (confirm("삭제할거니?")){
+        setTotalPrice(totalPrice - parseInt(myCardList[idx]['price']))
+        myCardList.splice(idx, 1)
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
         setMyCardList(myCardList);
 
         setCardIdx(cardIdx - 1);
@@ -126,7 +164,11 @@ function ScrapbookPage() {
     } finally {
       console.log(totalPrice);
     }
+<<<<<<< HEAD
   };
+=======
+  }
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
 
   // 9. Post on Timegram 버튼 누르면 모달 열기
   const onClickTimegramModalHandler = (e) => {
@@ -150,9 +192,11 @@ function ScrapbookPage() {
     for (let i = 0; i < myCardList.length; i++) {
       p_no.push(myCardList[i]['p_no']);
     }
+    console.log(p_no)
 
     const body = {
       title: e.target.dataset.title,
+<<<<<<< HEAD
       p_no: p_no,
       total_price: totalPrice,
       mem: 3, // todo : api 수정되면 뺄 것.
@@ -177,10 +221,36 @@ function ScrapbookPage() {
     //     // console.log(error.response.message)
     // })
   };
+=======
+      p_list : p_no,
+      total_price: totalPrice,
+    }
+    console.log("post 값 ", body)
+    axios.post(baseUrl + '/timegram/TimegramCreate/', body, {
+    // axios.post(url + '/timegram/timegramCreate/', body, {
+      headers: {
+          Authorization: `jwt ${access_token}`
+      }
+    }).then((res) => {
+      console.log(res.data)
+      
+      setTotalPrice(0)
+      setTmp([])
+
+      alert("등록했다")
+      setTimegramModalShow(false)
+      window.location = "/timegram"
+    }).catch((error) => {
+        console.log(error.response)
+        console.log(error.request)
+    })
+  }
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
 
   // 11. 삭제버튼 누르면 스크랩북 리스트에서 삭제
   const onClickDeleteItemHandler = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     console.log(e.target.dataset.id);
 
     if (confirm('니 스크랩북에서 삭제할거니?')) {
@@ -199,6 +269,23 @@ function ScrapbookPage() {
           // to-be : list reload
           window.location.reload();
         });
+=======
+
+    if (confirm("니 스크랩북에서 삭제할거니?")){
+      alert("스크랩북에서 삭제됐다")
+      
+      axios.delete(baseUrl + `/scrapbook/scrapbooklist/${e.target.dataset.id}`, {
+        headers: {
+            Authorization: `jwt ${access_token}`
+        }
+      }).then((res) => {
+        console.log(res.data)
+        // Todo
+        // as-is : page reload (list reload 하면 useEffect 때문에 itemlist 에 추가됨)
+        // to-be : list reload
+        window.location.reload();
+      })
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
     }
   };
 
@@ -217,11 +304,17 @@ function ScrapbookPage() {
         onHide={() => setModalShow(false)}
       >
         <Modal.Header className="modal-header-custom">
+<<<<<<< HEAD
           <h2 onClick={() => setModalShow(false)}>x</h2>
+=======
+            <h2 onClick={() => setModalShow(false)}><i className="fas fa-times pointer" ></i></h2>
+            
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
         </Modal.Header>
         <Modal.Body>
           <h2>Adding this item</h2>
           <h2>to your look?</h2>
+<<<<<<< HEAD
           <div
             style={{ width: '30vw', textAlign: 'center', display: 'contents' }}
           >
@@ -244,6 +337,14 @@ function ScrapbookPage() {
           >
             ADD
           </button>
+=======
+          <div style={{ width: "30vw", textAlign: 'center', display: 'contents'}}>
+            <Image src={tmp['src']} style={{ height: '80vw', width: 'auto', margin: '2rem 0.5rem'}}/>
+          </div>
+            <p>{tmp['name']}</p>
+            <p>${tmp['price']}</p>
+            <button type="button" className="scrap_btn" style={{ fontSize : '1rem'}}onClick={onAddHandler}>ADD</button>
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
         </Modal.Body>
       </Modal>
     );
@@ -265,7 +366,7 @@ function ScrapbookPage() {
         onHide={() => setTimegramModalShow(false)}
       >
         <Modal.Header className="modal-header-custom">
-          <h2 onClick={() => setTimegramModalShow(false)}>x</h2>
+          <h2 onClick={() => setTimegramModalShow(false)}><i className="fas fa-times pointer" ></i></h2>
         </Modal.Header>
         <Modal.Body>
           {/* Todo : text-align check */}
@@ -273,6 +374,7 @@ function ScrapbookPage() {
             <h2>How would you like to</h2>
             <h2>name this look?</h2>
             {/* Todo : input bgc check background-color: rgba( 255, 255, 255, 0)} */}
+<<<<<<< HEAD
             <div
               style={{
                 marginTop: '2rem',
@@ -291,10 +393,14 @@ function ScrapbookPage() {
                 placeholder="Enter Timegram Title"
                 onChange={onChangeTitleHandler}
               />
+=======
+            <div style={{marginTop: '2rem', marginBottom: '2rem', textAlign: "center", display: 'block'}}>
+              <FormControl style={{margin: '1rem auto', textAlign: "center", width: "75%"}} type="text" placeholder="Enter Timegram Title" onChange={onChangeTitleHandler} />
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
             </div>
-            <h4>Look Cost : ${totalPrice}</h4>
-            <h4>Available Balance : $</h4>
+            <p>Look Cost : ${totalPrice}</p>
           </div>
+<<<<<<< HEAD
           <button
             type="button"
             className="bg-purple-700 hover:bg-purple-800 text-lg text-white font-semibold rounded-lg"
@@ -308,6 +414,9 @@ function ScrapbookPage() {
           >
             POST
           </button>
+=======
+          <button type="button" className="scrap_btn" style={{ fontSize : '1rem'}} data-title={timegramTitle} onClick={onAddTimegramHandler}>POST</button>
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
         </Modal.Body>
       </Modal>
     );
@@ -315,6 +424,7 @@ function ScrapbookPage() {
 
   // 3. list 화면에 뿌리기
   const myTopList = topList.map((item, idx) => {
+<<<<<<< HEAD
     return [
       <SwiperSlide key={idx}>
         <div style={{ textAlign: 'center' }}>
@@ -343,10 +453,21 @@ function ScrapbookPage() {
         </div>
       </SwiperSlide>,
     ];
+=======
+    return ([
+      <SwiperSlide key={idx} >
+        <div className="scrap_slider">
+          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
+          <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
+        </div>
+      </SwiperSlide>,
+    ])
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
   });
   const myShoesList = shoesList.map((item, idx) => {
     return [
       <SwiperSlide key={idx}>
+<<<<<<< HEAD
         <div style={{ textAlign: 'center' }}>
           <Image
             src={item.p_no.p_image}
@@ -356,6 +477,11 @@ function ScrapbookPage() {
             style={{ width: '30vw' }}
           />
           <p>${item.p_no.p_price}</p>
+=======
+        <div className="scrap_slider">
+          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
+          <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
         </div>
       </SwiperSlide>,
     ];
@@ -364,6 +490,7 @@ function ScrapbookPage() {
   const myBottomList = bottomList.map((item, idx) => {
     return [
       <SwiperSlide key={idx}>
+<<<<<<< HEAD
         <div style={{ textAlign: 'center' }}>
           <Image
             src={item.p_no.p_image}
@@ -374,6 +501,11 @@ function ScrapbookPage() {
             style={{ width: '30vw' }}
           />
           <p>${item.p_no.p_price}</p>
+=======
+        <div className="scrap_slider">
+          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
+          <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
         </div>
       </SwiperSlide>,
     ];
@@ -382,6 +514,7 @@ function ScrapbookPage() {
   const myEtcList = etcList.map((item, idx) => {
     return [
       <SwiperSlide key={idx}>
+<<<<<<< HEAD
         <div style={{ textAlign: 'center' }}>
           <Image
             src={item.p_no.p_image}
@@ -395,10 +528,37 @@ function ScrapbookPage() {
         </div>
       </SwiperSlide>,
     ];
+=======
+        <div className="scrap_slider">
+          <Image src={item.p_no.p_image} onClick={onClickModalHandler} data-no={item.p_no.p_no} data-name={item.p_no.p_name} data-price={item.p_no.p_price} style={{ width: '30vw !important', height: '55vw', cursor: 'pointer'}}/>
+          <p>${item.p_no.p_price}&nbsp;<i className="far fa-xs fa-trash-alt pointer" onClick={onClickDeleteItemHandler}></i></p>
+        </div>
+      </SwiperSlide>,
+    ];
   });
 
+  const row_num = [0, 1, 2]
+  const row_num2 = [3, 4, 5]
+  const CardList = row_num.map((card, idx) => {
+    return ([
+      <div className="scrap_card card pointer" key={idx}>
+        <Card.Img variant="scrap" src={myCardList.length > card ? (myCardList[card]['src']) : ("")} data-idx={card} style={myCardList.length > card ? { height: '37.7vw' } : { }} onClick={onClickDeleteHandler}/>
+      </div>
+    ]);
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
+  });
+
+  const CardList2 = row_num2.map((card, idx) => {
+    return ([
+      <div className="scrap_card card pointer" key={idx}>
+        <Card.Img variant="scrap" src={myCardList.length > card ? (myCardList[card]['src']) : ("")} data-idx={card} style={myCardList.length > card ? { height: '37.7vw' } : { }} onClick={onClickDeleteHandler}/>
+      </div>
+    ]);
+  });
+  
   return (
     <>
+<<<<<<< HEAD
       {/* <GNB /> */}
       <Container className="main_container">
         <img src="https://drive.google.com/uc?export=download&id=1R1jZGiCoehKJpT65QSOKAW_jarwRkmpX"></img>
@@ -453,10 +613,20 @@ function ScrapbookPage() {
               onClick={onClickDeleteHandler}
             />
           </div>
+=======
+    <GNB />
+    <Container className="main_container">
+        <div className="md_row">
+          {CardList}
+        </div>
+        <div className="md_row">
+          {CardList2}
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
         </div>
         <AddListModal onHide={() => setModalShow(false)} />
         <AddTimegramModal onHide={() => setTimegramModalShow(false)} />
         <div className="price_row">
+<<<<<<< HEAD
           <h3>${totalPrice}</h3>
           <button
             type="button"
@@ -552,6 +722,49 @@ function ScrapbookPage() {
           </button>
         </div>
       </Container>
+=======
+          <p>${totalPrice}</p>
+          <button type="button" className="scrap_btn" onClick={onClickResetHandler}>Reset</button>
+        </div>
+        
+        <div className="tab_row"> {/* 4. tab 4개로 분리 */}
+              <Tabs defaultActiveKey="toplist" justify="true" >
+                <Tab eventKey="toplist" title="Tops" >
+                  <div className="tab-border">
+                    <Swiper slidesPerView={2} spaceBetween={15} autoHeight={true} pagination={{ "dynamicBullets": true, "clickable": true}} observer = {true} observeParents={true} className="tops">
+                      {myTopList}
+                    </Swiper>
+                  </div>
+                </Tab>
+                <Tab eventKey="bottomlist" title="Bottoms" >
+                  <div className="tab-border">
+                    <Swiper slidesPerView={2} spaceBetween={15} autoHeight={true} pagination={{ "dynamicBullets": true, "clickable": true}} observer = {true} observeParents={true} className="bottom">
+                      {myBottomList}
+                    </Swiper>
+                  </div>
+                </Tab>
+                <Tab eventKey="shoeslist" title="Shoes" >
+                  <div className="tab-border">
+                    <Swiper slidesPerView={2} spaceBetween={15} autoHeight={true} pagination={{ "dynamicBullets": true, "clickable": true}} observer = {true} observeParents={true} className="shoes">
+                      {myShoesList}
+                    </Swiper>
+                  </div>
+                </Tab>
+                <Tab eventKey="etclist" title="Etc" >
+                  <div className="tab-border">
+                    <Swiper slidesPerView={2} spaceBetween={15} autoHeight={true} pagination={{ "dynamicBullets": true, "clickable": true}} observer = {true} observeParents={true} className="etc">
+                      {myEtcList}
+                    </Swiper>
+                  </div>
+                </Tab>
+              </Tabs>
+        </div>
+        <div className="bottom_row" >
+          <button type="button" style={{ width: '80vw', backgroundColor: '#187fd9'}} className="scrap_btn" onClick={onClickTimegramModalHandler}>Post on Timegram</button>
+        </div>
+        <Toolbar />
+    </Container>
+>>>>>>> 4d377ff1c7c995e347abd0cf037ed22ba95f2994
     </>
   );
 }

@@ -5,16 +5,13 @@ import './Timegram.css';
 
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { Row, Spinner } from 'react-bootstrap';
-import { useHistory } from 'react-router-dom';
+
 import TimegramCard from './TimegramCard.js';
 
 import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
 
-function TimegramPage() {
-  // pcategory_code 1: 상의, 2: 하의, 3: 신발, 4: 기타
-  const [categoryValue, setCategoryValue] = useState(1);
-  const history = useHistory();
+function MyLookbook() {
   // -dt_created : 최신 순 , -total_like : 좋아요 순, total_price :낮은 가격순, -total_price : 높은 가격순
   const [orderingValue, setOrderingValue] = useState('-dt_created');
   const orders = [
@@ -23,13 +20,13 @@ function TimegramPage() {
     { id: 3, name: 'Price: High-Low', value: '-total_price' },
     { id: 4, name: 'Price: Low-High', value: 'total_price' },
   ];
-  const timegramOrderUrl = `${baseUrl}/timegram/timegramList/?page=1&ordering=${orderingValue}`;
+  const timegramOrderUrl = `${baseUrl}/timegram/MyLookbook/?page=1&ordering=${orderingValue}`;
 
   // Timegram
   const [timegramPage, setTimegramPage] = useState(1);
   const [timegramNextPage, setTimegramNextPage] = useState(1);
   const [timegramInfo, setTimegramInfo] = useState([]);
-  const timegramInfoUrl = `${baseUrl}/timegram/timegramList/?page=${timegramPage}&ordering=${orderingValue}`;
+  const timegramInfoUrl = `${baseUrl}/timegram/MyLookbook/?page=${timegramPage}&ordering=${orderingValue}`;
 
   const [loading, setLoading] = useState(false);
   const [isLike, setIsLike] = useState(false);
@@ -84,10 +81,6 @@ function TimegramPage() {
     setTimegramPage((timegramPage) => timegramPage + 1);
   };
 
-  const onClickCategory = (value) => {
-    history.push(`/productlist/${value}`);
-  };
-
   useEffect(() => {
     async function getTimegramInfo() {
       try {
@@ -140,52 +133,28 @@ function TimegramPage() {
         {loading ? (
           <div>
             <div className="topItems_Tops">
-              <div className="col-span-4 flex justify-center mt-2 gap-2">
-                <button
-                  className="product-list-category-btn"
-                  onClick={() => {
-                    onClickCategory(1);
-                  }}
-                >
-                  Tops
-                </button>
-                <button
-                  className="product-list-category-btn"
-                  onClick={() => {
-                    onClickCategory(2);
-                  }}
-                >
-                  Bottoms
-                </button>
-                <button
-                  className="product-list-category-btn"
-                  onClick={() => {
-                    onClickCategory(3);
-                  }}
-                >
-                  Shoes
-                </button>
-                <button
-                  className="product-list-category-btn"
-                  onClick={() => {
-                    onClickCategory(4);
-                  }}
-                >
-                  Others
-                </button>
-                <button className="product-list-timegram-btn">Timegram</button>
-              </div>
-              <div className="col-span-4 flex justify-end mr-2">
-                {/* <ProductListDropDown /> */}
+              <h2>My Lookbook</h2>
+              <div
+                style={{
+                  marginBottom: '50px',
+                  textAlign: 'center',
+                }}
+              >
                 <DropdownButton
                   title="Sort by"
-                  variant="dropdown"
+                  style={{
+                    float: 'right',
+                    paddingRight: '10px',
+                  }}
+                  variant="Secondary"
+                  size="sm"
                   className="dropdown-btn"
                 >
                   {orders.map((order, id) => (
                     <Dropdown.Item
                       key={id}
                       name={order.name}
+                      value={order.value}
                       onClick={(e) => {
                         setOrderingValue(order.value);
                       }}
@@ -195,13 +164,8 @@ function TimegramPage() {
                   ))}
                 </DropdownButton>
               </div>
-              <h2>Timegram</h2>
-              <p className="subAd">Explore the Timegram.</p>
               {timegramInfo.map((timegram, idx) => (
-                <div
-                  key={idx}
-                  className="col-span-4 flex flex-wrap justify-center m-3 gap-2"
-                >
+                <div key={idx} style={{ marginBottom: '80px' }}>
                   <TimegramCard
                     key={idx}
                     id={timegram.id}
@@ -216,34 +180,42 @@ function TimegramPage() {
                     total_price={timegram.total_price}
                     mem_id={timegram.mem.id}
                   />
-                  <div className="timegram_title">
+                  <div
+                    className="timegram_title"
+                    style={{ padding: '10px 20px 0 0' }}
+                  >
                     <span>{timegram.title}</span>
-                    <span className="floatR" style={{ paddingLeft: '30px' }}>
+                    <span className="floatR img_price">
                       <img
                         className="flex content-center"
                         src="./images/icon_img/coin_move.gif"
-                        width="20px"
+                        className="coin_img"
+                        width="35px"
                         style={{ display: 'inline', marginTop: '0px' }}
                       />
                       ${timegram.total_price}
                     </span>
                   </div>
-                  <button
-                    id={timegram.id}
-                    onClick={onClickLike}
-                    type="button"
-                    className={
-                      timegram.flag == true ? 'btn_like btn_unlike' : 'btn_like'
-                    }
-                  >
-                    <span id={timegram.id} className="img_emoti">
-                      좋아요
-                    </span>
-                    <span id={timegram.id} className="like_span">
-                      {' '}
-                      +{timegram.total_like} like!
-                    </span>
-                  </button>
+                  <div style={{ padding: '6px 10px 0', marginTop: '0px' }}>
+                    <button
+                      id={timegram.id}
+                      onClick={onClickLike}
+                      type="button"
+                      className={
+                        timegram.flag == true
+                          ? 'btn_like btn_unlike'
+                          : 'btn_like'
+                      }
+                    >
+                      <span id={timegram.id} className="img_emoti">
+                        좋아요
+                      </span>
+                      <span id={timegram.id} className="like_span">
+                        {' '}
+                        +{timegram.total_like} like!
+                      </span>
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -281,4 +253,4 @@ function TimegramPage() {
   );
 }
 
-export default TimegramPage;
+export default MyLookbook;
