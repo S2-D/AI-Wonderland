@@ -11,6 +11,8 @@ urlpatterns = [
     path('<int:id>/like/', views.like_list),
     path('like/', views.like_post),
     path('timegramList/', views.TimegramList.as_view()),
-    path('TimegramCreate/', views.TimegramCreate.as_view())
+    path('TimegramCreate/', views.TimegramCreate.as_view()),
+    path('MyLookbook/', views.MyLookbook.as_view()),
+
 
 ]
