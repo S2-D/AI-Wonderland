@@ -103,7 +103,7 @@ function MyPage() {
               style={iconStyle}
             />
             <Link
-              to="/mypage/attendance"
+              to="/attendance"
               style={textStyle}
               onMouseOver={changeBackground}
               onMouseLeave={changeBackgroundOriginal}

@@ -5,7 +5,7 @@ import LoginPage from './components/views/LoginPage/LoginPage';
 import RegisterPage from './components/views/RegisterPage/RegisterPage';
 import MainPage from './components/views/MainPage/MainPage';
 import TimegramPage from './components/views/TimegramPage/TimegramPage';
-import SearchPage from './components/views/SearchPage/Search';
+import SearchPage from './components/views/SearchPage/search';
 import ProductList from './components/views/Product/ProductList';
 import ProductDetail from './components/views/Product/ProductDetail';
 import Intro from './components/views/Intro/Intro';
@@ -67,11 +67,7 @@ function App() {
           {/* 스크랩북 */}
           <PrivateRoute component={ScrapbookPage} path="/scrapbook" exact />
           {/* 출석체크 */}
-          <PrivateRoute
-            component={Attendance}
-            path="/mypage/attendance"
-            exact
-          />
+          <PrivateRoute component={Attendance} path="/attendance" exact />
         </Switch>
       </div>
     </Router>

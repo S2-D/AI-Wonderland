@@ -14,6 +14,7 @@ import Top from './Top';
 import Bottom from './Bottom';
 import Shoes from './Shoes';
 import Etc from './Etc';
+import MainNavBar from './MainNavBar';
 
 export default function MainPage() {
   return (
@@ -25,6 +26,7 @@ export default function MainPage() {
         }}
       >
         <GNB />
+        <MainNavBar />
         <MainSlider />
         <div className="mainItemcontainer">
           <div className="topItems_Tops">

@@ -41,7 +41,7 @@ function Compass() {
   return (
     <div className="compass">
       <button onClick={UserLocationHandler1}>{firstLocation} &gt;</button>
-      <button onClick={UserLocationHandler2}>{secondLocation}</button>
+      {/* <button onClick={UserLocationHandler2}>{secondLocation}</button> */}
       {/* <button onClick={UserLocationHandler3}>{thirdLocation}&gt;</button>
       <button onClick={UserLocationHandler4}>{fourthLocation}&gt;</button> */}
     </div>

@@ -114,7 +114,10 @@ export default function BestProductCard(props) {
         >
           {props.p_name}
         </Card.Text>
-        <Card.Link herf={props.p_toDetail} style={{ flex: '1' }}>
+        <Card.Link
+          href={`/product_detail/${props.p_toDetail}`}
+          style={{ flex: '1' }}
+        >
           {/* flex: '1'을 설정해주지 않으면 오른쪽 정렬 불가능함. 주의하기! */}
           <button>
             <img
