@@ -1,6 +1,6 @@
 .registerContainer {
   height: 100vh;
-  background-image: url('../../../utils/images/welcome_image/register.png');
+  background-image: url('../utils/images/welcome_image/register.png');
   background-size: 100%;
   background-repeat: none;
   display: block;

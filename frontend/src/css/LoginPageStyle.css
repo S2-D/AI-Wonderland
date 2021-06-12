@@ -1,6 +1,6 @@
 .loginContainer {
   height: 100vh;
-  background-image: url('../../../utils/images/welcome_image/login_register.png');
+  background-image: url('../utils/images/welcome_image/login_register.png');
   background-size: 100%;
   background-repeat: none;
   overflow: auto;

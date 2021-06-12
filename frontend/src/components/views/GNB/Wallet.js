@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
 import isLogin from '../../../url/lib/isLogin';
-import Logout_button from '../../../../public/css/Logout_button.css';
+import Logout_button from '../../../css/Logout_button.css';
 
 export default function Wallet() {
   const LoginHandler = () => {

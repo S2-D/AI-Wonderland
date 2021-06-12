@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'neodgm';
-  src: url('../../../fonts/neodgm_code.ttf');
+  src: url('../fonts/neodgm_code.ttf');
 }
 
 @font-face {
   font-family: 'light_p';
-  src: url('../../../fonts/light_pixel-7.ttf');
+  src: url('../fonts/light_pixel-7.ttf');
 }
 
 @font-face {
   font-family: 'sb_pixel';
-  src: url('../../../fonts/small_bold_pixel-7.ttf');
+  src: url('../fonts/small_bold_pixel-7.ttf');
 }
 
 .title{

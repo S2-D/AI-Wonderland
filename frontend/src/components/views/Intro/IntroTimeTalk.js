@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 
-import styledIntro from '../../../../public/css/styledIntro.css';
+import styledIntro from '../../../css/styledIntro.css';
 
 const rabbitImage = [
   // 'rabbit01_clerk_smile.png',

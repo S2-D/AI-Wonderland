@@ -1,5 +1,6 @@
+/* eslint-disable */
 import React, { useEffect, useState } from 'react';
-import '../../../../public/css/Timegram.css';
+import '../../../css/Timegram.css';
 
 export default function TimegramCard(props) {
   const [products, setProducts] = useState([]);

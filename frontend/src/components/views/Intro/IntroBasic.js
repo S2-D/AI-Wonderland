@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styledIntro from '../../../../public/css/styledIntro.css';
+import styledIntro from '../../../css/styledIntro.css';
 
 export default function IntroBasic(props) {
   // 로그인 상태인지 확인

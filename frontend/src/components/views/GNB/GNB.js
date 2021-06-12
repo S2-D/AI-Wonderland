@@ -1,5 +1,5 @@
 import React from 'react';
-import GNBStyle from '../../../../public/css/GNBStyle.css';
+import GNBStyle from '../../../css/GNBStyle.css';
 import { Link } from 'react-router-dom';
 import Compass from './Compass';
 import Wallet from './Wallet';

@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'neodgm';
-  src: url('../../../fonts/neodgm_code.ttf');
+  src: url('../fonts/neodgm_code.ttf');
 }
 
 @font-face {
   font-family: 'light_p';
-  src: url('../../../fonts/light_pixel-7.ttf');
+  src: url('../fonts/light_pixel-7.ttf');
 }
 
 @font-face {
   font-family: 'sb_pixel';
-  src: url('../../../fonts/small_bold_pixel-7.ttf');
+  src: url('../fonts/small_bold_pixel-7.ttf');
 }
 
 .toolbar {
@@ -55,14 +55,14 @@
 }
 
 .toolbar .toolwrap li button.homeIcon {
-  background-image: url('../../../utils/images/icon_img/home.png');
+  background-image: url('../utils/images/icon_img/home.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
   background-size: 32px;
 }
 
 .toolbar .toolwrap li button.homeIcon_touched {
-  background-image: url('../../../utils/images/icon_img/home_touch.png');
+  background-image: url('../utils/images/icon_img/home_touch.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
   background-size: 32px;
@@ -72,14 +72,14 @@
 }
 
 .toolbar .toolwrap li button.timegram {
-  background-image: url('../../../utils/images/icon_img/timegram.png');
+  background-image: url('../utils/images/icon_img/timegram.png');
   background-position: center top 6px;
   background-repeat: no-repeat;
   background-size: 30px;
 }
 
 .toolbar .toolwrap li button.timegram_touched {
-  background-image: url('../../../utils/images/icon_img/timegram_touch.png');
+  background-image: url('../utils/images/icon_img/timegram_touch.png');
   background-position: center top 6px;
   background-repeat: no-repeat;
   background-size: 30px;
@@ -89,14 +89,14 @@
 }
 
 .toolbar .toolwrap li button.search {
-  background-image: url('../../../utils/images/icon_img/search.png');
+  background-image: url('../utils/images/icon_img/search.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
   background-size: 35px;
 }
 
 .toolbar .toolwrap li button.search_touched {
-  background-image: url('../../../utils/images/icon_img/search_touch.png');
+  background-image: url('../utils/images/icon_img/search_touch.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
   background-size: 35px;
@@ -106,13 +106,13 @@
 }
 
 .toolbar .toolwrap li button.scrapbook {
-  background-image: url('../../../utils/images/icon_img/scrapbook.png');
+  background-image: url('../utils/images/icon_img/scrapbook.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
   background-size: 34px;
 }
 .toolbar .toolwrap li button.scrapbook_touched {
-  background-image: url('../../../utils/images/icon_img/scrapbook_touch.png');
+  background-image: url('../utils/images/icon_img/scrapbook_touch.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
   background-size: 34px;
@@ -122,14 +122,14 @@
 }
 
 .toolbar .toolwrap li button.mypage {
-  background-image: url('../../../utils/images/icon_img/mypage.png');
+  background-image: url('../utils/images/icon_img/mypage.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
   background-size: 35px;
 }
 
 .toolbar .toolwrap li button.mypage_touched {
-  background-image: url('../../../utils/images/icon_img/mypage_touch.png');
+  background-image: url('../utils/images/icon_img/mypage_touch.png');
   background-position: center top 5px;
   background-repeat: no-repeat;
   background-size: 35px;

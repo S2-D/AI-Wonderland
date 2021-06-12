@@ -5,7 +5,7 @@ import { withRouter, Link } from 'react-router-dom';
 import axios from 'axios';
 import baseUrl from '../../../url/http';
 
-import Main from '../../../../public/css/Main.css';
+import Main from '../../../css/Main.css';
 import GNB from '../GNB/GNB';
 import Toolbar from '../Toolbar/Toolbar';
 import Footer from '../Footer/Footer';
